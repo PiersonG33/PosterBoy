@@ -29,7 +29,7 @@ function Header() {
               icon={<FaFacebookSquare fontSize="1.25rem" />}
             />
             <IconButton as="a" href="/" aria-label="Instagram" icon={<FaInstagram fontSize="1.25rem" />} />
-            <IconButton as="a" href="/" aria-label="Github" icon={<FaGithubSquare fontSize="1.25rem" />} />
+            <IconButton as="a" href="https://github.com/PiersonG33/PosterBoy/tree/front-end/posterboy" aria-label="Github" icon={<FaGithubSquare fontSize="1.25rem" />} />
             <IconButton as="a" href="/" aria-label="LinkedIn" icon={<FaLinkedin fontSize="1.25rem" />} />
           </ButtonGroup>
         </HeaderRight>
