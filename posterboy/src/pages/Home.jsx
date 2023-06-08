@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import PostIt from './../components/post-it';
 
 function Home() {
   return(
     <HomeContainer>
-      <p>Hello!</p>
+      <PostIt content="Welcome to PosterBoy!" />
     </HomeContainer>
   );
 }
