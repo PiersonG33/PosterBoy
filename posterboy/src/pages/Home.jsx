@@ -6,8 +6,9 @@ function Home() {
   return(
     <HomeContainer>
       <PostIt 
-        content="Welcome to PosterBoy!" 
-        author="the PosterBoy Team"
+        title   = "Welcome to PosterBoy!" 
+        content = "Click 'start' to begin!" 
+        author  = "the PosterBoy Team"
       />
     </HomeContainer>
   );

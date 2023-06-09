@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardBody, CardFooter, Box } from '@chakra-ui/react'
+import { Card, CardBody, CardHeader, CardFooter, Box } from '@chakra-ui/react'
 
 /*
   The color of the post-it. This could become an argument of the
@@ -25,8 +25,13 @@ function PostIt(props) {
        bg={lightColor({postItHue})} color="black"
        w="500px" h="300px"
       >
+        {/* Show title of the Post in the header. */}
+        <CardHeader> <b>{props.title}</b> </CardHeader>
+
+
         {/* Show content of the Post in the main section. */}
         <CardBody>  {props.content} </CardBody>
+
         <CardFooter>
 
             {/* The author of the post, shown in italics. */}
@@ -41,25 +46,18 @@ function PostIt(props) {
               */}
             <Box
                 position="absolute"
-                bottom={0}
-                right={0}
+                bottom={0} right={0}
                 borderBottomWidth={50}
-                borderBottomColor="transparent"
-                borderBottomStyle="solid"
                 borderLeftWidth={50}
                 borderLeftColor={darkColor({postItHue})}
-                borderLeftStyle="solid"
             />
             <Box
                 position="absolute"
-                bottom={0}
-                right={0}
+                bottom={0} right={0}
                 borderTopWidth={50}
                 borderTopColor="transparent"
-                borderTopStyle="solid"
                 borderRightWidth={50}
                 borderRightColor={backgroundColor}
-                borderRightStyle="solid"
             />
         </CardFooter>
       </Card>
