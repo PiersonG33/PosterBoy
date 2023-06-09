@@ -11,18 +11,15 @@ const postItHue = "yellow";
 // The color of the background.
 const backgroundColor = "aliceblue";
 
-// These are helper functions to generate light and dark variations of the color.
-function lightColor({hue})
-{ return postItHue.concat(".100"); }
-
-function darkColor({hue})
-{ return postItHue.concat(".200"); }
+// These are helper values that are light and dark versions of the color.
+const lightColor = postItHue.concat(".100");
+const darkColor = postItHue.concat(".200");
 
 // "content" is the text inside the post-it
 function PostIt(props) {
     return(
       <Card 
-       bg={lightColor({postItHue})} color="black"
+       bg={lightColor} color="black"
        w="500px" h="300px"
       >
         {/* Show title of the Post in the header. */}
@@ -31,11 +28,11 @@ function PostIt(props) {
 
         {/* Show content of the Post in the main section. */}
         <CardBody>  {props.content} </CardBody>
-
+        
         <CardFooter>
 
             {/* The author of the post, shown in italics. */}
-            <i>-- {props.author}</i>
+            <i>--&nbsp;{props.author}</i>
 
             {/* 
               This is the little dog-ear in the lower-right corner.
@@ -49,7 +46,7 @@ function PostIt(props) {
                 bottom={0} right={0}
                 borderBottomWidth={50}
                 borderLeftWidth={50}
-                borderLeftColor={darkColor({postItHue})}
+                borderLeftColor={darkColor}
             />
             <Box
                 position="absolute"
