@@ -2,14 +2,24 @@ import React from "react";
 import styled from "styled-components";
 import { FaHome, FaUserCircle, FaRegQuestionCircle, FaAngleDown} from "react-icons/fa";
 import { Button, ButtonGroup,  IconButton, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
+import { Link } from "react-router-dom";
 import LogoPic from '../assets/logo.svg';
+
+const LogoContainer = styled.div`
+  padding-top: 2px;
+  padding-right: 10px;
+`;
 
 function Header() {
   return (
     <HeaderContainer>
       <HeaderInnerContainer>
         <HeaderLeft>
-          <Logo src={LogoPic} />
+          <LogoContainer>
+            <Link to="posterboy/src/pages/Home.jsx">
+              <Logo src={LogoPic}/>
+            </Link>
+          </LogoContainer>
           <Menu>
             <MenuButton as={Button} color='#003F91'  rightIcon={<FaAngleDown/>}>
               All Boards  
@@ -67,7 +77,7 @@ const HeaderRight = styled.div`
 
 const HeaderInnerContainer = styled.div`
   width: auto;
-  height: 80px;
+  height: 110px;
   display: flex;
 `;
 
