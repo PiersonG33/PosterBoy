@@ -1,18 +1,18 @@
 # Project PosterBoy
 **PosterBoy is a social media site for users to put their ideas on a community board and delete their peers’ sticky notes.**
 
-# # Our Stack
+## Our Stack
 **Front-end:** React.js, HTML, CSS, JavaScript
 **Back-end:** Django (Python), PostgreSQL
 
-# # Our Goals
+## Our Goals
 Our goals for this semester include…
 Have a working single board
 With posting and deleting implemented
 Implement optional features (drawing on notes, bot protection, etc)
 
-# # Milestones
-# # #Goals for the Front-End team:
+## Milestones
+## #Goals for the Front-End team:
 1. (Early-June) Create high-fidelity prototype
 2. (Early-June) Site-style and branding: Logo, Font, Color theme, Accessibility features
 3. (Mid-June) Login/Register Pop-up 
