@@ -12,6 +12,13 @@ function PostIt(props) {
           {props.content}
         </CardBody>
         <CardFooter>
+            {/* 
+              This is the little dog-ear in the lower-right corner.
+              It's kinda buggy, in that there is a shadow where there 
+              shouldn't be in the corner, so if that can't be fixed,
+              you can comment/remove this code and that'll get rid of
+              the dog-ear.
+              */}
             <Box
                 position="absolute"
                 bottom={0}

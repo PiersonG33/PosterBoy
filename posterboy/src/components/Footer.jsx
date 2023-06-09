@@ -14,13 +14,14 @@ function Footer() {
           <ButtonGroup variant="ghost">
             <IconButton
               as="a"
+              color='#FFCF00' 
               href="/"
               aria-label="Facebook"
               icon={<FaFacebookSquare fontSize="1.25rem" />}
             />
-            <IconButton as="a" href="/" aria-label="Instagram" icon={<FaInstagram fontSize="1.25rem" />} />
-            <IconButton as="a" href="https://github.com/PiersonG33/PosterBoy/tree/front-end/posterboy" aria-label="Github" icon={<FaGithubSquare fontSize="1.25rem" />} />
-            <IconButton as="a" href="/" aria-label="LinkedIn" icon={<FaLinkedin fontSize="1.25rem" />} />
+            <IconButton as="a" color='#FFCF00' href="/" aria-label="Instagram" icon={<FaInstagram fontSize="1.25rem" />} />
+            <IconButton as="a" color='#FFCF00' href="https://github.com/PiersonG33/PosterBoy/tree/front-end/posterboy" aria-label="Github" icon={<FaGithubSquare fontSize="1.25rem" />} />
+            <IconButton as="a" color='#FFCF00' href="/" aria-label="LinkedIn" icon={<FaLinkedin fontSize="1.25rem" />} />
           </ButtonGroup>
         </FooterRight>
       </FooterInnerContainer>
@@ -31,7 +32,7 @@ function Footer() {
 const FooterContainer = styled.nav`
   width: 100%;
   height: 80px;
-  background-color: #FDBA74;
+  background-color: #003F91;
   display: flex;
   flex-direction: column;
   color: black;
@@ -66,6 +67,7 @@ const FooterRight = styled.div`
 const FooterText = styled.p`
   margin: auto;
   opacity: 0.7;
+  color: #FFCF00;
 `
 
 export default Footer;
