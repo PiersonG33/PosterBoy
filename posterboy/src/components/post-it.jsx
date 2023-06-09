@@ -1,16 +1,22 @@
 import React from "react";
 import { Card, CardBody, CardFooter, Box } from '@chakra-ui/react'
 
-// The color of the post-it. This could become an argument of the class rather than a constant in the future,
-// for differently-colored post-its.
+/*
+  The color of the post-it. This could become an argument of the
+  class rather than a constant in the future, for differently-colored
+  post-its.
+*/
 const postItHue = "yellow";
+
+// The color of the background.
+const backgroundColor = "aliceblue";
 
 // These are helper functions to generate light and dark variations of the color.
 function lightColor({hue})
 { return postItHue.concat(".100"); }
 
 function darkColor({hue})
-{ return postItHue.concat(".100"); }
+{ return postItHue.concat(".200"); }
 
 // "content" is the text inside the post-it
 function PostIt(props) {
@@ -52,7 +58,7 @@ function PostIt(props) {
                 borderTopColor="transparent"
                 borderTopStyle="solid"
                 borderRightWidth={50}
-                borderRightColor="aliceblue"
+                borderRightColor={backgroundColor}
                 borderRightStyle="solid"
             />
         </CardFooter>
