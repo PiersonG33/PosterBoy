@@ -2,13 +2,13 @@
 **PosterBoy is a social media site for users to put their ideas on a community board and delete their peers’ sticky notes.**
 
 ## Our Stack
-**Front-end:** React.js, HTML, CSS, JavaScript
-**Back-end:** Django (Python), PostgreSQL
+- **Front-end:** React.js, HTML, CSS, JavaScript
+- **Back-end:** Django (Python), PostgreSQL
 
 ## Our Goals
 **Our goals for this semester include…**
 1. Have a working single board
--  With posting and deleting implemented
+    1.  With posting and deleting implemented
 2. Implement optional features (drawing on notes, bot protection, etc)
 
 ## Milestones
@@ -18,11 +18,11 @@
 3. (Mid-June) Login/Register Pop-up 
 4. (Mid-June) Home page (For the boards)
 5. Components needed: 
-    - (Late-June) Post-it
-    - (Late-June) Board
-    - (Early-June) Board search
-    - (Early-June) Navigation bar
-    - (Early-June) Footer
+    1. (Late-June) Post-it
+    2. (Late-June) Board
+    3. (Early-June) Board search
+    4. (Early-June) Navigation bar
+    5. (Early-June) Footer
 6. (Semester III) User-testing and A/B Testing
 
 ### Goals for the Back-End team:
@@ -30,7 +30,7 @@
 2. (Mid June) Implement database, Django
 3. (Late June) Allow for client read from DB, receive active post-it notes
 4. (By Semester Break) Writing to the DB
-    - Storing notes with info such as text, poster, time sent
+    1. Storing notes with info such as text, poster, time sent
 5. (Semester III) Filtering requests based on user post limit, profanity censor, etc
 
 ## Team Roster
