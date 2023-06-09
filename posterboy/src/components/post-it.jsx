@@ -1,17 +1,21 @@
 import React from "react";
 import { Card, CardBody, CardFooter, Box } from '@chakra-ui/react'
 
+
 // "content" is the text inside the post-it
 function PostIt(props) {
     return(
       <Card 
        bg="yellow.100" color="black"
-       w="300px" h="300px"
+       w="500px" h="300px"
       >
-        <CardBody>
-          {props.content}
-        </CardBody>
+        {/* Show content of the Post in the main section. */}
+        <CardBody>  {props.content} </CardBody>
         <CardFooter>
+
+            {/* The author of the post, shown in italics. */}
+            <i>-- {props.author}</i>
+
             {/* 
               This is the little dog-ear in the lower-right corner.
               It's kinda buggy, in that there is a shadow where there 

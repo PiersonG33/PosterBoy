@@ -5,7 +5,10 @@ import PostIt from './../components/post-it';
 function Home() {
   return(
     <HomeContainer>
-      <PostIt content="Welcome to PosterBoy!" />
+      <PostIt 
+        content="Welcome to PosterBoy!" 
+        author="the PosterBoy Team"
+      />
     </HomeContainer>
   );
 }
