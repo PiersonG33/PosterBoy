@@ -3,6 +3,7 @@ import styled from "styled-components";
 import PostIt from './../components/post-it';
 import { Text } from '@chakra-ui/react'
 
+// This following is used for our splash screen (named home page, for now) text styling
 const BoldText = styled.div`
   font-size: 72px;
   text-align: center;
