@@ -5,21 +5,19 @@ import { Button, ButtonGroup,  IconButton, Menu, MenuButton, MenuList, MenuItem 
 import { Link } from "react-router-dom";
 import LogoPic from '../assets/logo.svg';
 
-const LogoContainer = styled.div`
-  padding-top: 2px;
-  padding-right: 10px;
-`;
-
+// This component represents the header our website
 function Header() {
   return (
     <HeaderContainer>
       <HeaderInnerContainer>
         <HeaderLeft>
           <LogoContainer>
-            <Link to="posterboy/src/pages/Home.jsx">
+            {/* This component displays the logo image and links to the home page */}
+            <Link to="/">
               <Logo src={LogoPic}/>
             </Link>
           </LogoContainer>
+          {/* This component displays a dropdown menu, of which there are various options to choose - as noted below */}
           <Menu>
             <MenuButton as={Button} color='#003F91'  rightIcon={<FaAngleDown/>}>
               All Boards  
@@ -34,7 +32,8 @@ function Header() {
           </Menu>
         </HeaderLeft>
         <HeaderRight>
-        <ButtonGroup variant="ghost">
+          {/* This component displays three icons that link to the home page, profile page, and help page */}
+          <ButtonGroup variant="ghost">
             <IconButton as="a" href="/" color='#FFCF00' aria-label="Home" icon={<FaHome fontSize="1.75rem" />} />
             <IconButton as="a" href="/" color='#FFCF00' aria-label="Profile" icon={<FaUserCircle fontSize="1.75rem" />} />
             <IconButton as="a" href="/" color='#FFCF00' aria-label="Help" icon={<FaRegQuestionCircle fontSize="1.75rem" />} />
@@ -45,44 +44,47 @@ function Header() {
   );
 }
 
-
-const HeaderContainer = styled.nav`
-  width: 100%;
-  background-color:#003F91;
+// This component is used to style the header
+const HeaderContainer = styled.div`
+  background-color: #003F91;
+  color: white;
+  height: 80px;
   display: flex;
-  flex-direction: column;
-`;
-
-const HeaderLeft = styled.div`
-  margin-left: 50px;
-  display: flex;
+  justify-content: center;
   align-items: center;
-  width: 50%;
 `;
 
-const Logo = styled.img`
-  margin: 15px;
-  height: auto;
-  max-width: 100px;
-`;
-
-const HeaderRight = styled.div`
-  flex: 30%;
-  display: flex;
-  align-items: center;
-  justify-content: end;
-  margin-right: 50px;
-  width: 50%;
-`
-
+// This component is used to style the inner container of the header
 const HeaderInnerContainer = styled.div`
-  width: auto;
-  height: 110px;
+  width: 100%;
+  max-width: 1200px;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
 `;
 
-const HeaderNavigationContainer = styled.div`
+// This component is used to style the left side of the header
+const HeaderLeft = styled.div`
   display: flex;
-`; 
+  align-items: center;
+`;
+
+// This component is used to style the right side of the header
+const HeaderRight = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+// This component is used to style the logo container
+const LogoContainer = styled.div`
+  padding-top: 2px;
+  padding-right: 10px;
+`;
+
+// This component is used to style the logo image
+const Logo = styled.img`
+  height: 50px;
+`;
 
 export default Header;

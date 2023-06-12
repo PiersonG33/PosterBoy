@@ -3,14 +3,17 @@ import styled from "styled-components";
 import { FaFacebookSquare, FaLinkedin, FaGithubSquare, FaInstagram} from "react-icons/fa";
 import { ButtonGroup,  IconButton } from '@chakra-ui/react'
 
+// This component represents the footer of the Official PosterBoy Website!
 function Footer() {
   return (
     <FooterContainer>
       <FooterInnerContainer>
         <FooterLeft>
+          {/* This element showcases how cool PosterBoy is ;) */}
           <FooterText>PosterBoy is a pretty cool website...</FooterText>
         </FooterLeft>
         <FooterRight>
+          {/* This component displays social media icons */}
           <ButtonGroup variant="ghost">
             <IconButton
               as="a"
@@ -29,45 +32,36 @@ function Footer() {
   );
 }
 
-const FooterContainer = styled.nav`
-  width: 100%;
-  height: 80px;
+// This component is used to style the footer
+const FooterContainer = styled.div`
   background-color: #003F91;
+  color: white;
+  height: 100px;
   display: flex;
-  flex-direction: column;
-  color: black;
-  font-family: 'Work Sans', sans-serif;
-`;
-
-const FooterInnerContainer = styled.div`
-  width: auto;
-  height: 80px;
-  display: flex;
-  @media (max-width: 768px) {
-    display: none;
-  } ;
-`;
-
-const FooterLeft = styled.div`
-  display: flex;
-  flex: 50%;
-  padding-left: 5%;
-`;
-
-const FooterRight = styled.div`
-  flex: 50%;
-  display: flex;
-  flex-direction: row;
+  justify-content: center;
   align-items: center;
-  justify-content: flex-end;
-  padding-right: 3vw;
-  position: relative;
 `;
 
-const FooterText = styled.p`
-  margin: auto;
-  opacity: 0.7;
-  color: #FFCF00;
-`
+// This component is used to style the left side of the footer
+const FooterLeft = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+// This component is used to style the right side of the footer
+const FooterRight = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+// This component is used to style the text element in the footer
+const FooterText = styled.div`
+  font-size: 18px;
+  text-align: center;
+`;
 
 export default Footer;
