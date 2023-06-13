@@ -22,7 +22,7 @@ function Header() {
             <MenuButton as={Button} color='#003F91'  rightIcon={<FaAngleDown/>}>
               All Boards  
             </MenuButton>
-            <MenuList>
+            <MenuList color='#003F91'>
               <MenuItem>Board 1</MenuItem>
               <MenuItem>Board 2</MenuItem>
               <MenuItem>Board 3</MenuItem>
@@ -84,7 +84,7 @@ const LogoContainer = styled.div`
 
 // This component is used to style the logo image
 const Logo = styled.img`
-  height: 50px;
+  height: 160px;
 `;
 
 export default Header;

@@ -7,7 +7,6 @@ import { ButtonGroup,  IconButton } from '@chakra-ui/react'
 function Footer() {
   return (
     <FooterContainer>
-      <FooterInnerContainer>
         <FooterLeft>
           {/* This element showcases how cool PosterBoy is ;) */}
           <FooterText>PosterBoy is a pretty cool website...</FooterText>
@@ -27,7 +26,6 @@ function Footer() {
             <IconButton as="a" color='#FFCF00' href="/" aria-label="LinkedIn" icon={<FaLinkedin fontSize="1.25rem" />} />
           </ButtonGroup>
         </FooterRight>
-      </FooterInnerContainer>
     </FooterContainer>
   );
 }
