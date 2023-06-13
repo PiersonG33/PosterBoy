@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { FaHome, FaUserCircle, FaRegQuestionCircle, FaAngleDown} from "react-icons/fa";
-import { Button, ButtonGroup,  IconButton, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
+import { Button, ButtonGroup,  IconButton, Menu, MenuButton, MenuList, MenuItem, Tooltip } from '@chakra-ui/react'
 import { Link } from "react-router-dom";
 import LogoPic from '../assets/logo.svg';
 
@@ -34,9 +34,17 @@ function Header() {
         <HeaderRight>
           {/* This component displays three icons that link to the home page, profile page, and help page */}
           <ButtonGroup variant="ghost">
-            <IconButton as="a" href="/" color='#FFCF00' aria-label="Home" icon={<FaHome fontSize="1.75rem" />} />
-            <IconButton as="a" href="/" color='#FFCF00' aria-label="Profile" icon={<FaUserCircle fontSize="1.75rem" />} />
-            <IconButton as="a" href="/" color='#FFCF00' aria-label="Help" icon={<FaRegQuestionCircle fontSize="1.75rem" />} />
+            <Tooltip hasArrow label='Home Page'>
+              <IconButton as="a" href="/" color='#FFCF00' aria-label="Home" icon={<FaHome fontSize="1.75rem" alt />} />
+            </Tooltip>
+
+            <Tooltip hasArrow label='My Profile'>
+              <IconButton as="a" href="/" color='#FFCF00' aria-label="Profile" icon={<FaUserCircle fontSize="1.75rem" />} />
+            </Tooltip>
+
+            <Tooltip hasArrow label='Help'>
+              <IconButton as="a" href="/" color='#FFCF00' aria-label="Help" icon={<FaRegQuestionCircle fontSize="1.75rem" />} />
+            </Tooltip>
           </ButtonGroup>
         </HeaderRight>
       </HeaderInnerContainer>
