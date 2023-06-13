@@ -46,7 +46,7 @@ function Header() {
 
 // This component is used to style the header
 const HeaderContainer = styled.div`
-  background-color: #003F91;
+  background-color: #FFFFFF;
   color: white;
   height: 80px;
   display: flex;
@@ -84,7 +84,7 @@ const LogoContainer = styled.div`
 
 // This component is used to style the logo image
 const Logo = styled.img`
-  height: 50px;
+  height: 100px;
 `;
 
 export default Header;
