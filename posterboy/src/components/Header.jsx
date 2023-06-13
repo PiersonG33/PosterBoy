@@ -20,7 +20,7 @@ function Header() {
           {/* This component displays a dropdown menu, of which there are various options to choose - as noted below */}
           <Menu>
             <MenuButton as={Button} color='#003F91'  rightIcon={<FaAngleDown/>}>
-              All Boards  
+              Find a board  
             </MenuButton>
             <MenuList color='#003F91'>
               <MenuItem>Board 1</MenuItem>
