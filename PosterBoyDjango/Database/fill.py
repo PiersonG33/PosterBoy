@@ -39,9 +39,13 @@ for i in range(3):
     topic = generateWord(49)
     actions = random.randint(2, 4)
     intervalNum = random.randint(1, 10)
-    
+    cursor.execute("INSERT INTO boards VALUES(" + topic + ", " + actions + ", " + intervalNum + " " + intervalUnits[i] + ")")
 
 # POST - 5 on each
+userList = list(userDict.keys())
+
+
+
 
 # Status - 10
 
