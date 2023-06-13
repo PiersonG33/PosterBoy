@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import PostIt from './../components/post-it';
 
 // This component represents the home page of the application
 function Home() {
@@ -9,13 +8,10 @@ function Home() {
       {/* This element displays a large, bold text element */}
       <div>
         <BoldText>
-          <b>PosterBoy is the next evolution of online social interactions.</b>
+          <b>PosterBoy is the next evolution of online social interaction.</b>
         </BoldText>
       </div>
-      {/* This component displays a post-it note with a welcome message */}
-      <PostIt content="Welcome to PosterBoy!" />
     </HomeContainer>
-    
   );
 }
 

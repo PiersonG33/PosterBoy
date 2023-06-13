@@ -14,13 +14,15 @@ const backgroundColor = "aliceblue";
 // These are helper values that are light and dark versions of the color.
 const lightColor = postItHue.concat(".100");
 const darkColor = postItHue.concat(".200");
+const width = "500px";
+const height = "300px";
 
 // "content" is the text inside the post-it
 function PostIt(props) {
     return(
       <Card 
        bg={lightColor} color="black"
-       w="500px" h="300px"
+       w={width} h={height}
       >
         {/* Show title of the Post in the header. */}
         <CardHeader> <b>{props.title}</b> </CardHeader>
