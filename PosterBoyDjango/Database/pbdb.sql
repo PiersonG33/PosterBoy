@@ -36,6 +36,15 @@ DROP TABLE IF EXISTS posts;
 DROP TABLE IF EXISTS useractions;
 DROP TABLE IF EXISTS userstatus;
 
+DROP SEQUENCE IF EXISTS auth_group_id_seq;
+DROP SEQUENCE IF EXISTS auth_group_permissions_id_seq;
+DROP SEQUENCE IF EXISTS auth_permission_id_seq;
+DROP SEQUENCE IF EXISTS auth_user_groups_id_seq;
+DROP SEQUENCE IF EXISTS auth_user_id_seq;
+DROP SEQUENCE IF EXISTS auth_user_user_permissions_id_seq;
+DROP SEQUENCE IF EXISTS django_admin_log_id_seq;
+DROP SEQUENCE IF EXISTS django_content_type_id_seq;
+DROP SEQUENCE IF EXISTS django_migrations_id_seq;
 --
 -- Name: auth_group; Type: TABLE; Schema: public; Owner: postgres
 --
