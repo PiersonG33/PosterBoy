@@ -20,6 +20,22 @@ SET default_tablespace = '';
 
 SET default_table_access_method = heap;
 
+-- modification: dropping tables to allow for running dump file on older version of db (there's probably a better way to do this)
+DROP TABLE IF EXISTS auth_group;
+DROP TABLE IF EXISTS auth_group_permissions;
+DROP TABLE IF EXISTS auth_permission;
+DROP TABLE IF EXISTS auth_user;
+DROP TABLE IF EXISTS auth_user_groups;
+DROP TABLE IF EXISTS auth_user_user_permissions;
+DROP TABLE IF EXISTS boards;
+DROP TABLE IF EXISTS django_admin_log;
+DROP TABLE IF EXISTS django_content_type;
+DROP TABLE IF EXISTS django_migrations;
+DROP TABLE IF EXISTS django_session;
+DROP TABLE IF EXISTS posts;
+DROP TABLE IF EXISTS useractions;
+DROP TABLE IF EXISTS userstatus;
+
 --
 -- Name: auth_group; Type: TABLE; Schema: public; Owner: postgres
 --
