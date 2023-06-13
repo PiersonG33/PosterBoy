@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import PostIt from './../components/post-it';
-import { Text } from '@chakra-ui/react'
 
 // This component represents the home page of the application
 function Home() {
