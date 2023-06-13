@@ -42,8 +42,8 @@ function Header() {
               <IconButton as="a" href="/" color='#FFCF00' aria-label="Profile" icon={<FaUserCircle fontSize="1.75rem" />} />
             </Tooltip>
 
-            <Tooltip hasArrow label='Help'>
-              <IconButton as="a" href="/" color='#FFCF00' aria-label="Help" icon={<FaRegQuestionCircle fontSize="1.75rem" />} />
+            <Tooltip hasArrow label='About'>
+              <IconButton as="a" href="/About" color='#FFCF00' aria-label="Help" icon={<FaRegQuestionCircle fontSize="1.75rem" />} />
             </Tooltip>
           </ButtonGroup>
         </HeaderRight>
