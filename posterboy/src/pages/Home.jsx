@@ -22,7 +22,7 @@ function Home() {
       </div>
       {/* This component displays a post-it note with a welcome message */}
       <PostItContainer>
-        <PostIt content="<BoldText>@PosterBoy</BoldText> Hello from the open-source world! It's much nicer over here ;)" />
+        <PostIt author="@PosterBoy" content="Hello from the open-source world! It's much nicer over here ;)" />
       </PostItContainer>
     </HomeContainer>
   );

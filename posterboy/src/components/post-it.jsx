@@ -24,17 +24,14 @@ function PostIt(props) {
        bg={lightColor} color="black"
        w={width} h={height}
       >
-        {/* Show title of the Post in the header. */}
-        <CardHeader> <b>{props.title}</b> </CardHeader>
 
 
         {/* Show content of the Post in the main section. */}
-        <CardBody>  {props.content} </CardBody>
+        <CardBody> <b>{props.author}</b> {props.content} </CardBody>
         
         <CardFooter>
 
             {/* The author of the post, shown in italics. */}
-            <i>--&nbsp;{props.author}</i>
 
             {/* 
               This is the little dog-ear in the lower-right corner.
