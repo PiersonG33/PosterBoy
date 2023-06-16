@@ -1,2 +1,2 @@
-DROP DATABASE posterboytesting;
+DROP DATABASE IF EXISTS posterboytesting;
 CREATE DATABASE posterboytesting;
