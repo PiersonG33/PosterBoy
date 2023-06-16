@@ -1,6 +1,10 @@
 import psycopg2
+import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PosterBoyDjango.settings')
+import django
 from psycopg2.extensions import adapt, register_adapter, AsIs
 import random
+django.setup()
 from django.contrib.auth.models import User
 from datetime import datetime, timezone
 
@@ -8,8 +12,9 @@ def generateWord(maxLen):
     len = random.randint(6, maxLen)
     out = ""
     for i in range(len):
-        char = str(random.randint(32, 126))
-        out += char
+        char = chr(random.randint(32, 126))
+        if(char.isalnum()):
+            out += char
     return out
 
 class Point(object):
@@ -21,6 +26,7 @@ def adapt_point(point):
     x = adapt(point.x).getquoted()
     y = adapt(point.y).getquoted()
     return AsIs("'(%s, %s)'" % (x, y))
+
 
 connection = psycopg2.connect(user="postgres",
                                   password="MyFirstgrade071",      
@@ -52,34 +58,34 @@ for i in range(3):
     topic = topics[i]
     actions = random.randint(2, 4)
     intervalNum = random.randint(1, 10)
-    cursor.execute("INSERT INTO boards VALUES(" + topic + ", " + actions + ", " + intervalNum + " " + intervalUnits[i] + ");")
+    cursor.execute("INSERT INTO boards VALUES(" + str(i) + ", \'" + topic + "\', " + str(actions) + ", \'" + str(intervalNum) + " " + intervalUnits[i] + "\');")
+connection.commit()
 
 # POST - 10 on each
 userList = list(userDict.keys())
+#print(userList)
 
-#start here
+# #start here
 for b in range(3):
     for i in range(10):
-        cursor.execute("SELECT id FROM auth_user WHERE email = \'" + userDict[userList[i]] + "\';")
-        user_id = cursor.fetchall()
-        cursor.execute("SELECT id FROM auth_user WHERE topic_name = \'" + topics[b] + "\';")
-        board_id = cursor.fetchall()
+        cursor.execute("SELECT id FROM auth_user WHERE lower(email) = lower(\'" + userDict[userList[i]] + "\');")
+        user_id = cursor.fetchone()
+        cursor.execute("SELECT id FROM boards WHERE lower(topic_name) = lower(\'" + topics[b] + "\');")
+        board_id = cursor.fetchone()
         dt = datetime.now(timezone.utc)
-        point = Point(random.randint(-300, 300), random.randint(-300, 300))
-        cursor.execute("INSERT INTO posts VALUES(" + user_id + ", " + board_id + ", " + generateWord(200) + " " + 0 + ", " + dt + ", " + 0 + ", " + point + ", " + random.randint(0, 10) + ");")
-        
+        point = Point(random.randint(0, 2300), random.randint(0, 1800))
+        cursor.execute("INSERT INTO posts VALUES(" + str(i + 10*b) + ", " + str(user_id[0]) + ", " + str(board_id[0]) + ", \'" + generateWord(200) + "\', " + str(0) + ", \'" + str(dt) + "\', " + str(0) + ", \'(" + str(point.x) + ", " + str(point.y) + ")\', " + str(random.randint(0, 10)) + ");")
+connection.commit()
         
 # Status - 10
 for i in range(10):
-    cursor.execute("SELECT id FROM auth_user WHERE email = \'" + userDict[userList[i]] + "\';")
-    user_id = cursor.fetchall()
+    cursor.execute("SELECT id FROM auth_user WHERE lower(email) = lower(\'" + userDict[userList[i]] + "\');")
+    user_id = cursor.fetchone()
     for b in range(3):
-        cursor.execute("SELECT id FROM auth_user WHERE topic_name = \'" + topics[b] + "\';")
-        board_id = cursor.fetchall()
-        cursor.execute("INSERT INTO userstatus VALUES(" + user_id + ", " + board_id + ", " + random.randint(1, 10) + ");")
-
-
-
+        cursor.execute("SELECT id FROM boards WHERE lower(topic_name) = lower(\'" + topics[b] + "\');")
+        board_id = cursor.fetchone()
+        cursor.execute("INSERT INTO userstatus VALUES(" + str(user_id[0]) + ", " + str(board_id[0]) + ", " + str(random.randint(1, 10)) + ");")
+connection.commit()
 
 cursor.close()
 connection.close()
