@@ -1,8 +1,11 @@
 from django.urls import path, include
 <<<<<<< Updated upstream
 from . import views
+from api.views import note
+from boardview.views import index
+
 urlpatterns=[
-  path('',views.index, name="index")
+  path('',note, name="boardview"),
 =======
 
 from . import views
