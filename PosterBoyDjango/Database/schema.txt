@@ -17,3 +17,29 @@ Posts
 - coordinates, point
 - score, integer
 
+Boards
+- id, integer, primary key
+- topic_name, up to 50 characters
+- actions, integer (number of actions per interval of reset)
+- reset, interval (interval that actions reset on)
+
+UserActions
+- id, integer, primary key
+- postid, int, foreign key referencing posts(id)
+- userid, int, foreign key referencing auth_user(id)
+- boardid, int, foreign key referencing boards(id)
+- action, up to 10 characters
+- date, timestamp
+
+UserStatus
+- userid, integer, foreign key referencing auth_user(id)
+- boardid, integer, foreign key referencing boards(id)
+- role, up to 10 characters
+- (userid, boardid) forms a primary key
+
+
+
+Triggers needed:
+one trigger to check if an attempted post is legal and if so, create a corresponding action
+one trigger to check if a user action about a post is legal and if so, update the post's score
+one trigger to archive posts with a 0 or negative score
