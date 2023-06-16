@@ -1,0 +1,19 @@
+This document defines the schema used to construct the database for PosterBoy.
+
+Django's default database schema is used to store sitewide user accounts.
+PosterBoy also stores information about each board, post, user roles on boards, and
+user actions on boards.
+
+To do this, we have the following tables.
+
+Posts
+- id, integer, primary key
+- userid, integer, foreign key referencing auth_user(id)
+- boardid, integer, foreign key references boards(id)
+- message, up to 200 characters
+- message_type, integer (identifies whether content is text or img)
+- date, timestamp
+- color, integer
+- coordinates, point
+- score, integer
+

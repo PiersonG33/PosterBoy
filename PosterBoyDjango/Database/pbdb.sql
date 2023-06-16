@@ -310,8 +310,8 @@ ALTER TABLE public.django_session OWNER TO postgres;
 --
 
 CREATE TABLE public.posts (
-    userid integer,
     id integer NOT NULL,
+    userid integer,
     boardid integer,
     message character varying(200),
     message_type integer,
