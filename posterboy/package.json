@@ -16,6 +16,7 @@
     "react-router-dom": "^6.0.2",
     "react-scale-text": "^1.2.2",
     "react-scripts": "5.0.1",
+    "react-zoomable-ui": "^0.11.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
