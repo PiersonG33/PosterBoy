@@ -8,9 +8,7 @@ import {
 } from '@chakra-ui/react'
 
 import {
-  Input,
-  InputGroup,
-  InputLeftAddon
+  Input
 } from '@chakra-ui/react'
 
 import { 
@@ -21,7 +19,7 @@ import {
   FormControl,
   FormLabel,
   FormErrorMessage,
-  FormHelperText,
+  FormHelperText
 } from '@chakra-ui/react'
 
 import { 
@@ -117,6 +115,7 @@ function LoginPopup() {
                   >
                     Log in
                   </Button>
+                  
                   <Button
                     mt={4}
                     colorScheme='teal'
@@ -128,7 +127,6 @@ function LoginPopup() {
 
                 </Stack>
 
-                
               </FormControl>
 
 
@@ -138,14 +136,6 @@ function LoginPopup() {
           </Popover>
   );
 }
-
-// This component is used to style the bold text element
-const BoldText = styled(Text)`
-  font-size: 3rem;
-  font-weight: bold;
-  margin-top: 2rem;
-  text-align: center;
-`;
 
 // This component is used to style the header
 const HeaderContainer = styled.div`

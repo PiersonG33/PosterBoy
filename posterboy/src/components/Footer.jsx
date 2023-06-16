@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { FaGithubSquare } from "react-icons/fa";
 import { ButtonGroup,  IconButton } from '@chakra-ui/react'
-import RCOSLogo from '../assets/rcos_logo.png';
+import RCOSLogo from '../assets/rcos_logo.svg';
 
 const FooterInnerContainer = styled.div`
   display: flex;
@@ -25,8 +25,8 @@ function Footer() {
           {/* This component displays social media icons */}
           <ButtonGroup variant="ghost" marginRight="1rem">
             <IconButton as="a" color='#FFCF00' href="https://github.com/PiersonG33/PosterBoy/tree/front-end/posterboy" aria-label="Github" icon={<FaGithubSquare fontSize="1.25rem" />} />
+            <IconButton as="a" color='#FFCF00' href="https://new.rcos.io/" aria-label="Github" icon={<img src={RCOSLogo} alt="RCOS Logo" style={{ height: "1.1rem", width: "1.1rem" }} />} />
           </ButtonGroup>
-          <img src={RCOSLogo} alt="RCOS Logo" style={{ height: "1.25rem", width: "1.25rem" }} />
         </FooterRight>
     </FooterContainer>
   );
