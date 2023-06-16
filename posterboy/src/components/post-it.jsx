@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardBody, CardFooter, Box } from '@chakra-ui/react'
+import { Card, CardBody, CardHeader, CardFooter, Box } from '@chakra-ui/react'
 
 /*
   The color of the post-it. This could become an argument of the
