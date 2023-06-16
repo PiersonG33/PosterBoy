@@ -37,7 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< Updated upstream
     'boardview'
+=======
+
+    'boardview',
+    
+>>>>>>> Stashed changes
 ]
 
 MIDDLEWARE = [
@@ -84,7 +90,7 @@ DATABASES = {
 
         'USER': 'postgres',
 
-        'PASSWORD': 'MyFirstgrade071',
+        'PASSWORD': 'db',
 
         'HOST': 'localhost',
 
