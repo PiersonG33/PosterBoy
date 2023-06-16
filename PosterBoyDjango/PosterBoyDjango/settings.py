@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
+
+    'boardview',
+    
 ]
 
 MIDDLEWARE = [
@@ -83,7 +87,7 @@ DATABASES = {
 
         'USER': 'postgres',
 
-        'PASSWORD': 'MyFirstgrade071',
+        'PASSWORD': 'db',
 
         'HOST': 'localhost',
 
