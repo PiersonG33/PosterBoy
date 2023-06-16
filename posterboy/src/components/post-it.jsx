@@ -25,7 +25,6 @@ function PostIt(props) {
        w={width} h={height}
       >
 
-
         {/* Show content of the Post in the main section. */}
         <CardBody> <b>{props.author}</b> {props.content} </CardBody>
         
