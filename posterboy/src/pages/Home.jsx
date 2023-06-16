@@ -1,11 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import PostIt from './../components/post-it';
 import { Text } from '@chakra-ui/react'
 import LogoAnimation from '../assets/logo_animation.mp4';
+import pbMouseIconNormal from '../assets/pb_mouse_icon_normal.png';
+import pbMouseIconClicked from '../assets/pb_mouse_icon_clicked.png';
 
 // This component represents the home page of the application
 function Home() {
+  const [isClicked, setIsClicked] = useState(false);
+
+  useEffect(() => {
+    const cursor = document.createElement("div");
+    cursor.style.width = "32px";
+    cursor.style.height = "32px";
+    cursor.style.backgroundImage = `url(${isClicked ? pbMouseIconClicked : pbMouseIconNormal})`;
+    cursor.style.backgroundSize = "cover";
+    cursor.style.position = "absolute";
+    cursor.style.pointerEvents = "none";
+    document.body.appendChild(cursor);
+
+    document.addEventListener("mousemove", (e) => {
+      cursor.style.left = `${e.clientX}px`;
+      cursor.style.top = `${e.clientY}px`;
+    });
+
+    document.body.style.cursor = "none";
+
+    const handleClick = () => {
+      setIsClicked(true);
+      cursor.style.backgroundImage = `url(${pbMouseIconClicked})`;
+    };
+
+    const handleRelease = () => {
+      setIsClicked(false);
+      cursor.style.backgroundImage = `url(${pbMouseIconNormal})`;
+    };
+
+    document.addEventListener("mousedown", handleClick);
+    document.addEventListener("mouseup", handleRelease);
+
+    return () => {
+      document.body.removeChild(cursor);
+      document.body.style.cursor = "default";
+      document.removeEventListener("mousedown", handleClick);
+      document.removeEventListener("mouseup", handleRelease);
+    };
+  }, [isClicked]);
+
   return(
     <HomeContainer>
       {/* This element displays a looping video */}
@@ -36,7 +78,7 @@ const HomeContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
+`;
 
 // This component is used to style the post-it container
 const PostItContainer = styled.div`
