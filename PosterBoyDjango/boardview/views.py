@@ -13,6 +13,7 @@ def index(request):
 
 @csrf_exempt
 def get_posts(request):
+    #How does this get from database tho lol
     if request.method == 'GET':
         bid = request.GET.get('boardid')
         posts = Post.objects.filter(boardid=bid)
@@ -31,6 +32,7 @@ def get_posts(request):
             }
             for post in posts
         ]
+        return JsonResponse(data, safe=False)
 
     else:
         data = {
@@ -38,3 +40,20 @@ def get_posts(request):
         }
         return JsonResponse(data, status=405)
 
+
+def add_post(request):
+    if request.method == 'POST':
+        post_data = request.json()
+        post = Post.objects.create(
+            message=post_data['message'],
+            uid=post_data['uid'],
+            pid=post_data['pid'],
+            boardid=post_data['boardid'],
+            color=post_data['color'],
+            date=post_data['date'],
+            score=post_data['score'],
+            coords=post_data['coords']
+        )
+        return JsonResponse(post_data, status=201)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)
