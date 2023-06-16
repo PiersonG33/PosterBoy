@@ -10,9 +10,7 @@ function Board() {
     <div style={{ width: '100vw', height: '90vw', position: "relative" }}>
       <Space style={{ backgroundColor: '#FFCF0030' }} >
         <img src={Board_Pic} width={imageWidth} height={imageHeight} alt="The Amazing Cork Board" />
-    </Space>
-
-      {/* </Space> */}
+      </Space>
     </div>
   )
 }
