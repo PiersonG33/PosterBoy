@@ -37,13 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< Updated upstream
-    'boardview'
-=======
+    'django.contrib.gis',
 
     'boardview',
     
->>>>>>> Stashed changes
 ]
 
 MIDDLEWARE = [

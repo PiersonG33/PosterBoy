@@ -1,14 +1,7 @@
 from django.shortcuts import render
-<<<<<<< Updated upstream
-from django.http import HttpResponse
-
-# Create your views here.
-
-def index(request):
-    return HttpResponse("This is the board")
-=======
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from .models import Post
 
 
 # Create your views here.
@@ -20,5 +13,28 @@ def index(request):
 
 @csrf_exempt
 def get_posts(request):
-    pass
->>>>>>> Stashed changes
+    if request.method == 'GET':
+        bid = request.GET.get('boardid')
+        posts = Post.objects.filter(boardid=bid)
+
+        data = [
+            {
+                'message': post.message,
+                'uid': post.uid,
+                'pid': post.pid,
+                #'boardid': post.boardid,
+                'color': post.color,
+                'date': post.date,
+                'score': post.score,
+                'coords': post.coords
+
+            }
+            for post in posts
+        ]
+
+    else:
+        data = {
+            'error': 'Invalid request method'
+        }
+        return JsonResponse(data, status=405)
+
