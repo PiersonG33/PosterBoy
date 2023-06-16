@@ -1,9 +1,43 @@
 import React from "react";
 import styled from "styled-components";
 import { FaHome, FaUserCircle, FaRegQuestionCircle, FaAngleDown} from "react-icons/fa";
-import { Button, ButtonGroup,  IconButton, Menu, MenuButton, MenuList, MenuItem, Tooltip } from '@chakra-ui/react'
+import { 
+  Button, ButtonGroup,  IconButton, 
+  Menu, MenuButton, MenuList, MenuItem, 
+  Tooltip
+} from '@chakra-ui/react'
+
+import {
+  Input,
+  InputGroup,
+  InputLeftAddon
+} from '@chakra-ui/react'
+
+import { 
+  Stack
+} from '@chakra-ui/react'
+
+import {
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+} from '@chakra-ui/react'
+
+import { 
+  Popover, 
+  PopoverTrigger, 
+  PopoverContent, 
+  PopoverArrow, 
+  PopoverCloseButton, 
+  PopoverHeader,  
+  PopoverBody 
+} from '@chakra-ui/react'
+
 import { Link } from "react-router-dom";
 import LogoPic from '../assets/logo.svg';
+
+
 
 // This component represents the header our website
 function Header() {
@@ -38,19 +72,80 @@ function Header() {
               <IconButton as="a" href="/" color='#FFCF00' aria-label="Home" icon={<FaHome fontSize="1.75rem" alt />} />
             </Tooltip>
 
-            <Tooltip hasArrow label='My Profile'>
-              <IconButton as="a" href="/" color='#FFCF00' aria-label="Profile" icon={<FaUserCircle fontSize="1.75rem" />} />
-            </Tooltip>
-
+            <LoginPopup/>
+            
             <Tooltip hasArrow label='About'>
               <IconButton as="a" href="/About" color='#FFCF00' aria-label="Help" icon={<FaRegQuestionCircle fontSize="1.75rem" />} />
             </Tooltip>
+            
           </ButtonGroup>
         </HeaderRight>
       </HeaderInnerContainer>
     </HeaderContainer>
   );
 }
+
+function LoginPopup() {
+  return (
+    <Popover>
+            <PopoverTrigger>
+                <IconButton as="a" href="#" color='#FFCF00' aria-label="Profile" icon={<FaUserCircle fontSize="1.75rem" />} />
+            </PopoverTrigger>
+            <PopoverContent>
+              <div style={{ color: 'black' }}>
+              <PopoverArrow />
+              <PopoverCloseButton />
+              <PopoverHeader>
+                <center><b>Log In</b></center>
+              </PopoverHeader>
+              <PopoverBody>
+
+            
+
+              <FormControl isRequired>
+                <FormLabel>Email</FormLabel>
+                <Input type='email' />
+                <FormLabel>Password</FormLabel>
+                <Input type='password' />
+
+                <Stack spacing={2} direction='row' align='center'>
+                  <Button
+                    mt={4}
+                    colorScheme='green'
+                    type='submit'
+                    isLoading = {false}
+                  >
+                    Log in
+                  </Button>
+                  <Button
+                    mt={4}
+                    colorScheme='teal'
+                    type='submit'
+                    isLoading = {false}
+                  >
+                    Sign up
+                  </Button>
+
+                </Stack>
+
+                
+              </FormControl>
+
+
+              </PopoverBody>
+              </div>
+            </PopoverContent>
+          </Popover>
+  );
+}
+
+// This component is used to style the bold text element
+const BoldText = styled(Text)`
+  font-size: 3rem;
+  font-weight: bold;
+  margin-top: 2rem;
+  text-align: center;
+`;
 
 // This component is used to style the header
 const HeaderContainer = styled.div`
