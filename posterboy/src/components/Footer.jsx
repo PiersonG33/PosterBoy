@@ -25,7 +25,7 @@ function Footer() {
           {/* This component displays social media icons */}
           <ButtonGroup variant="ghost" marginRight="1rem">
             <IconButton as="a" color='#FFCF00' href="https://github.com/PiersonG33/PosterBoy/tree/front-end/posterboy" aria-label="Github" icon={<FaGithubSquare fontSize="1.25rem" />} />
-            <IconButton as="a" color='#FFCF00' href="https://new.rcos.io/" aria-label="Github" icon={<img src={RCOSLogo} alt="RCOS Logo" style={{ height: "1.2rem", width: "1.2rem" }} />} />
+            <IconButton as="a" color='#FFCF00' href="https://new.rcos.io/" aria-label="Github" icon={<img src={RCOSLogo} alt="RCOS Logo" style={{ height: "1.1rem", width: "1.1rem" }} />} />
           </ButtonGroup>
         </FooterRight>
     </FooterContainer>
