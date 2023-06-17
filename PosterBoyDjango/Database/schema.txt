@@ -14,7 +14,8 @@ Posts
 - message_type, integer (identifies whether content is text or img)
 - date, timestamp
 - color, integer
-- coordinates, point
+- x, integer
+- y, integer
 - score, integer
 
 Boards

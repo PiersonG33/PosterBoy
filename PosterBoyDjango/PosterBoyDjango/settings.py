@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.gis',
 
     'boardview',
     
@@ -46,9 +45,6 @@ INSTALLED_APPS = [
     "rest_framework",
 
     "api",
-    "core",
-
-    'boardview',
 ]
 
 MIDDLEWARE = [
@@ -87,23 +83,11 @@ WSGI_APPLICATION = 'PosterBoyDjango.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+from Database.config import database
+
 DATABASES = {
 
-    'default': {
-
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-
-        'NAME': 'posterboytesting',
-
-        'USER': 'postgres',
-
-        'PASSWORD': 'db',
-
-        'HOST': 'localhost',
-
-        'PORT': '5432',
-
-    }
+    'default': database
 
 }
 

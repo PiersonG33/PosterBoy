@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 15.3
--- Dumped by pg_dump version 15.3
+-- Dumped from database version 15.2
+-- Dumped by pg_dump version 15.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -317,7 +317,8 @@ CREATE TABLE public.posts (
     message_type integer,
     date timestamp without time zone,
     color integer,
-    coordinates point,
+    x integer,
+    y integer,
     score integer
 );
 
@@ -494,7 +495,7 @@ shovlmsbyf9mbb0gnkike8w6ecqu4mfj	.eJxVjDsOwjAQBe_iGlmJvf5R0nMGy7tr4wBypDipEHeHSC
 -- Data for Name: posts; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.posts (userid, id, boardid, message, message_type, date, color, coordinates, score) FROM stdin;
+COPY public.posts (id, userid, boardid, message, message_type, date, color, x, y, score) FROM stdin;
 \.
 
 

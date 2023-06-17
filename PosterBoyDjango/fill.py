@@ -2,9 +2,9 @@ import psycopg2
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PosterBoyDjango.settings')
 import django
-from psycopg2.extensions import adapt, register_adapter, AsIs
 import random
 django.setup()
+from PosterBoyDjango.settings import DATABASES
 from django.contrib.auth.models import User
 from datetime import datetime, timezone
 
@@ -17,28 +17,17 @@ def generateWord(maxLen):
             out += char
     return out
 
-class Point(object):
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-
-def adapt_point(point):
-    x = adapt(point.x).getquoted()
-    y = adapt(point.y).getquoted()
-    return AsIs("'(%s, %s)'" % (x, y))
-
-
-connection = psycopg2.connect(user="postgres",
-                                  password="MyFirstgrade071",      
-                                  host="localhost",
-                                  port="5432",
-                                  database="posterboytesting")
+database = DATABASES['default']
+connection = psycopg2.connect(user=database['USER'],
+                                  password=database['PASSWORD'],      
+                                  host=database['HOST'],
+                                  port=database['PORT'],
+                                  database=database['NAME'])
 
 cursor = connection.cursor()
 # cursor.execute("SELECT * FROM auth_user;")
 # record = cursor.fetchall()
 # print(record)
-register_adapter(Point, adapt_point)
 userDict = dict()
 
 # USER - 10
@@ -73,8 +62,9 @@ for b in range(3):
         cursor.execute("SELECT id FROM boards WHERE lower(topic_name) = lower(\'" + topics[b] + "\');")
         board_id = cursor.fetchone()
         dt = datetime.now(timezone.utc)
-        point = Point(random.randint(0, 2300), random.randint(0, 1800))
-        cursor.execute("INSERT INTO posts VALUES(" + str(i + 10*b) + ", " + str(user_id[0]) + ", " + str(board_id[0]) + ", \'" + generateWord(200) + "\', " + str(0) + ", \'" + str(dt) + "\', " + str(0) + ", \'(" + str(point.x) + ", " + str(point.y) + ")\', " + str(random.randint(0, 10)) + ");")
+        x = random.randint(0,2300)
+        y = random.randint(0,1800)
+        cursor.execute("INSERT INTO posts VALUES(" + str(i + 10*b) + ", " + str(user_id[0]) + ", " + str(board_id[0]) + ", \'" + generateWord(200) + "\', " + str(0) + ", \'" + str(dt) + "\', " + str(0) + ", " + str(x) + ", " + str(y) + ", " + str(random.randint(0, 10)) + ");")
 connection.commit()
         
 # Status - 10
