@@ -38,8 +38,6 @@ UserStatus
 - role, up to 10 characters
 - (userid, boardid) forms a primary key
 
-
-
 Triggers needed:
 one trigger to check if an attempted post is legal and if so, create a corresponding action
 one trigger to check if a user action about a post is legal and if so, update the post's score
