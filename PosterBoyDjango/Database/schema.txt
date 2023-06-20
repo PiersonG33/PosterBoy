@@ -6,6 +6,8 @@ user actions on boards.
 
 To do this, we have the following tables.
 
+ACTIVE TABLES:
+
 Posts
 - id, integer, primary key
 - userid, integer, foreign key referencing auth_user(id)
@@ -38,6 +40,27 @@ UserStatus
 - role, up to 10 characters
 - (userid, boardid) forms a primary key
 
+
+ARCHIVAL TABLES:
+
+Post_Archive
+- id, integer, primary key
+- userid, integer, foreign key referencing auth_user(id)
+- boardid, integer, foreign key references boards(id)
+- message, up to 200 characters
+- message_type, integer (identifies whether content is text or img)
+- date, timestamp (time post was archived at)
+- color, integer
+- x, integer
+- y, integer
+
+Action_Archive
+- id, integer, primary key
+- postid, int, foreign key referencing posts(id)
+- userid, int, foreign key referencing auth_user(id)
+- boardid, int, foreign key referencing boards(id)
+- action, up to 10 characters
+- date, timestamp (archival date)
 
 
 Triggers needed:

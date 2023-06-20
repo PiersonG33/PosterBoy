@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 15.2
--- Dumped by pg_dump version 15.2
+-- Dumped from database version 15.3
+-- Dumped by pg_dump version 15.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -19,6 +19,22 @@ SET row_security = off;
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
+
+--
+-- Name: actionarchive; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.actionarchive (
+    id integer NOT NULL,
+    postid integer,
+    userid integer,
+    boardid integer,
+    action character varying(10),
+    date timestamp without time zone
+);
+
+
+ALTER TABLE public.actionarchive OWNER TO postgres;
 
 --
 -- Name: auth_group; Type: TABLE; Schema: public; Owner: postgres
@@ -205,6 +221,28 @@ CREATE TABLE public.boards (
 ALTER TABLE public.boards OWNER TO postgres;
 
 --
+-- Name: boards_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.boards_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.boards_id_seq OWNER TO postgres;
+
+--
+-- Name: boards_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.boards_id_seq OWNED BY public.boards.id;
+
+
+--
 -- Name: django_admin_log; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -306,10 +344,10 @@ CREATE TABLE public.django_session (
 ALTER TABLE public.django_session OWNER TO postgres;
 
 --
--- Name: posts; Type: TABLE; Schema: public; Owner: postgres
+-- Name: postarchive; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.posts (
+CREATE TABLE public.postarchive (
     id integer NOT NULL,
     userid integer,
     boardid integer,
@@ -318,12 +356,52 @@ CREATE TABLE public.posts (
     date timestamp without time zone,
     color integer,
     x integer,
-    y integer,
+    y integer
+);
+
+
+ALTER TABLE public.postarchive OWNER TO postgres;
+
+--
+-- Name: posts; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.posts (
+    userid integer,
+    id integer NOT NULL,
+    boardid integer,
+    message character varying(200),
+    message_type integer,
+    date timestamp without time zone,
+    color integer,
+    coordinates point,
     score integer
 );
 
 
 ALTER TABLE public.posts OWNER TO postgres;
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.posts_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.posts_id_seq OWNER TO postgres;
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.posts_id_seq OWNED BY public.posts.id;
+
 
 --
 -- Name: useractions; Type: TABLE; Schema: public; Owner: postgres
@@ -342,6 +420,28 @@ CREATE TABLE public.useractions (
 ALTER TABLE public.useractions OWNER TO postgres;
 
 --
+-- Name: useractions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.useractions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.useractions_id_seq OWNER TO postgres;
+
+--
+-- Name: useractions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.useractions_id_seq OWNED BY public.useractions.id;
+
+
+--
 -- Name: userstatus; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -353,6 +453,35 @@ CREATE TABLE public.userstatus (
 
 
 ALTER TABLE public.userstatus OWNER TO postgres;
+
+--
+-- Name: boards id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.boards ALTER COLUMN id SET DEFAULT nextval('public.boards_id_seq'::regclass);
+
+
+--
+-- Name: posts id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.posts ALTER COLUMN id SET DEFAULT nextval('public.posts_id_seq'::regclass);
+
+
+--
+-- Name: useractions id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.useractions ALTER COLUMN id SET DEFAULT nextval('public.useractions_id_seq'::regclass);
+
+
+--
+-- Data for Name: actionarchive; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.actionarchive (id, postid, userid, boardid, action, date) FROM stdin;
+\.
+
 
 --
 -- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -492,10 +621,18 @@ shovlmsbyf9mbb0gnkike8w6ecqu4mfj	.eJxVjDsOwjAQBe_iGlmJvf5R0nMGy7tr4wBypDipEHeHSC
 
 
 --
+-- Data for Name: postarchive; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.postarchive (id, userid, boardid, message, message_type, date, color, x, y) FROM stdin;
+\.
+
+
+--
 -- Data for Name: posts; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.posts (id, userid, boardid, message, message_type, date, color, x, y, score) FROM stdin;
+COPY public.posts (userid, id, boardid, message, message_type, date, color, coordinates, score) FROM stdin;
 \.
 
 
@@ -558,6 +695,13 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 
 
 --
+-- Name: boards_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.boards_id_seq', 1, false);
+
+
+--
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -576,6 +720,28 @@ SELECT pg_catalog.setval('public.django_content_type_id_seq', 6, true);
 --
 
 SELECT pg_catalog.setval('public.django_migrations_id_seq', 18, true);
+
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.posts_id_seq', 1, false);
+
+
+--
+-- Name: useractions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.useractions_id_seq', 1, false);
+
+
+--
+-- Name: actionarchive actionarchive_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.actionarchive
+    ADD CONSTRAINT actionarchive_pkey PRIMARY KEY (id);
 
 
 --
@@ -720,6 +886,14 @@ ALTER TABLE ONLY public.django_migrations
 
 ALTER TABLE ONLY public.django_session
     ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: postarchive postarchive_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.postarchive
+    ADD CONSTRAINT postarchive_pkey PRIMARY KEY (id);
 
 
 --
