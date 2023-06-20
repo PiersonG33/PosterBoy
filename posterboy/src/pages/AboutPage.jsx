@@ -46,6 +46,7 @@ const AllText = styled.div`
 const BoldText = styled.div`
   font-size: 56px;
   text-align: center;
+  color: #003F91;
 `;
 
 // This component is used to style the large, bold text element
