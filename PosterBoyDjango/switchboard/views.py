@@ -4,7 +4,8 @@ from django.db.models import Q
 from switchboard.models import Board, Status
 
 # Create your views here.
-def getboard(request, board_name):
+def getboard(request):
+    board_name = request.GET.get('board_name', '')
     try:
         boards = Board.objects.filter(Q(name__icontains=board_name))
         board_list = []
