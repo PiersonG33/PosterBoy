@@ -1,6 +1,2 @@
-# Ignore directories
-#PosterBoyDjango/PosterBoyDjango/settings.py
-PosterBoyDjango/PosterBoyDjango/__pycache__/settings.cpython-39.pyc
 
-*.pyc
-PosterBoyDjango/Database/config.py
+.DS_Store
