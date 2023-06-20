@@ -7,7 +7,7 @@ const AboutPage = () => {
       {/* This element displays a large, bold text element */}
         <AllText>
           <BoldText>
-            <b>About PosterBoy</b>
+            About PosterBoy
           </BoldText>
           <BodyText>
               On PosterBoy, you can create, delete, and view posts with a few clicks of a button.
@@ -22,6 +22,13 @@ const AboutPage = () => {
           <BodyText>
               We're just better!
           </BodyText>
+          <BoldText>How to use our website</BoldText>
+          <BodyText>
+            Check how many post-its you have remaining. This number resets everyday.
+            Create a new post by clicking anywhere on the board that does not have a post-it.
+
+            If you want to delete someone's post, click on their post and select <b>delete</b>.
+          </BodyText>
         </AllText>
     </AboutContainer>
   );
@@ -32,7 +39,7 @@ const AboutContainer = styled.div`
   background-color: aliceblue;
   align-items: center;
   text-align: center;
-  padding-top: 100px;
+  padding-top: 70px;
   padding-bottom: 100px;
 `
 
@@ -44,9 +51,11 @@ const AllText = styled.div`
 
 // This component is used to style the large, bold text element
 const BoldText = styled.div`
-  font-size: 56px;
+  font-weight: bold;
+  font-size: 50px;
   text-align: center;
   color: #003F91;
+  margin-top: 50px;
 `;
 
 // This component is used to style the large, bold text element
