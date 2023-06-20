@@ -20,39 +20,27 @@ function BoardCounter() {
             height='68px'
             borderRadius='50%'
           />
-          <HeaderText
-            fontWeight='600'
-            textAlign='center'
-            fontSize='xl'>
+          <HeaderText>
             Username
           </HeaderText>
-          <SecondaryText
-            textAlign='center'
-            fontSize='sm'
-            fontWeight='500'>
+          <SecondaryText>
             Level 10
           </SecondaryText>
         </Flex>
         <Flex justify='space-between' w='100%' px='36px'>
           <Flex flexDirection='column'>
-            <HeaderText
-              fontWeight='600'
-              fontSize='xl'
-              textAlign='center'>
+            <HeaderText>
               5
             </HeaderText>
-            <SecondaryText fontWeight='500'>
+            <SecondaryText>
               Post-Its Remaining
             </SecondaryText>
           </Flex>
           <Flex flexDirection='column'>
-            <HeaderText
-              fontWeight='600'
-              fontSize='xl'
-              textAlign='center'>
+            <HeaderText>
               7
             </HeaderText>
-            <SecondaryText fontWeight='500'>
+            <SecondaryText>
               Deletes Remaining
             </SecondaryText>
           </Flex>
@@ -72,10 +60,16 @@ const CounterContainer = styled.div`
   top: 0px;
   right: 0px;
   z-index: 10;
+  align-items: center;
+  direction: column;
 `
 const HeaderText = styled.h1`
-  
+  font-weight: 700;
+  color:#003F91;
 `
 
 const SecondaryText = styled.h2`
+  font-weight: 500;
+  font-size: smaller;
+  color:#003F9190;
 `
