@@ -4,14 +4,7 @@ import { FaGithubSquare } from "react-icons/fa";
 import { ButtonGroup,  IconButton } from '@chakra-ui/react'
 import RCOSLogo from '../assets/rcos_logo.svg';
 
-const FooterInnerContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  width: 100%;
-  padding: 0 20px;
-`;
+
 
 // This component represents the footer of the Official PosterBoy Website!
 function Footer() {
