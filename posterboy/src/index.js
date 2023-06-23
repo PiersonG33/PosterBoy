@@ -35,7 +35,7 @@ class AspectRatioImage extends React.Component {
 
     return (
       <div style={containerStyle}>
-        <img src={src} alt="Aspect Ratio Image" style={imageStyle} />
+        <img src={src} alt="Aspect Ratio" style={imageStyle} />
       </div>
     );
   }
