@@ -1,22 +1,22 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from django.db.models import Q
-from switchboard.models import Board, Status
+from switchboard.models import Boards, UserStatus
 
 # Create your views here.
 def getboard(request):
     board_name = request.GET.get('board_name', '')
     try:
-        boards = Board.objects.filter(Q(name__icontains=board_name))
+        boards = Boards.objects.filter(Q(name__icontains=board_name))
         board_list = []
         for board in boards:
             try:
 
-                status = get_object_or_404(Status, boardid=board, userid=request.user)
+                status = get_object_or_404(UserStatus, boardid=board, userid=request.user)
                 status_data = {
                     'role': status.role,
                 }
-            except Status.DoesNotExist:
+            except UserStatus.DoesNotExist:
                 status_data = {}
 
             board_data = {
@@ -36,5 +36,5 @@ def getboard(request):
             return JsonResponse(response_data)
         else:
             return JsonResponse({'error': 'No boards with similar names found'}, status = 404)
-    except Board.DoesNotExist:
+    except Boards.DoesNotExist:
         return JsonResponse({'error': 'Board not found'}, status=404)
