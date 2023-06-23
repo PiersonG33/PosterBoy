@@ -5,6 +5,11 @@ import { Flex, Image } from "@chakra-ui/react";
 
 function BoardCounter(props) {
   return (
+    <div style={{ color: 'black' }}>
+    <PopoverArrow />
+    <PopoverCloseButton />
+
+    <PopoverBody>
     <CounterContainer>
       <Flex
         borderRadius='20px'
@@ -47,6 +52,8 @@ function BoardCounter(props) {
         </Flex>
       </Flex>
     </CounterContainer>
+    </PopoverBody>
+    </div>
   )
 }
 

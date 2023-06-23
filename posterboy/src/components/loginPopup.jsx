@@ -19,47 +19,48 @@ import {
 } from '@chakra-ui/react'
 
 function LoginPopup() {
-  return (
-    <div style={{ color: 'black' }}>
+  const newLocal = <div style={{ color: 'black' }}>
     <PopoverArrow />
     <PopoverCloseButton />
     <PopoverHeader>
-        <center><b>Log In</b></center>
-      </PopoverHeader>
-      <PopoverBody>
+      <center><b>Log In</b></center>
+    </PopoverHeader>
 
-        <FormControl isRequired>
+    <PopoverBody>
+      <FormControl isRequired>
         <FormLabel>Email</FormLabel>
         <Input type='email' />
         <FormLabel>Password</FormLabel>
         <Input type='password' />
 
         <Stack spacing={2} direction='row' align='center'>
-            <Button
+          <Button
             mt={4}
             colorScheme='green'
             type='submit'
-            isLoading = {false}
-            >
-                Log in
-            </Button>
-            
-            <Button
+            isLoading={false}
+          >
+            Log in
+          </Button>
+
+          <Button
             mt={4}
             colorScheme='teal'
             type='submit'
             variant='link'
             as="a"
             href="/SignUp"
-            isLoading = {false}
-            >
-                Sign up
-            </Button>
+            isLoading={false}
+          >
+            Sign up
+          </Button>
         </Stack>
       </FormControl>
 
-      </PopoverBody>
-      </div>
+    </PopoverBody>
+  </div>;
+  return (
+    newLocal
     );
 };
 
