@@ -3,7 +3,7 @@ import React from "react";
 import { Flex, Image } from "@chakra-ui/react";
 
 
-function BoardCounter() {
+function BoardCounter(props) {
   return (
     <CounterContainer>
       <Flex
@@ -14,7 +14,7 @@ function BoardCounter() {
         direction='column'>
         <Flex flexDirection='column' mb='30px'>
           <Image
-            src='https://i.ibb.co/B3gYTYs/Profile-Image.png'
+            src={props.pfp}
             mx='auto'
             width='68px'
             height='68px'
