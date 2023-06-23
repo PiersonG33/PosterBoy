@@ -17,7 +17,7 @@ function BoardCounter(props) {
       <Flex
         borderRadius='20px'
         p='20px'
-        w={{ base: "315px", md: "345px" }}
+        w={{ base: "215px", md: "245px" }}
         alignItems='center'
         direction='column'>
         <Flex flexDirection='column' mb='30px'>
@@ -61,17 +61,6 @@ function BoardCounter(props) {
 
 export default BoardCounter
 
-const CounterContainer = styled.div`
-  border-radius: 25px;
-  background-color: white;
-  margin: 20px 40px 0 0;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  z-index: 10;
-  align-items: center;
-  direction: column;
-`
 const HeaderText = styled.h1`
   font-weight: 700;
   color:#003F91;
