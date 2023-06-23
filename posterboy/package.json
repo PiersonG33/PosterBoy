@@ -45,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "fork-ts-checker-webpack-plugin": "^8.0.0",
     "styled-components": "^5.3.10"
   }
 }
