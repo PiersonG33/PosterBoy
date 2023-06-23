@@ -1,2 +1,5 @@
+# dependencies
+/posterboy/node_modules
 
 .DS_Store
+PosterBoyDjango/Database/config.py

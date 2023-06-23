@@ -1,20 +1,28 @@
 import styled from "styled-components";
 import React from "react";
 import { Flex, Image } from "@chakra-ui/react";
+import { 
+  PopoverArrow, 
+  PopoverCloseButton,
+  PopoverBody 
+} from '@chakra-ui/react'
 
-
-function BoardCounter() {
+function BoardCounter(props) {
   return (
-    <CounterContainer>
+    <div style={{ color: 'black' }}>
+    <PopoverArrow />
+    <PopoverCloseButton />
+
+    <PopoverBody>
       <Flex
         borderRadius='20px'
         p='20px'
-        w={{ base: "315px", md: "345px" }}
+        w={{ base: "215px", md: "245px" }}
         alignItems='center'
         direction='column'>
         <Flex flexDirection='column' mb='30px'>
           <Image
-            src='https://i.ibb.co/B3gYTYs/Profile-Image.png'
+            src={props.pfp}
             mx='auto'
             width='68px'
             height='68px'
@@ -46,23 +54,13 @@ function BoardCounter() {
           </Flex>
         </Flex>
       </Flex>
-    </CounterContainer>
+    </PopoverBody>
+    </div>
   )
 }
 
 export default BoardCounter
 
-const CounterContainer = styled.div`
-  border-radius: 25px;
-  background-color: white;
-  margin: 20px 40px 0 0;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  z-index: 10;
-  align-items: center;
-  direction: column;
-`
 const HeaderText = styled.h1`
   font-weight: 700;
   color:#003F91;

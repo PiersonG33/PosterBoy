@@ -8,29 +8,13 @@ import {
   Tooltip
 } from '@chakra-ui/react'
 
-import {
-  Input
-} from '@chakra-ui/react'
-
-import { 
-  Stack
-} from '@chakra-ui/react'
-
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText
-} from '@chakra-ui/react'
+import LoginPopup from "./loginPopup";
+import BoardCounter from './boardCounter';
 
 import { 
   Popover, 
   PopoverTrigger, 
-  PopoverContent, 
-  PopoverArrow, 
-  PopoverCloseButton, 
-  PopoverHeader,  
-  PopoverBody 
+  PopoverContent
 } from '@chakra-ui/react'
 
 import { Link } from "react-router-dom";
@@ -74,7 +58,7 @@ function Header() {
               <IconButton as="a" href="/" color='#FFCF00' aria-label="Home" icon={<FaHome fontSize="1.75rem" alt />} />
             </Tooltip>
 
-            <LoginPopup/>
+            <LoginOrProfile/>
             
             <Tooltip hasArrow label='About'>
               <IconButton as="a" href="/About" color='#FFCF00' aria-label="Help" icon={<FaRegQuestionCircle fontSize="1.75rem" />} />
@@ -125,6 +109,33 @@ function LoginPopup() {
               </div>
             </PopoverContent>
           </Popover>
+
+
+function LoginOrProfile() {
+
+  let content;
+
+  let logged_in = true; // Dummy variable, should actually check if logged in.
+
+  if (logged_in)
+  {
+    content = <BoardCounter/>
+  }
+  else {
+    content = <LoginPopup/>
+  }
+
+  return (
+    <Popover>
+      <PopoverTrigger>
+          <IconButton as="a" href="#" color='#FFCF00' aria-label="Profile" icon={<FaUserCircle fontSize="1.75rem" />} />
+      </PopoverTrigger>
+      <PopoverContent>
+        
+        {content}
+
+      </PopoverContent>
+    </Popover>
   );
 }
 
