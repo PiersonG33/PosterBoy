@@ -71,46 +71,6 @@ function Header() {
   );
 }
 
-function LoginPopup() {
-  return (
-    <Popover>
-            <PopoverTrigger>
-                <IconButton as="a" href="#" color='#003F91' aria-label="Profile" icon={<FaUserCircle fontSize="1.75rem" />} />
-            </PopoverTrigger>
-            <PopoverContent>
-              <div style={{ color: 'black' }}>
-              <PopoverArrow />
-              <PopoverCloseButton />
-              <PopoverHeader>
-                <center><b>Log In</b></center>
-              </PopoverHeader>
-              <PopoverBody>
-                <FormControl isRequired>
-                  <FormLabel>Email</FormLabel>
-                  <Input type='email' />
-                  <FormLabel>Password</FormLabel>
-                  <Input type='password' />
-
-                  <Stack spacing={2} direction='column' align='center'>
-                    <Button
-                      mt={4}
-                      colorScheme='blue'
-                      type='submit'
-                    >
-                      Log in
-                    </Button>
-                    
-                      <Stack spacing={2} direction='row' align='center'>
-                        <SignUpText>Don't have an account?</SignUpText><SignUpLink>Sign up here.</SignUpLink>
-                      </Stack>
-                  </Stack>
-                </FormControl>
-              </PopoverBody>
-              </div>
-            </PopoverContent>
-          </Popover>
-
-
 function LoginOrProfile() {
 
   let content;
