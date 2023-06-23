@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import React from "react";
 import { Flex, Image } from "@chakra-ui/react";
-
+import { 
+  PopoverArrow, 
+  PopoverCloseButton,
+  PopoverBody 
+} from '@chakra-ui/react'
 
 function BoardCounter(props) {
   return (
@@ -10,7 +14,6 @@ function BoardCounter(props) {
     <PopoverCloseButton />
 
     <PopoverBody>
-    <CounterContainer>
       <Flex
         borderRadius='20px'
         p='20px'
@@ -51,7 +54,6 @@ function BoardCounter(props) {
           </Flex>
         </Flex>
       </Flex>
-    </CounterContainer>
     </PopoverBody>
     </div>
   )
