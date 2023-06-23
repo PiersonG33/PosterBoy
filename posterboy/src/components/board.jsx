@@ -1,6 +1,6 @@
 import { Space } from 'react-zoomable-ui';
 import styled from "styled-components";
-import Board_Pic from "../assets/board_stock_pic.png";
+import Board_Pic from "../assets/board_new.jpg";
 
 const imageWidth = 2621;
 const imageHeight = 1805;
