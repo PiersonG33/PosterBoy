@@ -120,6 +120,9 @@ function LoginPopup() {
                     mt={4}
                     colorScheme='teal'
                     type='submit'
+                    variant='link'
+                    as="a"
+                    href="/SignUp"
                     isLoading = {false}
                   >
                     Sign up
