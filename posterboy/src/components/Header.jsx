@@ -7,29 +7,13 @@ import {
   Tooltip
 } from '@chakra-ui/react'
 
-import {
-  Input
-} from '@chakra-ui/react'
-
-import { 
-  Stack
-} from '@chakra-ui/react'
-
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText
-} from '@chakra-ui/react'
+import LoginPopup from "./loginPopup";
+import BoardCounter from './boardCounter';
 
 import { 
   Popover, 
   PopoverTrigger, 
-  PopoverContent, 
-  PopoverArrow, 
-  PopoverCloseButton, 
-  PopoverHeader,  
-  PopoverBody 
+  PopoverContent
 } from '@chakra-ui/react'
 
 import { Link } from "react-router-dom";
@@ -70,7 +54,7 @@ function Header() {
               <IconButton as="a" href="/" color='#FFCF00' aria-label="Home" icon={<FaHome fontSize="1.75rem" alt />} />
             </Tooltip>
 
-            <LoginPopup/>
+            <LoginOrProfile/>
             
             <Tooltip hasArrow label='About'>
               <IconButton as="a" href="/About" color='#FFCF00' aria-label="Help" icon={<FaRegQuestionCircle fontSize="1.75rem" />} />
@@ -83,60 +67,31 @@ function Header() {
   );
 }
 
-function LoginPopup() {
+function LoginOrProfile() {
+
+  let content;
+
+  let logged_in = true; // Dummy variable, should actually check if logged in.
+
+  if (logged_in)
+  {
+    content = <BoardCounter/>
+  }
+  else {
+    content = <LoginPopup/>
+  }
+
   return (
     <Popover>
-            <PopoverTrigger>
-                <IconButton as="a" href="#" color='#FFCF00' aria-label="Profile" icon={<FaUserCircle fontSize="1.75rem" />} />
-            </PopoverTrigger>
-            <PopoverContent>
-              <div style={{ color: 'black' }}>
-              <PopoverArrow />
-              <PopoverCloseButton />
-              <PopoverHeader>
-                <center><b>Log In</b></center>
-              </PopoverHeader>
-              <PopoverBody>
+      <PopoverTrigger>
+          <IconButton as="a" href="#" color='#FFCF00' aria-label="Profile" icon={<FaUserCircle fontSize="1.75rem" />} />
+      </PopoverTrigger>
+      <PopoverContent>
+        
+        {content}
 
-            
-
-              <FormControl isRequired>
-                <FormLabel>Email</FormLabel>
-                <Input type='email' />
-                <FormLabel>Password</FormLabel>
-                <Input type='password' />
-
-                <Stack spacing={2} direction='row' align='center'>
-                  <Button
-                    mt={4}
-                    colorScheme='green'
-                    type='submit'
-                    isLoading = {false}
-                  >
-                    Log in
-                  </Button>
-                  
-                  <Button
-                    mt={4}
-                    colorScheme='teal'
-                    type='submit'
-                    variant='link'
-                    as="a"
-                    href="/SignUp"
-                    isLoading = {false}
-                  >
-                    Sign up
-                  </Button>
-
-                </Stack>
-
-              </FormControl>
-
-
-              </PopoverBody>
-              </div>
-            </PopoverContent>
-          </Popover>
+      </PopoverContent>
+    </Popover>
   );
 }
 
