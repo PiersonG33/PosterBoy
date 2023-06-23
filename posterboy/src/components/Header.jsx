@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import SignUp from "./SignUp";
 import { FaHome, FaUserCircle, FaRegQuestionCircle, FaAngleDown} from "react-icons/fa";
 import { 
   Button, ButtonGroup,  IconButton, 
@@ -25,6 +26,9 @@ import LogoPic from '../assets/logo.svg';
 function Header() {
   return (
     <HeaderContainer>
+      <SignUpContainer>
+        <SignUp/>
+      </SignUpContainer>
       <HeaderInnerContainer>
         <HeaderLeft>
           <LogoContainer>
@@ -67,6 +71,46 @@ function Header() {
   );
 }
 
+function LoginPopup() {
+  return (
+    <Popover>
+            <PopoverTrigger>
+                <IconButton as="a" href="#" color='#FFCF00' aria-label="Profile" icon={<FaUserCircle fontSize="1.75rem" />} />
+            </PopoverTrigger>
+            <PopoverContent>
+              <div style={{ color: 'black' }}>
+              <PopoverArrow />
+              <PopoverCloseButton />
+              <PopoverHeader>
+                <center><b>Log In</b></center>
+              </PopoverHeader>
+              <PopoverBody>
+                <FormControl isRequired>
+                  <FormLabel>Email</FormLabel>
+                  <Input type='email' />
+                  <FormLabel>Password</FormLabel>
+                  <Input type='password' />
+
+                  <Stack spacing={2} direction='column' align='center'>
+                    <Button
+                      mt={4}
+                      colorScheme='blue'
+                      type='submit'
+                    >
+                      Log in
+                    </Button>
+                    
+                      <Stack spacing={2} direction='row' align='center'>
+                        <SignUpText>Don't have an account?</SignUpText><SignUpLink>Sign up here.</SignUpLink>
+                      </Stack>
+                  </Stack>
+                </FormControl>
+              </PopoverBody>
+              </div>
+            </PopoverContent>
+          </Popover>
+
+
 function LoginOrProfile() {
 
   let content;
@@ -93,6 +137,10 @@ function LoginOrProfile() {
       </PopoverContent>
     </Popover>
   );
+}
+
+function signUpOverlay() {
+  document.getElementById("signUpID").style.display = "block";
 }
 
 // This component is used to style the header
@@ -137,5 +185,24 @@ const LogoContainer = styled.div`
 const Logo = styled.img`
   height: 100px;
 `;
+
+const SignUpContainer = styled.section`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 15px;
+  color: white;
+  transform: translate(-50%,-50%);
+  z-index: 5;
+  -ms-transform: translate(-50%,-50%);* Black background with opacity */
+`
+
+const SignUpText = styled.p`
+
+`
+
+const SignUpLink = styled.button`
+  color: #003F91;
+`
 
 export default Header;
