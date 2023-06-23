@@ -67,13 +67,13 @@ function Header() {
           {/* This component displays three icons that link to the home page, profile page, and help page */}
           <ButtonGroup variant="ghost">
             <Tooltip hasArrow label='Home Page'>
-              <IconButton as="a" href="/" color='#FFCF00' aria-label="Home" icon={<FaHome fontSize="1.75rem" alt />} />
+              <IconButton as="a" href="/" color='#003F91' aria-label="Home" icon={<FaHome fontSize="1.75rem" alt />} />
             </Tooltip>
 
             <LoginPopup/>
             
             <Tooltip hasArrow label='About'>
-              <IconButton as="a" href="/About" color='#FFCF00' aria-label="Help" icon={<FaRegQuestionCircle fontSize="1.75rem" />} />
+              <IconButton as="a" href="/About" color='#003F91' aria-label="Help" icon={<FaRegQuestionCircle fontSize="1.75rem" />} />
             </Tooltip>
             
           </ButtonGroup>
@@ -87,7 +87,7 @@ function LoginPopup() {
   return (
     <Popover>
             <PopoverTrigger>
-                <IconButton as="a" href="#" color='#FFCF00' aria-label="Profile" icon={<FaUserCircle fontSize="1.75rem" />} />
+                <IconButton as="a" href="#" color='#003F91' aria-label="Profile" icon={<FaUserCircle fontSize="1.75rem" />} />
             </PopoverTrigger>
             <PopoverContent>
               <div style={{ color: 'black' }}>
