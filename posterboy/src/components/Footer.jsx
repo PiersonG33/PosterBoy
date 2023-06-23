@@ -5,14 +5,17 @@ import { ButtonGroup,  IconButton } from '@chakra-ui/react'
 import RCOSLogo from '../assets/rcos_logo.svg';
 
 
+const comments = ["Reddit faces no chance.", "The up and coming social media application.", "Don't worry, we recycle the post-its.", "Go outside and touch grass.", "Made by CS majors from RPI."]
 
 // This component represents the footer of the Official PosterBoy Website!
 function Footer() {
+  let num = Math.floor(Math.random() * 5);
+  console.log(num);
   return (
     <FooterContainer>
         <FooterLeft>
           {/* This element showcases how cool PosterBoy is ;) */}
-          <FooterText>PosterBoy. Reddit faces no chance.</FooterText>
+          <FooterText>PosterBoy. {comments[num]}</FooterText>
         </FooterLeft>
         <FooterRight>
           {/* This component displays social media icons */}
