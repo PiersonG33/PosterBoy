@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import Post
+from .models import Post, Board, UserActions, UserStatus, PostArchive
 
 
 # Create your views here.
@@ -54,6 +54,56 @@ def add_post(request):
             score=post_data['score'],
             coords=post_data['coords']
         )
+        post.save()
+        action = UserActions.objects.create(
+            action="add",
+            uid=post_data['uid'],
+            pid=post_data['pid'],
+            date=post_data['date']
+        )
+        action.save()
         return JsonResponse(post_data, status=201)
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
+    
+def lower_score(request, pid):
+    #this removes posts by pid
+    #this comment is useless
+    try:
+        post = Post.objects.get(pid=pid)
+        # The request should specify the user deleting the post and the date
+        user_data = request.json()
+        theUID = user_data['uid']
+        theDate = user_data['date']
+        action = UserActions.objects.create(
+            action="delete",
+            uid=theUID,
+            pid=post.pid,
+            date=theDate
+        )
+        action.save()
+        #post.delete()
+        return JsonResponse({'message': 'Post deleted successfully'}, status=200)
+    except Post.DoesNotExist:
+        return JsonResponse({'error': 'Post does not exist'}, status=404)
+    
+def get_user_actions(request, uid, boardid):
+    #this gets all actions by a user on a board
+    if request.method == 'GET':
+        actions = UserActions.objects.filter(uid=uid, boardid=boardid)
+        data = [
+            {
+                'actionid': action.actionid,
+                'uid': action.uid,
+                'pid': action.pid,
+                'action': action.action,
+                'date': action.date
+            }
+            for action in actions
+        ]
+        return JsonResponse(data, safe=False)
+    else:
+        data = {
+            'error': 'Invalid request method'
+        }
+        return JsonResponse(data, status=405)
