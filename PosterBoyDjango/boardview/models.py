@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 # Create your models here.
-class Post(models.Model):
+class Posts(models.Model):
     message = models.CharField(max_length=200)
     uid = models.IntegerField()
     pid = models.IntegerField()
@@ -10,15 +10,15 @@ class Post(models.Model):
     color = models.IntegerField()
     date = models.DateTimeField(default=timezone.now) # set default creation date to whenever model is created
     score = models.IntegerField(default=1) # posts start with a score of 1
-    xCoord = models.IntegerField()
-    yCoord = models.IntegerField()
+    x = models.IntegerField()
+    y = models.IntegerField()
 
     def __str__(self):
         return self.message
     
 
-class Board(models.Model):
-    boardid = models.IntegerField()
+class Boards(models.Model):
+    id = models.IntegerField()
     topic_name = models.CharField(max_length=50)
     actions = models.IntegerField()
     reset = models.DurationField()
@@ -27,9 +27,10 @@ class Board(models.Model):
         return self.topic_name
     
 class UserActions(models.Model):
-    actionid = models.IntegerField()
-    uid = models.IntegerField()
-    pid = models.IntegerField()
+    id = models.IntegerField()
+    userid = models.IntegerField()
+    postid = models.IntegerField()
+    boardid = models.IntegerField()
     action = models.CharField(max_length=10)
     date = models.DateTimeField(default=timezone.now)
 
@@ -37,9 +38,9 @@ class UserActions(models.Model):
         return str(self.uid) + self.action
     
 class UserStatus(models.Model):
-    uid = models.IntegerField()
+    userid = models.IntegerField()
     boardid = models.IntegerField()
-    status = models.CharField(max_length=10)
+    role = models.CharField(max_length=10)
 
     def __str__(self):
         return str(self.uid) + self.status
