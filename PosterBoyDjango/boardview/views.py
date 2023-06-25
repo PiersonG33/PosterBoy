@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import Post, Board, UserActions, UserStatus, PostArchive
+from .models import Posts, Boards, UserActions, UserStatus, PostArchive
 
 
 # Create your views here.
@@ -16,18 +16,20 @@ def get_posts(request):
     #How does this get from database tho lol
     if request.method == 'GET':
         bid = request.GET.get('boardid')
-        posts = Post.objects.filter(boardid=bid)
+        posts = Posts.objects.filter(boardid=bid)
 
         data = [
             {
                 'message': post.message,
-                'uid': post.uid,
-                'pid': post.pid,
+                'message_type': post.message_type,
+                'userid': post.userid,
+                'id': post.id,
                 #'boardid': post.boardid,
                 'color': post.color,
                 'date': post.date,
                 'score': post.score,
-                'coords': post.coords
+                'x': post.x,
+                'y': post.y
 
             }
             for post in posts
@@ -44,21 +46,23 @@ def get_posts(request):
 def add_post(request):
     if request.method == 'POST':
         post_data = request.json()
-        post = Post.objects.create(
+        post = Posts.objects.create(
             message=post_data['message'],
-            uid=post_data['uid'],
-            pid=post_data['pid'],
+            message_type=post_data['message_type'],
+            uid=post_data['userid'],
+            # id=post_data['id'], #The ID is automatically generated
             boardid=post_data['boardid'],
             color=post_data['color'],
             date=post_data['date'],
             score=post_data['score'],
-            coords=post_data['coords']
+            x=post_data['x'],
+            y=post_data['y']
         )
         post.save()
         action = UserActions.objects.create(
             action="add",
-            uid=post_data['uid'],
-            pid=post_data['pid'],
+            uid=post_data['userid'],
+            pid=post.id, #The ID is the automatically generated from the post
             date=post_data['date']
         )
         action.save()
@@ -70,21 +74,20 @@ def lower_score(request, pid):
     #this removes posts by pid
     #this comment is useless
     try:
-        post = Post.objects.get(pid=pid)
+        post = Posts.objects.get(pid=pid)
         # The request should specify the user deleting the post and the date
         user_data = request.json()
-        theUID = user_data['uid']
-        theDate = user_data['date']
+        theUID = user_data['userid']
+
         action = UserActions.objects.create(
-            action="delete",
+            action="delete", #This might not be right
             uid=theUID,
             pid=post.pid,
-            date=theDate
         )
         action.save()
         #post.delete()
         return JsonResponse({'message': 'Post deleted successfully'}, status=200)
-    except Post.DoesNotExist:
+    except Posts.DoesNotExist:
         return JsonResponse({'error': 'Post does not exist'}, status=404)
     
 def get_user_actions(request, uid, boardid):
@@ -93,9 +96,9 @@ def get_user_actions(request, uid, boardid):
         actions = UserActions.objects.filter(uid=uid, boardid=boardid)
         data = [
             {
-                'actionid': action.actionid,
-                'uid': action.uid,
-                'pid': action.pid,
+                'id': action.id,
+                'uid': action.userid,
+                'pid': action.postid,
                 'action': action.action,
                 'date': action.date
             }
