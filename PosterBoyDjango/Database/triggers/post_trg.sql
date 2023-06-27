@@ -7,11 +7,11 @@ DECLARE
 	limits int;
 BEGIN
 	SELECT count(*) INTO actionsTrg FROM UserActions WHERE userid = NEW.userid AND boardid = NEW.boardid;
-	SELECT actionsTrg INTO limits FROM Boards WHERE id = NEW.boardid;
+	SELECT actions INTO limits FROM Boards WHERE id = NEW.boardid;
 	IF actionsTrg >= limits THEN
 		NEW := NULL;
 	ELSE
-		INSERT INTO UserActions VALUES(DEFAULT, NEW.id, NEW.userid, NEW.boardid, "post", now());
+		INSERT INTO UserActions VALUES(DEFAULT, NEW.id, NEW.userid, NEW.boardid, 'post', now());
 	END IF;
 	RETURN NEW;
 END;
