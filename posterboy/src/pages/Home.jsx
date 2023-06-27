@@ -9,7 +9,8 @@ import { Box } from "@chakra-ui/react"
 import { SimpleGrid } from "@chakra-ui/react";
 import rcosImage from "../assets/red_full_rcos_logo.png";
 
-// This component represents the home page of the application
+// This function is used to implement the custom cursor. It is currently not in use. See GitHub issue #1.
+
 function Home() {
   const [isClicked, setIsClicked] = useState(false);
 
@@ -19,30 +20,31 @@ function Home() {
     cursor.style.height = "32px";
     cursor.style.backgroundImage = `url(${isClicked ? pbMouseIconClicked : pbMouseIconNormal})`;
     cursor.style.backgroundSize = "cover";
-    cursor.style.position = "absolute";
+    cursor.style.position = "fixed";
     cursor.style.pointerEvents = "none";
+    cursor.style.zIndex = "9999"; // Set the z-index to a high value
     document.body.appendChild(cursor);
-
+  
     document.addEventListener("mousemove", (e) => {
       cursor.style.left = `${e.clientX}px`;
       cursor.style.top = `${e.clientY}px`;
     });
-
+  
     document.body.style.cursor = "none";
-
+  
     const handleClick = () => {
       setIsClicked(true);
       cursor.style.backgroundImage = `url(${pbMouseIconClicked})`;
     };
-
+  
     const handleRelease = () => {
       setIsClicked(false);
       cursor.style.backgroundImage = `url(${pbMouseIconNormal})`;
     };
-
+  
     document.addEventListener("mousedown", handleClick);
     document.addEventListener("mouseup", handleRelease);
-
+  
     return () => {
       document.body.removeChild(cursor);
       document.body.style.cursor = "default";
@@ -68,6 +70,7 @@ function Home() {
                 bgClip='text'
                 fontSize='6xl'
                 fontWeight='extrabold'
+                
                 /*</Box>textShadow='0px 0px 0px #000000'*/
               >
               <div style={{ display: "flex", alignItems: "center" }}>
@@ -87,7 +90,7 @@ function Home() {
         <div>
             <Box boxShadow='dark-lg' p='6' rounded='md' bgGradient='linear(to-l, #FFFFFF, #FFCF00)' margin-top='-50px'>
               <Text
-                bgGradient='linear(to-l, #003F91, #003F91)'
+                bgGradient='linear-gradient(180deg, #003F91, #003138)'
                 bgClip='text'
                 fontSize='6xl'
                 fontWeight='extrabold'
