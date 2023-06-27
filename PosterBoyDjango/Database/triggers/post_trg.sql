@@ -13,6 +13,7 @@ BEGIN
 	ELSE
 		INSERT INTO UserActions VALUES(DEFAULT, NEW.id, NEW.userid, NEW.boardid, "post", now());
 	END IF;
+	RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
