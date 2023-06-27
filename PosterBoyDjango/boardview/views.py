@@ -49,7 +49,7 @@ def add_post(request):
         post = Posts.objects.create(
             message=post_data['message'],
             message_type=post_data['message_type'],
-            uid=post_data['userid'],
+            userid=post_data['userid'],
             # id=post_data['id'], #The ID is automatically generated
             boardid=post_data['boardid'],
             color=post_data['color'],
@@ -61,9 +61,9 @@ def add_post(request):
         post.save()
         action = UserActions.objects.create(
             action="add",
-            uid=post_data['userid'],
-            pid=post.id, #The ID is the automatically generated from the post
-            date=post_data['date']
+            userid=post_data['userid'],
+            postid=post.id, #The ID is the automatically generated from the post
+            # date=post_data['date'] //Default date is current
         )
         action.save()
         return JsonResponse(post_data, status=201)
@@ -81,8 +81,8 @@ def lower_score(request, pid):
 
         action = UserActions.objects.create(
             action="delete", #This might not be right
-            uid=theUID,
-            pid=post.pid,
+            userid=theUID,
+            postid=post.postid,
         )
         action.save()
         #post.delete()

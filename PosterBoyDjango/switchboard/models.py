@@ -5,18 +5,36 @@ from django.contrib.auth.models import User
     
 
 class Boards(models.Model):
-    id = models.IntegerField()
-    topic_name = models.TextField(max_length=50)
-    actions = models.IntegerField()
-    reset = models.DurationField()
+    topic_name = models.CharField(max_length=50, blank=True, null=True)
+    actions = models.IntegerField(blank=True, null=True)
+    reset = models.DurationField(blank=True, null=True)
 
-    def __str__(self):
-        return self.topic_name
+    class Meta:
+        managed = False
+        db_table = 'boards'
 
-class UserStatus(models.Model):
-    userid = models.models.ForeignKey(User, on_delete=models.CASCADE)
-    boardid = models.IntegerField()
-    role = models.TextField(max_length=10)
+class AuthUser(models.Model):
+    password = models.CharField(max_length=128)
+    last_login = models.DateTimeField(blank=True, null=True)
+    is_superuser = models.BooleanField()
+    username = models.CharField(unique=True, max_length=150)
+    first_name = models.CharField(max_length=150)
+    last_name = models.CharField(max_length=150)
+    email = models.CharField(max_length=254)
+    is_staff = models.BooleanField()
+    is_active = models.BooleanField()
+    date_joined = models.DateTimeField()
 
-    def __str__(self):
-        return "{self.userid.username} - {self.boardid.topic_name} - {self.role}"
+    class Meta:
+        managed = False
+        db_table = 'auth_user'
+
+class Userstatus(models.Model):
+    userid = models.OneToOneField(AuthUser, models.DO_NOTHING, db_column='userid', primary_key=True)  # The composite primary key (userid, boardid) found, that is not supported. The first column is selected.
+    boardid = models.ForeignKey(Boards, models.DO_NOTHING, db_column='boardid')
+    role = models.CharField(max_length=10, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'userstatus'
+        unique_together = (('userid', 'boardid'),)
