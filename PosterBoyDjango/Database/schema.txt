@@ -16,9 +16,9 @@ Posts
 - message_type, integer (identifies whether content is text or img)
 - date, timestamp
 - color, integer
+- score, integer
 - x, integer
 - y, integer
-- score, integer
 
 Boards
 - id, integer, primary key
