@@ -20,7 +20,7 @@ class AuthUser(models.Model):
         db_table = 'auth_user'
 
 class Boards(models.Model):
-    id = models.IntegerField()
+    id = models.IntegerField(primary_key=True)
     topic_name = models.CharField(max_length=50, blank=True, null=True)
     actions = models.IntegerField(blank=True, null=True)
     reset = models.DurationField(blank=True, null=True)
