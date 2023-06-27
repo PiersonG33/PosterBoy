@@ -7,6 +7,7 @@ BEGIN
         INSERT INTO postarchive VALUES(DEFAULT, NEW.user_id, NEW.board_id, NEW.message, NEW.message_type, NOW);
         NEW := NULL;
     END IF;
+    RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
