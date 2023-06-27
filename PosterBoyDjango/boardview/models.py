@@ -73,9 +73,7 @@ class UserStatus(models.Model):
     boardid = models.ForeignKey(Boards, models.DO_NOTHING, db_column='boardid')
     role = models.CharField(max_length=10, blank=True, null=True)
 
-    def __str__(self):
-        return str(self.uid) + self.status
-    
+ 
     class Meta:
         managed = False
         db_table = 'userstatus'
