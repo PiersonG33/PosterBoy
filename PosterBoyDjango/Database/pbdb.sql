@@ -367,15 +367,16 @@ ALTER TABLE public.postarchive OWNER TO postgres;
 --
 
 CREATE TABLE public.posts (
-    userid integer,
     id integer NOT NULL,
+    userid integer,
     boardid integer,
     message character varying(200),
     message_type integer,
     date timestamp without time zone,
     color integer,
-    coordinates point,
-    score integer
+    score integer,
+    x integer,
+    y integer
 );
 
 
@@ -504,30 +505,6 @@ COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
 --
 
 COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
-1	Can add log entry	1	add_logentry
-2	Can change log entry	1	change_logentry
-3	Can delete log entry	1	delete_logentry
-4	Can view log entry	1	view_logentry
-5	Can add permission	2	add_permission
-6	Can change permission	2	change_permission
-7	Can delete permission	2	delete_permission
-8	Can view permission	2	view_permission
-9	Can add group	3	add_group
-10	Can change group	3	change_group
-11	Can delete group	3	delete_group
-12	Can view group	3	view_group
-13	Can add user	4	add_user
-14	Can change user	4	change_user
-15	Can delete user	4	delete_user
-16	Can view user	4	view_user
-17	Can add content type	5	add_contenttype
-18	Can change content type	5	change_contenttype
-19	Can delete content type	5	delete_contenttype
-20	Can view content type	5	view_contenttype
-21	Can add session	6	add_session
-22	Can change session	6	change_session
-23	Can delete session	6	delete_session
-24	Can view session	6	view_session
 \.
 
 
@@ -576,12 +553,6 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 --
 
 COPY public.django_content_type (id, app_label, model) FROM stdin;
-1	admin	logentry
-2	auth	permission
-3	auth	group
-4	auth	user
-5	contenttypes	contenttype
-6	sessions	session
 \.
 
 
@@ -590,24 +561,6 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 --
 
 COPY public.django_migrations (id, app, name, applied) FROM stdin;
-1	contenttypes	0001_initial	2023-06-09 16:49:04.374783-04
-2	auth	0001_initial	2023-06-09 16:49:04.442617-04
-3	admin	0001_initial	2023-06-09 16:49:04.461564-04
-4	admin	0002_logentry_remove_auto_add	2023-06-09 16:49:04.466547-04
-5	admin	0003_logentry_add_action_flag_choices	2023-06-09 16:49:04.472776-04
-6	contenttypes	0002_remove_content_type_name	2023-06-09 16:49:04.486729-04
-7	auth	0002_alter_permission_name_max_length	2023-06-09 16:49:04.494703-04
-8	auth	0003_alter_user_email_max_length	2023-06-09 16:49:04.503673-04
-9	auth	0004_alter_user_username_opts	2023-06-09 16:49:04.511894-04
-10	auth	0005_alter_user_last_login_null	2023-06-09 16:49:04.517859-04
-11	auth	0006_require_contenttypes_0002	2023-06-09 16:49:04.520848-04
-12	auth	0007_alter_validators_add_error_messages	2023-06-09 16:49:04.526828-04
-13	auth	0008_alter_user_username_max_length	2023-06-09 16:49:04.536672-04
-14	auth	0009_alter_user_last_name_max_length	2023-06-09 16:49:04.542647-04
-15	auth	0010_alter_group_name_max_length	2023-06-09 16:49:04.54763-04
-16	auth	0011_update_proxy_permissions	2023-06-09 16:49:04.552615-04
-17	auth	0012_alter_user_first_name_max_length	2023-06-09 16:49:04.55959-04
-18	sessions	0001_initial	2023-06-09 16:49:04.573546-04
 \.
 
 
@@ -616,7 +569,6 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 --
 
 COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
-shovlmsbyf9mbb0gnkike8w6ecqu4mfj	.eJxVjDsOwjAQBe_iGlmJvf5R0nMGy7tr4wBypDipEHeHSCmgfTPzXiKmba1x63mJE4uzGMXpd8NEj9x2wPfUbrOkua3LhHJX5EG7vM6cn5fD_TuoqddvTYN27IxyynpvnEejYOBMNFpArTWAQ-CiMFACE7ImA1AKhhTAqkDi_QG-1zdU:1q7jG9:Hj8jeQZ8gU8ShBaxHNSakHQQ91PGtB3xft5lOVFeAHc	2023-06-23 17:03:01.112244-04
 \.
 
 
@@ -632,7 +584,7 @@ COPY public.postarchive (id, userid, boardid, message, message_type, date, color
 -- Data for Name: posts; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.posts (userid, id, boardid, message, message_type, date, color, coordinates, score) FROM stdin;
+COPY public.posts (id, userid, boardid, message, message_type, date, color, score, x, y) FROM stdin;
 \.
 
 
