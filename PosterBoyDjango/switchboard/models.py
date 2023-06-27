@@ -14,7 +14,7 @@ class Boards(models.Model):
         return self.topic_name
 
 class UserStatus(models.Model):
-    userid = models.models.ForeignKey(User, on_delete=models.CASCADE)
+    userid = models.ForeignKey(User, on_delete=models.CASCADE)
     boardid = models.IntegerField()
     role = models.TextField(max_length=10)
 
