@@ -4,8 +4,8 @@ from django.utils import timezone
 # Create your models here.
 class Posts(models.Model):
     message = models.CharField(max_length=200)
-    uid = models.IntegerField()
-    pid = models.IntegerField()
+    userid = models.IntegerField()
+    id = models.IntegerField()
     boardid = models.IntegerField()
     color = models.IntegerField()
     date = models.DateTimeField(default=timezone.now) # set default creation date to whenever model is created
