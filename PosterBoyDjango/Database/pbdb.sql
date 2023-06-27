@@ -367,8 +367,8 @@ ALTER TABLE public.postarchive OWNER TO postgres;
 --
 
 CREATE TABLE public.posts (
-    userid integer,
     id integer NOT NULL,
+    userid integer,
     boardid integer,
     message character varying(200),
     message_type integer,
@@ -475,7 +475,7 @@ ALTER TABLE ONLY public.posts ALTER COLUMN id SET DEFAULT nextval('public.posts_
 
 ALTER TABLE ONLY public.useractions ALTER COLUMN id SET DEFAULT nextval('public.useractions_id_seq'::regclass);
 
---
+
 -- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
