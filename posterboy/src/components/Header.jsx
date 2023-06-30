@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import SignUp from "./SignUp";
 import { FaHome, FaUserCircle, FaRegQuestionCircle, FaAngleDown} from "react-icons/fa";
 import { 
   Button, ButtonGroup,  IconButton, 
@@ -19,16 +18,14 @@ import {
 
 import { Link } from "react-router-dom";
 import LogoPic from '../assets/logo.svg';
-
+import SignUp from "./SignUp";
 
 
 // This component represents the header our website
 function Header() {
   return (
     <HeaderContainer>
-      <SignUpContainer>
-        <SignUp/>
-      </SignUpContainer>
+      <SignUp id="signUp"/>
       <HeaderInnerContainer>
         <HeaderLeft>
           <LogoContainer>
@@ -75,7 +72,7 @@ function LoginOrProfile() {
 
   let content;
 
-  let logged_in = true; // Dummy variable, should actually check if logged in.
+  let logged_in = false; // Dummy variable, should actually check if logged in.
 
   if (logged_in)
   {
@@ -88,7 +85,7 @@ function LoginOrProfile() {
   return (
     <Popover>
       <PopoverTrigger>
-          <IconButton as="a" href="#" color='#FFCF00' aria-label="Profile" icon={<FaUserCircle fontSize="1.75rem" />} />
+          <IconButton as="a" href="#" color='#003F91' aria-label="Profile" icon={<FaUserCircle fontSize="1.75rem" />} />
       </PopoverTrigger>
       <PopoverContent>
         
@@ -97,10 +94,6 @@ function LoginOrProfile() {
       </PopoverContent>
     </Popover>
   );
-}
-
-function signUpOverlay() {
-  document.getElementById("signUpID").style.display = "block";
 }
 
 // This component is used to style the header
@@ -145,24 +138,5 @@ const LogoContainer = styled.div`
 const Logo = styled.img`
   height: 100px;
 `;
-
-const SignUpContainer = styled.section`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  font-size: 15px;
-  color: white;
-  transform: translate(-50%,-50%);
-  z-index: 5;
-  -ms-transform: translate(-50%,-50%);* Black background with opacity */
-`
-
-const SignUpText = styled.p`
-
-`
-
-const SignUpLink = styled.button`
-  color: #003F91;
-`
 
 export default Header;

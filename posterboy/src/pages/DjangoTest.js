@@ -17,7 +17,7 @@ export default class DjangoTest extends Component {
 
   async loadData() {
     /*  put the link of the data into get() */
-    const promise = await axios.get(); 
+    const promise = await axios.get("http://localhost:8000/board/"); 
     const status = promise.status;
     if(status === 200 ){ 
       const data = promise.data.data;
