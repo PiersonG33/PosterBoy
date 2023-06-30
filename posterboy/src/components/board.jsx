@@ -20,7 +20,6 @@ class BoardCanvas extends React.Component {
 
     const mouseX = (event.clientX - boardRect.left)*scaleX;
     const mouseY = (event.clientY - boardRect.top)*scaleY;
-    alert(`${mouseX}, ${mouseY}`);
     const postItPosition = { left: mouseX, top: mouseY };
     this.setState({ postItPosition });
   };
