@@ -5,6 +5,11 @@
 -- Dumped from database version 15.3
 -- Dumped by pg_dump version 15.3
 
+\c postgres
+DROP DATABASE IF EXISTS posterboytesting;
+CREATE DATABASE posterboytesting;
+\c posterboytesting
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -16,16 +21,113 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+--
+-- Name: legal_action_trgf(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.legal_action_trgf() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    max int;
+    spent int;
+BEGIN
+    SELECT COUNT(*) INTO spent FROM UserActions WHERE userid = NEW.userid AND boardid = NEW.boardid;
+    SELECT actions INTO max FROM boards WHERE id = NEW.boardid;
+
+    IF spent >= max THEN
+        NEW := NULL;
+    ELSE
+        IF NEW.action LIKE 'promote' THEN 
+            UPDATE posts SET score = score + 1 WHERE id = NEW.postid;
+        ELSIF NEW.action LIKE 'demote' THEN
+            UPDATE posts SET score = score - 1 WHERE id = NEW.postid;
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.legal_action_trgf() OWNER TO postgres;
+
+--
+-- Name: post_trgf(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.post_trgf() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+DECLARE 
+	actionsTrg int;
+	limits int;
+BEGIN
+	SET CONSTRAINTS useractions_postid_fkey DEFERRED;
+	SELECT count(*) INTO actionsTrg FROM UserActions WHERE userid = NEW.userid AND boardid = NEW.boardid;
+	SELECT actions INTO limits FROM Boards WHERE id = NEW.boardid;
+	IF actionsTrg >= limits THEN
+		NEW := NULL;
+	ELSE
+		INSERT INTO UserActions VALUES(DEFAULT, NEW.id, NEW.userid, NEW.boardid, 'post', now());
+	END IF;
+	RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.post_trgf() OWNER TO postgres;
+
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
+
+--
+-- Name: postarchive; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.postarchive (
+    id integer NOT NULL,
+    userid integer,
+    boardid integer,
+    message character varying(200),
+    message_type integer,
+    date timestamp without time zone,
+    color integer,
+    x integer,
+    y integer
+);
+
+
+ALTER TABLE public.postarchive OWNER TO postgres;
+
+--
+-- Name: postarchive_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.postarchive_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.postarchive_id_seq OWNER TO postgres;
+
+--
+-- Name: postarchive_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.postarchive_id_seq OWNED BY public.postarchive.id;
+
 
 --
 -- Name: actionarchive; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.actionarchive (
-    id integer NOT NULL,
+    id integer DEFAULT nextval('public.postarchive_id_seq'::regclass) NOT NULL,
     postid integer,
     userid integer,
     boardid integer,
@@ -35,6 +137,28 @@ CREATE TABLE public.actionarchive (
 
 
 ALTER TABLE public.actionarchive OWNER TO postgres;
+
+--
+-- Name: actionarchive_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.actionarchive_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.actionarchive_id_seq OWNER TO postgres;
+
+--
+-- Name: actionarchive_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.actionarchive_id_seq OWNED BY public.actionarchive.id;
+
 
 --
 -- Name: auth_group; Type: TABLE; Schema: public; Owner: postgres
@@ -344,25 +468,6 @@ CREATE TABLE public.django_session (
 ALTER TABLE public.django_session OWNER TO postgres;
 
 --
--- Name: postarchive; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.postarchive (
-    id integer NOT NULL,
-    userid integer,
-    boardid integer,
-    message character varying(200),
-    message_type integer,
-    date timestamp without time zone,
-    color integer,
-    x integer,
-    y integer
-);
-
-
-ALTER TABLE public.postarchive OWNER TO postgres;
-
---
 -- Name: posts; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -463,6 +568,13 @@ ALTER TABLE ONLY public.boards ALTER COLUMN id SET DEFAULT nextval('public.board
 
 
 --
+-- Name: postarchive id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.postarchive ALTER COLUMN id SET DEFAULT nextval('public.postarchive_id_seq'::regclass);
+
+
+--
 -- Name: posts id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -476,6 +588,142 @@ ALTER TABLE ONLY public.posts ALTER COLUMN id SET DEFAULT nextval('public.posts_
 ALTER TABLE ONLY public.useractions ALTER COLUMN id SET DEFAULT nextval('public.useractions_id_seq'::regclass);
 
 
+--
+-- Data for Name: actionarchive; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.actionarchive (id, postid, userid, boardid, action, date) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: boards; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.boards (id, topic_name, actions, reset) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_content_type (id, app_label, model) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_migrations (id, app, name, applied) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
+\.
+
+
+--
+-- Data for Name: postarchive; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.postarchive (id, userid, boardid, message, message_type, date, color, x, y) FROM stdin;
+\.
+
+
+--
+-- Data for Name: posts; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.posts (id, userid, boardid, message, message_type, date, color, score, x, y) FROM stdin;
+\.
+
+
+--
+-- Data for Name: useractions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.useractions (id, postid, userid, boardid, action, date) FROM stdin;
+\.
+
+
+--
+-- Data for Name: userstatus; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.userstatus (userid, boardid, role) FROM stdin;
+\.
+
+
+--
+-- Name: actionarchive_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.actionarchive_id_seq', 1, false);
+
+
+--
 -- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -507,7 +755,7 @@ SELECT pg_catalog.setval('public.auth_user_groups_id_seq', 1, false);
 -- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.auth_user_id_seq', 1, true);
+SELECT pg_catalog.setval('public.auth_user_id_seq', 1, false);
 
 
 --
@@ -543,6 +791,13 @@ SELECT pg_catalog.setval('public.django_content_type_id_seq', 6, true);
 --
 
 SELECT pg_catalog.setval('public.django_migrations_id_seq', 18, true);
+
+
+--
+-- Name: postarchive_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.postarchive_id_seq', 5, true);
 
 
 --
@@ -835,6 +1090,20 @@ CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session U
 
 
 --
+-- Name: useractions legal_action_trg; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER legal_action_trg BEFORE INSERT ON public.useractions FOR EACH ROW EXECUTE FUNCTION public.legal_action_trgf();
+
+
+--
+-- Name: posts post_trg; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER post_trg BEFORE INSERT ON public.posts FOR EACH ROW EXECUTE FUNCTION public.post_trgf();
+
+
+--
 -- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -935,7 +1204,7 @@ ALTER TABLE ONLY public.useractions
 --
 
 ALTER TABLE ONLY public.useractions
-    ADD CONSTRAINT useractions_postid_fkey FOREIGN KEY (postid) REFERENCES public.posts(id);
+    ADD CONSTRAINT useractions_postid_fkey FOREIGN KEY (postid) REFERENCES public.posts(id) DEFERRABLE;
 
 
 --

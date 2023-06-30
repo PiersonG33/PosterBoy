@@ -3,24 +3,20 @@ DROP FUNCTION IF EXISTS legal_action_trgf;
 
 CREATE FUNCTION legal_action_trgf() RETURNS TRIGGER as $$
 DECLARE
-    done int;
-    daily int;
-    score int;
-    num int;
+    max int;
+    spent int;
 BEGIN
-    SELECT COUNT(*) INTO done FROM UserActions WHERE user_id == NEW.user_id AND board_id == NEW.board_id;
-    SELECT actions INTO daily FROM boards WHERE board_id == NEW.board_id;
+    SELECT COUNT(*) INTO spent FROM UserActions WHERE userid = NEW.userid AND boardid = NEW.boardid;
+    SELECT actions INTO max FROM boards WHERE id = NEW.boardid;
 
-    IF done - daily <= 0 THEN
+    IF spent >= max THEN
         NEW := NULL;
     ELSE
-        num := 0;
-        IF NEW.actions LIKE "promote" THEN 
-            num := 1;
-        ELSE
-            num := -1;
+        IF NEW.action LIKE 'promote' THEN 
+            UPDATE posts SET score = score + 1 WHERE id = NEW.postid;
+        ELSIF NEW.action LIKE 'demote' THEN
+            UPDATE posts SET score = score - 1 WHERE id = NEW.postid;
         END IF;
-        UPDATE posts SET score = score + num WHERE post_id == NEW.post_id;
     END IF;
     RETURN NEW;
 END;

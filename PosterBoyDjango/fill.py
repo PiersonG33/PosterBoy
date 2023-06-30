@@ -10,7 +10,7 @@ from datetime import datetime, timezone
 
 def generateWord(maxLen):
     len = random.randint(6, maxLen)
-    out = ""
+    out = "a"
     for i in range(len):
         char = chr(random.randint(32, 126))
         if(char.isalnum()):
