@@ -11,7 +11,7 @@ BEGIN
 	IF actionsTrg >= limits THEN
 		NEW := NULL;
 	ELSE
-		INSERT INTO UserActions VALUES(DEFAULT, NEW.id, NEW.userid, NEW.boardid, "post", now());
+		INSERT INTO UserActions VALUES(DEFAULT, NEW.id, NEW.userid, NEW.boardid, 'post', now());
 	END IF;
 	RETURN NEW;
 END;
