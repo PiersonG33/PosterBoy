@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardBody, CardHeader, CardFooter, Box } from '@chakra-ui/react'
+import { Card, CardBody, CardFooter, Box } from '@chakra-ui/react'
 
 /*
   The color of the post-it. This could become an argument of the
@@ -17,46 +17,40 @@ const darkColor = postItHue.concat(".200");
 const width = "500px";
 const height = "300px";
 
-// "content" is the text inside the post-it
-function PostIt(props) {
-    return(
-      <Card 
-       bg={lightColor} color="black"
-       w={width} h={height}
-      >
+function PostIt({ body }) {
+  return (
+    <Card bg={lightColor} color="black" w={width} h={height}>
+      <CardBody>{body}</CardBody>
+      <CardFooter>
+        <DogEar />
+      </CardFooter>
+    </Card>
+  );
+}
 
-        {/* Show content of the Post in the main section. */}
-        <CardBody> <b>{props.author}</b> {props.content} </CardBody>
-        
-        <CardFooter>
-
-            {/* The author of the post, shown in italics. */}
-
-            {/* 
-              This is the little dog-ear in the lower-right corner.
-              It's kinda buggy, in that there is a shadow where there 
-              shouldn't be in the corner, so if that can't be fixed,
-              you can comment/remove this code and that'll get rid of
-              the dog-ear.
-              */}
-            <Box
-                position="absolute"
-                bottom={0} right={0}
-                borderBottomWidth={50}
-                borderLeftWidth={50}
-                borderLeftColor={darkColor}
-            />
-            <Box
-                position="absolute"
-                bottom={0} right={0}
-                borderTopWidth={50}
-                borderTopColor="transparent"
-                borderRightWidth={50}
-                borderRightColor={backgroundColor}
-            />
-        </CardFooter>
-      </Card>
-    );
-  }
+  /* 
+    This is the little dog-ear in the lower-right corner.
+    It's kinda buggy, in that there is a shadow where there 
+    shouldn't be in the corner, so if that can't be fixed,
+    you can comment/remove this code and that'll get rid of
+    the dog-ear.
+  */
+  function DogEar() {return <div>
+      <Box
+      position="absolute"
+      bottom={0} right={0}
+      borderBottomWidth={50}
+      borderLeftWidth={50}
+      borderLeftColor={darkColor}/>
+      <Box
+      position="absolute"
+      bottom={0} right={0}
+      borderTopWidth={50}
+      borderTopColor="transparent"
+      borderRightWidth={50}
+      borderRightColor={backgroundColor}
+      />
+    </div>
+  };
 
   export default PostIt

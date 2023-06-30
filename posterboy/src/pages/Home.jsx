@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import PostIt from './../components/post-it';
+import PostItDone from './../components/post-it-done';
 import { Text } from '@chakra-ui/react'
 import LogoAnimation from '../assets/logo_animation.mp4';
 import pbMouseIconNormal from '../assets/pb_mouse_icon_normal.png';
@@ -82,7 +82,7 @@ function Home() {
         </div>
         {/* This component displays a post-it note with a welcome message */}
         <PostItContainer style={{ marginBottom: "100px" }}>
-          <PostIt author="@PosterBoy" content="Hello from the open-source world! It's much nicer over here ;)"/>
+          <PostItDone author="@PosterBoy" content="Hello from the open-source world! It's much nicer over here ;)"/>
         </PostItContainer>
         <div>
             <Box boxShadow='dark-lg' p='6' rounded='md' bgGradient='linear(to-l, #FFFFFF, #FFCF00)' margin-top='-50px'>
