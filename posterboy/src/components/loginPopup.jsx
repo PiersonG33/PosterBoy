@@ -18,6 +18,15 @@ import {
   PopoverBody 
 } from '@chakra-ui/react'
 
+import SignUp from "./SignUp";
+
+function openSignUp() {
+  console.log("hi");
+  if(document.getElementById("signUp")) {
+    document.getElementById("signUp").style.display = "block";
+  }
+};
+
 function LoginPopup() {
   const newLocal = <div style={{ color: 'black' }}>
     <PopoverArrow />
@@ -49,7 +58,7 @@ function LoginPopup() {
             type='submit'
             variant='link'
             as="a"
-            href="/SignUp"
+            onClick={openSignUp}
             isLoading={false}
           >
             Sign up
@@ -60,8 +69,10 @@ function LoginPopup() {
     </PopoverBody>
   </div>;
   return (
-    newLocal
+      newLocal
     );
 };
+
+
 
 export default LoginPopup;
