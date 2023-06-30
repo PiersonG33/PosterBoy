@@ -30,10 +30,9 @@ function LoginPopup() {
   };
 
   return (
-    <div>
-      <SignUpContainer>
-        <SignUp style={{display: isActive ? 'none' : 'block'}}/>
-      </SignUpContainer>
+    <LoginContainer>
+      <div style={{display: isActive ? 'none' : 'block'}}>
+      </div>
       <div style={{ color: 'black' }}>
         <PopoverArrow />
         <PopoverCloseButton />
@@ -74,8 +73,13 @@ function LoginPopup() {
 
         </PopoverBody>
       </div>
-    </div>
+    </LoginContainer>
     );
 };
 
+const LoginContainer = styled.div`
+  height: 100%;
+  width: 100%;
+
+`
 export default LoginPopup;
