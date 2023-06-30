@@ -64,7 +64,7 @@ for b in range(3):
         dt = datetime.now(timezone.utc)
         x = random.randint(0,2300)
         y = random.randint(0,1800)
-        cursor.execute("INSERT INTO posts VALUES(" + str(user_id[0]) + ", DEFAULT, " + str(board_id[0]) + ", \'" + generateWord(200) + "\', " + str(0) + ", \'" + str(dt) + "\', " + str(0) + ", " + str(x) + ", " + str(y) + ", " + str(random.randint(0, 10)) + ");")
+        cursor.execute("INSERT INTO posts VALUES(DEFAULT, " + str(user_id[0]) + ", " + str(board_id[0]) + ", \'" + generateWord(200) + "\', " + str(0) + ", \'" + str(dt) + "\', " + str(0) + ", " + str(random.randint(0, 10)) + ", " + str(x) + ", " + str(y) +  ");")
 connection.commit()
         
 # Status - 10

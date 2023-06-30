@@ -22,6 +22,7 @@ BEGIN
         END IF;
         UPDATE posts SET score = score + num WHERE post_id == NEW.post_id;
     END IF;
+    RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 

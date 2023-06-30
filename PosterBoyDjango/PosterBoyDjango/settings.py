@@ -39,12 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'boardview',
+    'switchboard',
     
     "corsheaders",
 
     "rest_framework",
 
     "api",
+    "core",
 ]
 
 MIDDLEWARE = [
