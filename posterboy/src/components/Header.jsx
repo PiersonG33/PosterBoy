@@ -84,7 +84,7 @@ function LoginOrProfile() {
     <Popover>
       <PopoverTrigger>
           <IconButton as="a" href="#" 
-          color='#FFCF00'
+          color='#003F91'
           aria-label="Profile" 
           icon={<FaUserCircle fontSize="1.75rem" />} 
           />
