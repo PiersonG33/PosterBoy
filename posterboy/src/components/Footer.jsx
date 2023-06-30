@@ -5,7 +5,7 @@ import { ButtonGroup,  IconButton } from '@chakra-ui/react'
 import RCOSLogo from '../assets/rcos_logo.svg';
 
 
-const comments = ["I like vertebraes", "Reddit faces no chance.", "The up and coming social media application.", "Don't worry, we recycle the post-its.", "Go outside and touch grass.", "Made by CS majors from RPI."]
+const comments = ["I like vertebraes", "Reddit faces no chance.", "The up and coming social media application.", "Don't worry, we recycle the post-its.", "Go outside and touch grass.", "Made by CS majors from RPI.", "This definitely won't be a problem down the road."]
 
 // This component represents the footer of the Official PosterBoy Website!
 function Footer() {
