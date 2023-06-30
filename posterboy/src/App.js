@@ -8,6 +8,20 @@ import AboutPage from './pages/AboutPage';
 import DjangoTest from './pages/DjangoTest';
 import { ChakraProvider } from '@chakra-ui/react';
 
+import React, { Component } from "react";
+
+// class App extends Component {
+//   render() {
+//     return (
+//       <Router>
+//         <Routes>
+//           <Route path="/" exact element={<DjangoTest/>} />
+//         </Routes>
+//       </Router>
+//     );
+//   }
+// }
+
 function App() {
   return (
     <ChakraProvider>

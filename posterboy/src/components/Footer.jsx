@@ -10,7 +10,6 @@ const comments = ["Reddit faces no chance.", "The up and coming social media app
 // This component represents the footer of the Official PosterBoy Website!
 function Footer() {
   let num = Math.floor(Math.random() * 5);
-  console.log(num);
   return (
     <FooterContainer>
         <FooterLeft>
