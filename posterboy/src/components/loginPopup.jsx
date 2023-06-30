@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useState} from "react";
+import styled from "styled-components";
 
 import { 
   Stack,
@@ -20,59 +21,63 @@ import {
 
 import SignUp from "./SignUp";
 
-function openSignUp() {
-  console.log("hi");
-  if(document.getElementById("signUp")) {
-    document.getElementById("signUp").style.display = "block";
-  }
-};
-
 function LoginPopup() {
-  const newLocal = <div style={{ color: 'black' }}>
-    <PopoverArrow />
-    <PopoverCloseButton />
-    <PopoverHeader>
-      <center><b>Log In</b></center>
-    </PopoverHeader>
+  const [isActive, setIsActive] = useState(false);
 
-    <PopoverBody>
-      <FormControl isRequired>
-        <FormLabel>Email</FormLabel>
-        <Input type='email' />
-        <FormLabel>Password</FormLabel>
-        <Input type='password' />
+  const handleClick = () => {
+    setIsActive(current => !current);
+  };
 
-        <Stack spacing={2} direction='row' align='center'>
-          <Button
-            mt={4}
-            colorScheme='green'
-            type='submit'
-            isLoading={false}
-          >
-            Log in
-          </Button>
-
-          <Button
-            mt={4}
-            colorScheme='teal'
-            type='submit'
-            variant='link'
-            as="a"
-            onClick={openSignUp}
-            isLoading={false}
-          >
-            Sign up
-          </Button>
-        </Stack>
-      </FormControl>
-
-    </PopoverBody>
-  </div>;
   return (
-      newLocal
+    <div>
+      <SignUp style={{display: isActive ? 'none' : 'block'}}/>
+      <Login style={{ color: 'black' }}>
+        <PopoverArrow />
+        <PopoverCloseButton />
+        <PopoverHeader>
+          <center><b>Log In</b></center>
+        </PopoverHeader>
+
+        <PopoverBody>
+          <FormControl isRequired>
+            <FormLabel>Email</FormLabel>
+            <Input type='email' />
+            <FormLabel>Password</FormLabel>
+            <Input type='password' />
+
+            <Stack spacing={2} direction='row' align='center'>
+              <Button
+                mt={4}
+                colorScheme='green'
+                type='submit'
+                isLoading={false}
+              >
+                Log in
+              </Button>
+
+              <Button
+                mt={4}
+                colorScheme='teal'
+                type='submit'
+                variant='link'
+                as="a"
+                onClick={handleClick}
+                isLoading={false}
+              >
+                Sign up
+              </Button>
+            </Stack>
+          </FormControl>
+
+        </PopoverBody>
+      </Login>
+    </div>
     );
 };
 
-
+const Login = styled.div`
+  width: 100vw;
+  height: 100vh;
+`;
 
 export default LoginPopup;
