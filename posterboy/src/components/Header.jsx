@@ -18,14 +18,12 @@ import {
 
 import { Link } from "react-router-dom";
 import LogoPic from '../assets/logo.svg';
-import SignUp from "./SignUp";
 
 
 // This component represents the header our website
 function Header() {
   return (
     <HeaderContainer>
-      <SignUp id="signUp"/>
       <HeaderInnerContainer>
         <HeaderLeft>
           <LogoContainer>
@@ -85,7 +83,11 @@ function LoginOrProfile() {
   return (
     <Popover>
       <PopoverTrigger>
-          <IconButton as="a" href="#" color='#003F91' aria-label="Profile" icon={<FaUserCircle fontSize="1.75rem" />} />
+          <IconButton as="a" href="#" 
+          color='#003F91'
+          aria-label="Profile" 
+          icon={<FaUserCircle fontSize="1.75rem" />} 
+          />
       </PopoverTrigger>
       <PopoverContent>
         

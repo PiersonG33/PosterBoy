@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import styled from "styled-components";
-
+import LoginPopup from './loginPopup';
 import {
   Flex,
   Box,
@@ -108,7 +108,6 @@ function SignUp() {
 
 
 const WindowView = styled.div`
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -118,7 +117,6 @@ const WindowView = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
 `
 const SignUpContainer = styled.section`
-  display: block;
   top: 28%;
   left: 50%;
   width: 30em;
