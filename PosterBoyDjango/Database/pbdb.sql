@@ -2,13 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 15.3
--- Dumped by pg_dump version 15.3
-
-\c postgres
-DROP DATABASE IF EXISTS posterboytesting;
-CREATE DATABASE posterboytesting;
-\c posterboytesting
+-- Dumped from database version 15.2
+-- Dumped by pg_dump version 15.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -20,6 +15,27 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
+
+--
+-- Name: archiver_trgf(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.archiver_trgf() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    IF NEW.score <= 0 THEN 
+        INSERT INTO postarchive VALUES(DEFAULT, NEW.userid, NEW.boardid, NEW.message, NEW.message_type, now());
+        UPDATE useractions SET postid = NULL WHERE postid = NEW.id;
+        DELETE FROM posts WHERE id = NEW.id;
+        RETURN NULL;
+    END IF;
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.archiver_trgf() OWNER TO postgres;
 
 --
 -- Name: legal_action_trgf(); Type: FUNCTION; Schema: public; Owner: postgres
@@ -797,7 +813,7 @@ SELECT pg_catalog.setval('public.django_migrations_id_seq', 18, true);
 -- Name: postarchive_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.postarchive_id_seq', 5, true);
+SELECT pg_catalog.setval('public.postarchive_id_seq', 11, true);
 
 
 --
@@ -1090,10 +1106,17 @@ CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session U
 
 
 --
+-- Name: posts archiver_trg; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER archiver_trg BEFORE UPDATE ON public.posts FOR EACH ROW EXECUTE FUNCTION public.archiver_trgf();
+
+
+--
 -- Name: useractions legal_action_trg; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
-CREATE TRIGGER legal_action_trg BEFORE INSERT ON public.useractions FOR EACH ROW EXECUTE FUNCTION public.legal_action_trgf();
+CREATE TRIGGER legal_action_trg AFTER INSERT ON public.useractions FOR EACH ROW EXECUTE FUNCTION public.legal_action_trgf();
 
 
 --

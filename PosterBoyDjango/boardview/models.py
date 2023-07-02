@@ -79,7 +79,7 @@ class UserStatus(models.Model):
         db_table = 'userstatus'
         unique_together = (('userid', 'boardid'),)
     
-class Postarchive(models.Model):
+class PostArchive(models.Model):
     id = models.IntegerField(primary_key=True)
     userid = models.IntegerField(blank=True, null=True)
     boardid = models.IntegerField(blank=True, null=True)

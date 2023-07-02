@@ -22,5 +22,5 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER legal_action_trg before INSERT ON UserActions
+CREATE TRIGGER legal_action_trg after INSERT ON UserActions
     FOR EACH ROW EXECUTE FUNCTION legal_action_trgf();
