@@ -32,7 +32,7 @@ function Footer() {
 const FooterContainer = styled.div`
   background-color: #003F91;
   color: white;
-  height: 100px;
+  height: 12vh;
   display: flex;
   justify-content: center;
   align-items: center;

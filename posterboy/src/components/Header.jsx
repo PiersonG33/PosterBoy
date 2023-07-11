@@ -102,7 +102,7 @@ function LoginOrProfile() {
 const HeaderContainer = styled.div`
   background-color: #FFFFFF;
   color: white;
-  height: 80px;
+  height: 12vh;
   display: flex;
   justify-content: center;
   align-items: center;
