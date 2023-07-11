@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 from .models import Posts, Boards, UserActions, UserStatus, PostArchive
-
+"""
 @admin.register(Posts)
 class PostsAdmin(admin.ModelAdmin):
     list_display = ('id', 'message', 'message_type', 'userid', 'boardid', 'color', 'date', 'score', 'x', 'y')
@@ -17,3 +17,4 @@ class BoardsAdmin(admin.ModelAdmin):
     list_filter = ('topic_name')
     search_fields = ('topic_name')
 admin.site.register(Boards,BoardsAdmin)
+"""
