@@ -21,7 +21,7 @@ function Board() {
 export default Board
 
 const BoardContainer = styled.div`
-  height: 90vw;
+  height: 90vh;
   width: 100vw;
   position: relative;
 `;

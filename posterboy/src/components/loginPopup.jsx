@@ -25,15 +25,17 @@ function LoginPopup() {
   const [isActive, setIsActive] = useState(false);
 
   const handleClick = () => {
-    setIsActive(current => !current);
-    console.log(setIsActive);
+    setIsActive(isActive => !isActive);
+    console.log(isActive);
   };
 
   return (
     <LoginContainer>
-      <div style={{display: isActive ? 'none' : 'block'}}>
-      </div>
-      <div style={{ color: 'black' }}>
+      <WindowView style={{display: isActive ? 'block' : 'none'}}>
+        <Button onClick={handleClick}>X</Button>
+        <SignUp/>
+      </WindowView>
+      <div style={{ color: 'black'}}>
         <PopoverArrow />
         <PopoverCloseButton />
         <PopoverHeader>
@@ -78,8 +80,16 @@ function LoginPopup() {
 };
 
 const LoginContainer = styled.div`
-  height: 100%;
-  width: 100%;
-
 `
+
+const WindowView = styled.div`
+  position: fixed;
+  z-index: 10;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  background-color: rgb(0,0,0,0.3);
+`
+
 export default LoginPopup;
