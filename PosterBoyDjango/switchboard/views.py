@@ -17,7 +17,6 @@ def getboard(request, board_name):
         for board in boards:
             try:
                 status = get_object_or_404(Userstatus, boardid=1, userid=request.user.id)
-                print("Hey")
                 status_data = {
                     'role': status.role,
                 }
