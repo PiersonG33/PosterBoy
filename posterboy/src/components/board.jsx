@@ -8,31 +8,34 @@ import {
   Button
 } from '@chakra-ui/react';
 
-
 const imageWidth = 2621;
 const imageHeight = 1805;
 
 class BoardCanvas extends React.Component {
   state = {
-    postItPosition: null
+    postItInProgress: null
   };
 
   handleClick = (event) => {
     const boardRect = this.boardRef.getBoundingClientRect();
-    
-    const scaleX = this.boardRef.width / boardRect.width,
-     scaleY = this.boardRef.height / boardRect.height;  
-
-    const mouseX = (event.clientX - boardRect.left)*scaleX;
-    const mouseY = (event.clientY - boardRect.top)*scaleY;
-
+  
+    const scaleX = this.boardRef.width / boardRect.width;
+    const scaleY = this.boardRef.height / boardRect.height;
+  
+    const mouseX = (event.clientX - boardRect.left) * scaleX;
+    const mouseY = (event.clientY - boardRect.top) * scaleY;
+  
     const postItPosition = { left: mouseX, top: mouseY };
-    this.setState({ postItPosition });
+    const p = <PostInProgress position={postItPosition} />; // Use JSX syntax
+    this.setState({ postItInProgress: p }); // Update state key
+  
+    // ...
+  
   };
 
   render() {
-    const { postItPosition } = this.state;
-
+    const { postItInProgress } = this.state; // Update state key
+  
     return (
       <BoardContainer>
         <Space style={{ backgroundColor: '#FFCF0030' }}>
@@ -42,11 +45,10 @@ class BoardCanvas extends React.Component {
             onClick={this.handleClick}
             ref={(ref) => (this.boardRef = ref)}
           />
-          {postItPosition && (
-            <PostItContainer left={postItPosition.left} top={postItPosition.top}>
-              <PostInProgress position={postItPosition} />
-            </PostItContainer>
-          )}
+  
+          {postItInProgress} {/* Render the postItInProgress component */}
+  
+          {/* Other post-its should render too */}
         </Space>
       </BoardContainer>
     );
@@ -64,34 +66,35 @@ function PostInProgress({position}) {
   };
 
   return (
-    <PostIt body={
-      <div>
-        <div
-          contentEditable="true"
-          style={{
-            padding: '10px',
-            textAlign: 'left'
-          }}
-        >
-          Start typing your post here...
+    <PostItContainer left={position.left} top={position.top}>
+      <PostIt body={
+        <div>
+          <div
+            contentEditable="true"
+            style={{
+              padding: '10px',
+              textAlign: 'left'
+            }}
+          />
+      
+          <Button
+            onClick={handleSubmit}
+            style={{
+              display: 'block',
+              margin: '10px 0',
+              padding: '8px 16px',
+              background: '#4CAF50',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            Submit
+          </Button>
         </div>
-        <Button
-          onClick={handleSubmit}
-          style={{
-            display: 'block',
-            margin: '10px 0',
-            padding: '8px 16px',
-            background: '#4CAF50',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
-          }}
-        >
-          Submit
-        </Button>
-      </div>
-    }/>
+      }/>
+    </PostItContainer>
   );
 }
 
@@ -115,10 +118,11 @@ const BoardImage = styled.img`
   width: 100%;
 `;
 
+// Update the left and top CSS properties in PostItContainer
 const PostItContainer = styled.div`
   position: absolute;
-  left: ${({ left }) => left}px;
-  top: ${({ top }) => top}px;
+  left: ${props => props.left}px;
+  top: ${props => props.top}px;
   z-index: 9999;
 `;
 
