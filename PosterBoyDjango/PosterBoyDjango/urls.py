@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from api.views import note
+#from core.views import index
 
 urlpatterns = [
-    path("board/", include("boardview.urls")),
+    path("board/", note, name="note"),
+    path("switch/", include('switchboard.urls')),
     path('admin/', admin.site.urls),
 ]

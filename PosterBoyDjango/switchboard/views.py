@@ -1,9 +1,13 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.db.models import Q
-from switchboard.models import Boards, UserStatus
+from switchboard.models import Boards, Userstatus
 
 # Create your views here.
+
+def index(request):
+    return HttpResponse('<h1>Django Include URLS</h1>')
+
 def getboard(request):
     board_name = request.GET.get('board_name', '')
     try:
@@ -12,11 +16,11 @@ def getboard(request):
         for board in boards:
             try:
 
-                status = get_object_or_404(UserStatus, boardid=board, userid=request.user)
+                status = get_object_or_404(Userstatus, boardid=board, userid=request.user)
                 status_data = {
                     'role': status.role,
                 }
-            except UserStatus.DoesNotExist:
+            except Userstatus.DoesNotExist:
                 status_data = {}
 
             board_data = {

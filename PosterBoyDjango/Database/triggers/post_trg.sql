@@ -3,16 +3,18 @@ DROP FUNCTION IF EXISTS post_trgf;
 
 CREATE FUNCTION post_trgf() RETURNS TRIGGER AS $$
 DECLARE 
-	actions int;
+	actionsTrg int;
 	limits int;
 BEGIN
-	SELECT count(*) INTO actions FROM UserActions WHERE userid = NEW.userid AND boardid = NEW.boardid;
+	SET CONSTRAINTS useractions_postid_fkey DEFERRED;
+	SELECT count(*) INTO actionsTrg FROM UserActions WHERE userid = NEW.userid AND boardid = NEW.boardid;
 	SELECT actions INTO limits FROM Boards WHERE id = NEW.boardid;
-	IF actions >= limits THEN
+	IF actionsTrg >= limits THEN
 		NEW := NULL;
 	ELSE
-		INSERT INTO UserActions VALUES(DEFAULT, NEW.id, NEW.userid, NEW.boardid, "post", now());
+		INSERT INTO UserActions VALUES(DEFAULT, NEW.id, NEW.userid, NEW.boardid, 'post', now());
 	END IF;
+	RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 

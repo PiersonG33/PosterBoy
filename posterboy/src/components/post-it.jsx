@@ -32,8 +32,8 @@ function PostIt({ body }) {
     This is the little dog-ear in the lower-right corner.
     It's kinda buggy, in that there is a shadow where there 
     shouldn't be in the corner, so if that can't be fixed,
-    you can comment/remove this code and that'll get rid of
-    the dog-ear.
+    you can comment/remove the invocation of the code
+    in PostIt and that'll get rid of the dog-ear.
   */
   function DogEar() {return <div>
       <Box

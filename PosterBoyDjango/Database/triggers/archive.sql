@@ -4,8 +4,8 @@ DROP FUNCTION IF EXISTS archiver_trgf;
 CREATE FUNCTION archiver_trgf() RETURNS TRIGGER as $$
 BEGIN
     IF NEW.score <= 0 THEN 
-        INSERT INTO postarchive VALUES(DEFAULT, NEW.user_id, NEW.board_id, NEW.message, NEW.message_type, NOW);
-        NEW := NULL;
+        INSERT INTO postarchive VALUES(DEFAULT, NEW.userid, NEW.boardid, NEW.message, NEW.message_type, now());
+        DELETE FROM posts WHERE id = NEW.id;
     END IF;
 END;
 $$ LANGUAGE plpgsql;
