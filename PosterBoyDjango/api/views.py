@@ -7,9 +7,17 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Posts, Boards, UserActions, UserStatus, PostArchive
 from django.db.models import Q
 
+#Decorator shenanagins
+def allow_get_only(view_func):
+    decorated_view = api_view(["GET"])(view_func)
+    return decorated_view
+
+def allow_post_only(view_func):
+    decorated_view = api_view(["POST"])(view_func)
+    return decorated_view
 
 # This will return a list of books
-@api_view(["GET"])
+@allow_get_only
 def note(request):
     notes = ["Pro Python", "Fluent Python", "Speaking javascript", "The Go programming language"]
     return Response(status=status.HTTP_200_OK, data={"data": notes})
@@ -19,6 +27,7 @@ def index(request):
     return HttpResponse("Hello, world. You're at the api index.")
 
 @csrf_exempt
+@allow_get_only
 def get_posts(request):
     #How does this get from database tho lol
     if request.method == 'GET':
@@ -49,7 +58,7 @@ def get_posts(request):
         }
         return JsonResponse(data, status=405)
 
-
+@allow_post_only
 def add_post(request):
     if request.method == 'POST':
         post_data = request.json()
@@ -77,6 +86,7 @@ def add_post(request):
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
     
+@allow_post_only
 def lower_score(request, pid):
     #this removes posts by pid
     #this comment is useless
@@ -96,7 +106,8 @@ def lower_score(request, pid):
         return JsonResponse({'message': 'Post deleted successfully'}, status=200)
     except Posts.DoesNotExist:
         return JsonResponse({'error': 'Post does not exist'}, status=404)
-    
+
+@allow_get_only  
 def get_user_actions(request, uid, boardid):
     #this gets all actions by a user on a board
     if request.method == 'GET':
@@ -117,7 +128,8 @@ def get_user_actions(request, uid, boardid):
             'error': 'Invalid request method'
         }
         return JsonResponse(data, status=405)
-    
+
+@allow_get_only    
 def getboard(request):
     board_name = request.GET.get('board_name', '')
     try:
