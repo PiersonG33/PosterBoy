@@ -14,8 +14,8 @@ const backgroundColor = "aliceblue";
 // These are helper values that are light and dark versions of the color.
 const lightColor = postItHue.concat(".100");
 const darkColor = postItHue.concat(".200");
-const width = "500px";
-const height = "300px";
+let width = "500px";
+let height = "300px";
 
 function PostIt({ body }) {
   return (
