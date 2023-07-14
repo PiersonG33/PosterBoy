@@ -15,10 +15,10 @@ def allow_post_only(view_func):
 
 @csrf_exempt
 @allow_get_only
-def get_posts(request):
+def get_posts(request, bid):
     #How does this get from database tho lol
     if request.method == 'GET':
-        bid = request.GET.get('boardid')
+        #bid = request.GET.get('boardid')
         posts = Posts.objects.filter(boardid=bid)
 
         data = [
