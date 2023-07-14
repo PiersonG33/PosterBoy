@@ -3,37 +3,28 @@ import styled from "styled-components";
 
 import { 
   Stack,
-  Button
-} from '@chakra-ui/react'
-
-import {
+  Button,
   Input,
   FormControl,
-  FormLabel
-} from '@chakra-ui/react'
-
-import { 
+  FormLabel,
   PopoverArrow, 
   PopoverCloseButton, 
   PopoverHeader,  
   PopoverBody 
 } from '@chakra-ui/react'
 
-import SignUp from "./SignUp";
-
-function LoginPopup() {
+const LoginPopup = ({onChange}) => {
   const [isActive, setIsActive] = useState(false);
 
   const handleClick = () => {
-    setIsActive(current => !current);
-    console.log(setIsActive);
+    const newState = !isActive;
+    setIsActive(newState);
+    onChange(newState);
   };
 
   return (
     <LoginContainer>
-      <div style={{display: isActive ? 'none' : 'block'}}>
-      </div>
-      <div style={{ color: 'black' }}>
+      <div style={{ color: 'black'}}>
         <PopoverArrow />
         <PopoverCloseButton />
         <PopoverHeader>
@@ -78,8 +69,12 @@ function LoginPopup() {
 };
 
 const LoginContainer = styled.div`
-  height: 100%;
-  width: 100%;
+  overflow: visible;
+`
 
+const SignUpContainer = styled.div`
+ position: absolute;
+ width: 100vw;
+ height: 100vh;
 `
 export default LoginPopup;
