@@ -19,22 +19,17 @@ import {
   PopoverBody 
 } from '@chakra-ui/react'
 
-import SignUp from "./SignUp";
-
-function LoginPopup() {
+const LoginPopup = ({onChange}) => {
   const [isActive, setIsActive] = useState(false);
 
   const handleClick = () => {
-    setIsActive(isActive => !isActive);
-    console.log(isActive);
+    const newState = !isActive;
+    setIsActive(newState);
+    onChange(newState);
   };
 
   return (
     <LoginContainer>
-      <WindowView style={{display: isActive ? 'block' : 'none'}}>
-        <Button onClick={handleClick}>X</Button>
-        <SignUp/>
-      </WindowView>
       <div style={{ color: 'black'}}>
         <PopoverArrow />
         <PopoverCloseButton />
@@ -80,16 +75,12 @@ function LoginPopup() {
 };
 
 const LoginContainer = styled.div`
+  overflow: visible;
 `
 
-const WindowView = styled.div`
-  position: fixed;
-  z-index: 10;
-  height: 100vh;
-  width: 100vw;
-  top: 0;
-  left: 0;
-  background-color: rgb(0,0,0,0.3);
+const SignUpContainer = styled.div`
+ position: absolute;
+ width: 100vw;
+ height: 100vh;
 `
-
 export default LoginPopup;

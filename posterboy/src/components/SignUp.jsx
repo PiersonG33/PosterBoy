@@ -69,11 +69,6 @@ function SignUp() {
                 Sign up
               </Button>
             </Stack>
-            <Stack pt={6}>
-              <Text align={'center'} color={'black'}>
-                Already a user? <Link color={'blue.400'}>Login</Link>
-              </Text>
-            </Stack>
           </Stack>
         </Box>
       </SignUpContainer>
@@ -106,6 +101,8 @@ const SignUpContainer = styled.section`
   font-size: 12px;
   height: 70%;
   width: 30%;
+  margin: auto;
+  top: 50px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 `
 
