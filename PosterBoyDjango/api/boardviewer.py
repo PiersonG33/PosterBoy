@@ -84,7 +84,7 @@ def lower_score(request, pid):
         theUID = user_data['userid']
 
         action = UserActions.objects.create(
-            action="delete", #This might not be right
+            action="demote", #This might not be right
             userid=theUID,
             postid=post.postid,
         )
