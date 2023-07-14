@@ -12,7 +12,7 @@ def allow_get_only(view_func):
     return decorated_view
 
 @allow_get_only    
-def getboard(request, board_name):
+def getboard(request, board_name, user_id):
     try:
         #boards = Boards.objects.filter(Q(name__icontains=board_name))
         #boards = Boards.objects.get(topic_name = board_name)
@@ -20,12 +20,15 @@ def getboard(request, board_name):
         board_list = []
         for board in boards:
             try:
-                status = get_object_or_404(UserStatus, boardid=1, userid=request.user.id)
+                status = UserStatus.objects.get(boardid=board, userid=user_id)
+                #status = get_object_or_404(UserStatus, boardid=board, userid=user_id)
                 status_data = {
                     'role': status.role,
                 }
             except UserStatus.DoesNotExist:
+                continue
                 status_data = {}
+                
 
             board_data = {
                 'boardid': board.id,
@@ -36,11 +39,12 @@ def getboard(request, board_name):
             }
             
             board_list.append(board_data)
-
+        
         if board_list:
             response_data = {
                 'boards': board_list
             }
+            
             return JsonResponse(response_data)
         else:
             return JsonResponse({'error': 'No boards with similar names found'}, status = 404)
