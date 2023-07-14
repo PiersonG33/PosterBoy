@@ -19,7 +19,7 @@ const BoardContainer = styled.div`
 `
 
 const CorkBoard = styled.div`
-  height: 95vh;
+  height: 76vh;
   width: 100vw;
   background-color: #FFCF0070;
   text-align: center;

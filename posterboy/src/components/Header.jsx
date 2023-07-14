@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FaHome, FaUserCircle, FaRegQuestionCircle, FaAngleDown} from "react-icons/fa";
 import { 
   Button, ButtonGroup,  IconButton, 
-  Menu, MenuButton, MenuList, MenuItem, 
+  Menu, MenuButton, MenuList, MenuItem, Input, Box,
   Tooltip
 } from '@chakra-ui/react'
 
@@ -18,6 +18,7 @@ import {
 
 import { Link } from "react-router-dom";
 import LogoPic from '../assets/logo.svg';
+import { FaSearch } from 'react-icons/fa';
 
 
 // This component represents the header our website
@@ -32,19 +33,20 @@ function Header() {
               <Logo src={LogoPic}/>
             </Link>
           </LogoContainer>
-          {/* This component displays a dropdown menu, of which there are various options to choose - as noted below */}
-          <Menu>
-            <MenuButton as={Button} color='#003F91'  rightIcon={<FaAngleDown/>}>
-              Find a board  
-            </MenuButton>
-            <MenuList color='#003F91'>
-              <MenuItem>Board 1</MenuItem>
-              <MenuItem>Board 2</MenuItem>
-              <MenuItem>Board 3</MenuItem>
-              <MenuItem>Board 4</MenuItem>
-              <MenuItem>Board 5</MenuItem>
-            </MenuList>
-          </Menu>
+          {/* This component displays a search bar */}
+          <Box display="flex" alignItems="center">
+            <Input
+              placeholder="Search boards"
+              mr={2}
+              color="#003F91"
+            />
+            <IconButton
+              aria-label="Search"
+              icon={<FaSearch />}
+              bg="#003F91"
+              color="white"
+            />
+          </Box>
         </HeaderLeft>
         <HeaderRight>
           {/* This component displays three icons that link to the home page, profile page, and help page */}
@@ -102,7 +104,7 @@ function LoginOrProfile() {
 const HeaderContainer = styled.div`
   background-color: #FFFFFF;
   color: white;
-  height: 80px;
+  height: 12vh;
   display: flex;
   justify-content: center;
   align-items: center;
