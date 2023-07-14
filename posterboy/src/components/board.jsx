@@ -108,7 +108,7 @@ function Board() {
 }
 
 const BoardContainer = styled.div`
-  height: 90vw;
+  height: 76vw;
   width: 100vw;
   position: relative;
 `;
