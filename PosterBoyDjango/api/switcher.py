@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import JsonResponse, HttpResponse
 from django.db.models import Q
 from .models import Posts, Boards, UserActions, UserStatus, PostArchive
-from views import *
+from .views import *
 from rest_framework.decorators import api_view
 
 
