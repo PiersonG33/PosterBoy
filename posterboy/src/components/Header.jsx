@@ -18,6 +18,7 @@ import {
 
 import { Link } from "react-router-dom";
 import LogoPic from '../assets/logo.svg';
+import HelpIcon from '../assets/hands-holding-child-solid.svg';
 import { FaSearch } from 'react-icons/fa';
 
 
@@ -58,7 +59,10 @@ function Header() {
             <LoginOrProfile/>
             
             <Tooltip hasArrow label='About'>
-              <IconButton as="a" href="/About" color='#003F91' aria-label="Help" icon={<FaRegQuestionCircle fontSize="1.75rem" />} />
+              <IconButton as="a" href="/About" color='#003F91' aria-label="AboutUs" icon={<FaRegQuestionCircle fontSize="1.75rem" />} />
+            </Tooltip>
+            <Tooltip hasArrow label='Help Center'>
+              <IconButton as="a" href="/HelpCenter" color='#003F91' aria-label="HelpCenterPage" icon={<img src={HelpIcon} alt="HelpCenter" style={{ height: "1.75rem", width: "1.75rem" }} />} />
             </Tooltip>
             
           </ButtonGroup>
