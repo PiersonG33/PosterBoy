@@ -22,12 +22,13 @@ connection.commit()
 IDs = cursor.fetchall()
 
 for i in IDs:
-    cursor.execute("SELECT actionReset(" + i + ");")
+    cursor.execute("SELECT actionReset(" + str(i[0]) + ");")
 connection.commit()
 
 cursor.close()
 connection.close()
 
-file = open("out.txt", "w")
-file.write("I finished at " + time.time())
+file = open("out.txt", "a")
+d = time.strftime("%a, %d %b %Y %H:%M:%S", time.gmtime(time.time()))
+file.write("I finished at " + d)
 file.close()
