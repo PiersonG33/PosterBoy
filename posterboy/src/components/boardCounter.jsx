@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import React from "react";
-import { Flex, Image } from "@chakra-ui/react";
 import { 
+  Flex,
+  Image,
   PopoverArrow, 
   PopoverCloseButton,
   PopoverBody 

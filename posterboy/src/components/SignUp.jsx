@@ -1,18 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
-import { useEffect } from 'react';
 import styled from "styled-components";
-import LoginPopup from './loginPopup';
 import {
-  Flex,
   Box,
   FormControl,
   FormLabel,
   Input,
   InputGroup,
   InputRightElement,
-  setShowPassword,
-  HStack,
   Stack,
   Link,
   Button,

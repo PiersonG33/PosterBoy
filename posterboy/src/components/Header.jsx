@@ -1,25 +1,24 @@
 import React from "react";
 import styled from "styled-components";
-import { FaHome, FaUserCircle, FaRegQuestionCircle, FaAngleDown} from "react-icons/fa";
 import { 
-  Button, ButtonGroup,  IconButton, 
-  Menu, MenuButton, MenuList, MenuItem, Input, Box,
+  FaHome,
+  FaUserCircle, 
+  FaRegQuestionCircle, 
+  FaSearch 
+} from "react-icons/fa";
+
+import { 
+  Popover, PopoverTrigger, PopoverContent,
+  ButtonGroup,  IconButton, Input, Box,
   Tooltip
 } from '@chakra-ui/react'
 
 import LoginPopup from "./loginPopup";
 import BoardCounter from './boardCounter';
 
-import { 
-  Popover, 
-  PopoverTrigger, 
-  PopoverContent
-} from '@chakra-ui/react'
-
 import { Link } from "react-router-dom";
 import LogoPic from '../assets/logo.svg';
 import HelpIcon from '../assets/hands-holding-child-solid.svg';
-import { FaSearch } from 'react-icons/fa';
 
 
 // This component represents the header our website
