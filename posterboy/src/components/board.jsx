@@ -23,7 +23,7 @@ class BoardCanvas extends React.Component {
 
     this.state.mouseIsDown = false;
 
-    if (this.state.wasMoved || this.state.mouseOnPostIt)
+    if (this.state.wasMoved)
     {
       this.state.wasMoved = false;
       return;
