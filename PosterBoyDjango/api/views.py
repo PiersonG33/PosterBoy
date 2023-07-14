@@ -6,6 +6,7 @@ from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Posts, Boards, UserActions, UserStatus, PostArchive
 from django.db.models import Q
+from switcher import *
 
 #Decorator shenanagins
 def allow_get_only(view_func):
@@ -128,7 +129,7 @@ def get_user_actions(request, uid, boardid):
             'error': 'Invalid request method'
         }
         return JsonResponse(data, status=405)
-
+'''
 @allow_get_only    
 def getboard(request):
     board_name = request.GET.get('board_name', '')
@@ -165,3 +166,4 @@ def getboard(request):
     except Boards.DoesNotExist:
         return JsonResponse({'error': 'Board not found'}, status=404)
 
+'''
