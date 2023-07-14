@@ -18,17 +18,21 @@ class BoardCanvas extends React.Component {
     wasMoved: false,
   };
 
-
-  makePost = (event) => {
-
+  handleMouseUp = (event) => {
     this.state.mouseIsDown = false;
 
     if (this.state.wasMoved)
     {
       this.state.wasMoved = false;
-      return;
     }
-    
+    else
+    {
+      this.makePost(event);
+    }
+  }
+
+
+  makePost = (event) => {
     const boardRect = this.boardRef.getBoundingClientRect();
   
     const scaleX = this.boardRef.width / boardRect.width;
@@ -38,14 +42,11 @@ class BoardCanvas extends React.Component {
     const mouseY = (event.clientY - boardRect.top) * scaleY;
   
     const postItPosition = { left: mouseX, top: mouseY };
-    const p = <PostInProgress position={postItPosition} />; // Use JSX syntax
-    this.setState({ postItInProgress: p }); // Update state key
-  
-    // ... style={{ backgroundColor: '#FFCF0030' }}
-          
+    const postInProgress = <PostInProgress position={postItPosition} />; // Use JSX syntax
+    this.setState({ postItInProgress: postInProgress }); // Update state key
   };
 
-  drag(event) {
+  handleDrag(event) {
     if (this.state.mouseIsDown) {
       this.state.wasMoved = true;
     }
@@ -60,8 +61,8 @@ class BoardCanvas extends React.Component {
     return (
       <BoardContainer 
         onMouseDown = {() => this.state.mouseIsDown=true}
-        onMouseMove = {(event) => this.drag(event) }
-        onMouseUp   = {(event) => this.makePost(event) }
+        onMouseMove = {(event) => this.handleDrag(event) }
+        onMouseUp   = {(event) => this.handleMouseUp(event) }
       >
         <TransformWrapper 
           centerOnInit={true}

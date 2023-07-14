@@ -3,23 +3,15 @@ import styled from "styled-components";
 
 import { 
   Stack,
-  Button
-} from '@chakra-ui/react'
-
-import {
+  Button,
   Input,
   FormControl,
-  FormLabel
-} from '@chakra-ui/react'
-
-import { 
+  FormLabel,
   PopoverArrow, 
   PopoverCloseButton, 
   PopoverHeader,  
   PopoverBody 
 } from '@chakra-ui/react'
-
-import SignUp from "./SignUp";
 
 function LoginPopup() {
   const [isActive, setIsActive] = useState(false);
