@@ -15,7 +15,7 @@ class BoardCanvas extends React.Component {
   state = {
     postItInProgress: null,
     mouseIsDown: false,
-    wasMoved: false
+    wasMoved: false,
   };
 
 
@@ -23,7 +23,7 @@ class BoardCanvas extends React.Component {
 
     this.state.mouseIsDown = false;
 
-    if (this.state.wasMoved)
+    if (this.state.wasMoved || this.state.mouseOnPostIt)
     {
       this.state.wasMoved = false;
       return;
@@ -94,10 +94,14 @@ function PostInProgress({position}) {
   };
 
   return (
-    <PostItContainer left={position.left} top={position.top}>
+    <PostItContainer left={position.left} top={position.top}
+      onMouseDown={(event) => event.stopPropagation()}
+      onMouseUp={(event) => event.stopPropagation()} // This could be the cause of some future buggy weirdness with mouse inputs not working.
+    >
       <PostIt body={
         <div>
-          <div
+          <div 
+            id="textinput"
             contentEditable="true"
             style={{
               padding: '10px',
