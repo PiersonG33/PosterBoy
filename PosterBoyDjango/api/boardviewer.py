@@ -1,13 +1,8 @@
-from django.shortcuts import render, get_object_or_404
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.decorators import api_view
-from django.http import JsonResponse, HttpResponse
+from django.shortcuts import render
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Posts, Boards, UserActions, UserStatus, PostArchive
-from django.db.models import Q
-from switcher import *
-from boardviewer import *
+from rest_framework.decorators import api_view
 
 #Decorator shenanagins
 def allow_get_only(view_func):
@@ -17,16 +12,6 @@ def allow_get_only(view_func):
 def allow_post_only(view_func):
     decorated_view = api_view(["POST"])(view_func)
     return decorated_view
-
-# This will return a list of books
-@allow_get_only
-def note(request):
-    notes = ["Pro Python", "Fluent Python", "Speaking javascript", "The Go programming language"]
-    return Response(status=status.HTTP_200_OK, data={"data": notes})
-
-# Create your views here.
-def index(request):
-    return HttpResponse("Hello, world. You're at the api index.")
 
 @csrf_exempt
 @allow_get_only
@@ -130,41 +115,3 @@ def get_user_actions(request, uid, boardid):
             'error': 'Invalid request method'
         }
         return JsonResponse(data, status=405)
-'''
-@allow_get_only    
-def getboard(request):
-    board_name = request.GET.get('board_name', '')
-    try:
-        boards = Boards.objects.filter(Q(name__icontains=board_name))
-        board_list = []
-        for board in boards:
-            try:
-
-                status = get_object_or_404(UserStatus, boardid=board, userid=request.user)
-                status_data = {
-                    'role': status.role,
-                }
-            except UserStatus.DoesNotExist:
-                status_data = {}
-
-            board_data = {
-                'boardid': board.id,
-                'name': board.topic_name,
-                'actions': board.actions,
-                'reset': board.reset,
-                'status': status_data
-            }
-            
-            board_list.append(board_data)
-
-        if board_list:
-            response_data = {
-                'boards': board_list
-            }
-            return JsonResponse(response_data)
-        else:
-            return JsonResponse({'error': 'No boards with similar names found'}, status = 404)
-    except Boards.DoesNotExist:
-        return JsonResponse({'error': 'Board not found'}, status=404)
-
-'''
