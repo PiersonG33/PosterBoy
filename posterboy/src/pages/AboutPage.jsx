@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import PostIt from './../components/post-it-done';
-import { Text } from '@chakra-ui/react'
+import { Text, Box } from '@chakra-ui/react'
 import pbMouseIconNormal from '../assets/pb_mouse_icon_normal.png';
 import pbMouseIconClicked from '../assets/pb_mouse_icon_clicked.png';
-import { Box } from "@chakra-ui/react"
 
 // This function is used to implement the custom cursor. It is currently not in use. See GitHub issue #1.
 
