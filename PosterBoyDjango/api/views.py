@@ -6,7 +6,7 @@ from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Posts, Boards, UserActions, UserStatus, PostArchive
 from django.db.models import Q
-from switcher import *
+from .switcher import *
 
 #Decorator shenanagins
 def allow_get_only(view_func):
@@ -131,15 +131,15 @@ def get_user_actions(request, uid, boardid):
         return JsonResponse(data, status=405)
 '''
 @allow_get_only    
-def getboard(request):
-    board_name = request.GET.get('board_name', '')
+def getboard(request, board_name):
     try:
-        boards = Boards.objects.filter(Q(name__icontains=board_name))
+        #boards = Boards.objects.filter(Q(name__icontains=board_name))
+        #boards = Boards.objects.get(topic_name = board_name)
+        boards = get_list_or_404(Boards, Q(topic_name__iexact = board_name))
         board_list = []
         for board in boards:
             try:
-
-                status = get_object_or_404(UserStatus, boardid=board, userid=request.user)
+                status = get_object_or_404(UserStatus, boardid=1, userid=request.user.id)
                 status_data = {
                     'role': status.role,
                 }
@@ -165,5 +165,4 @@ def getboard(request):
             return JsonResponse({'error': 'No boards with similar names found'}, status = 404)
     except Boards.DoesNotExist:
         return JsonResponse({'error': 'Board not found'}, status=404)
-
-'''
+        '''
