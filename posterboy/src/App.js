@@ -8,7 +8,7 @@ import AboutPage from './pages/AboutPage';
 import DjangoTest from './pages/DjangoTest';
 import { ChakraProvider } from '@chakra-ui/react';
 
-import React, { Component } from "react";
+import React from "react";
 
 // class App extends Component {
 //   render() {

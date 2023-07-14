@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { FaHome, FaUserCircle, FaRegQuestionCircle, FaAngleDown} from "react-icons/fa";
+import { FaHome, FaUserCircle, FaRegQuestionCircle } from "react-icons/fa";
 import { 
-  Button, ButtonGroup,  IconButton, 
-  Menu, MenuButton, MenuList, MenuItem, Input, Box,
+  ButtonGroup,  IconButton, Input, Box,
   Tooltip
 } from '@chakra-ui/react'
 

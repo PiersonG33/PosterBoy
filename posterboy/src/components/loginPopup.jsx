@@ -19,8 +19,6 @@ import {
   PopoverBody 
 } from '@chakra-ui/react'
 
-import SignUp from "./SignUp";
-
 function LoginPopup() {
   const [isActive, setIsActive] = useState(false);
 
