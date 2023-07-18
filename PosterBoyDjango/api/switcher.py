@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import JsonResponse, HttpResponse
 from django.db.models import Q
+from django.core import serializers
 from .models import Posts, Boards, UserActions, UserStatus, PostArchive
 from .views import *
 from rest_framework.decorators import api_view
@@ -17,6 +18,10 @@ def getboard(request, board_name, user_id):
         #boards = Boards.objects.filter(Q(name__icontains=board_name))
         #boards = Boards.objects.get(topic_name = board_name)
         boards = get_list_or_404(Boards, Q(topic_name__iexact = board_name))
+        # if not boards.exists():
+        #     return None
+        
+        #user_status = UserStatus.objects.filter(user__userid=user_id)
         board_list = []
         for board in boards:
             try:
