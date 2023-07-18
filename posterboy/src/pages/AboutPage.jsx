@@ -120,6 +120,7 @@ const HomeContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-image: linear-gradient(#FFFFFF, #003F91);
+  margin-top: 3em;
 `;
 
 const SecondHomeContainer = styled.div`
