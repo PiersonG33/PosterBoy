@@ -2,20 +2,23 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Posts, Boards, UserActions, UserStatus, PostArchive
+from rest_framework.decorators import api_view
 
+#Decorator shenanagins
+def allow_get_only(view_func):
+    decorated_view = api_view(["GET"])(view_func)
+    return decorated_view
 
-# Create your views here.
-from django.http import HttpResponse
-
-
-def index(request):
-    return HttpResponse("Hello, world. You're at the BoardView index.")
+def allow_post_only(view_func):
+    decorated_view = api_view(["POST"])(view_func)
+    return decorated_view
 
 @csrf_exempt
-def get_posts(request):
+@allow_get_only
+def get_posts(request, bid):
     #How does this get from database tho lol
     if request.method == 'GET':
-        bid = request.GET.get('boardid')
+        #bid = request.GET.get('boardid')
         posts = Posts.objects.filter(boardid=bid)
 
         data = [
@@ -42,7 +45,7 @@ def get_posts(request):
         }
         return JsonResponse(data, status=405)
 
-
+@allow_post_only
 def add_post(request):
     if request.method == 'POST':
         post_data = request.json()
@@ -70,6 +73,7 @@ def add_post(request):
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
     
+@allow_post_only
 def lower_score(request, pid):
     #this removes posts by pid
     #this comment is useless
@@ -80,7 +84,7 @@ def lower_score(request, pid):
         theUID = user_data['userid']
 
         action = UserActions.objects.create(
-            action="delete", #This might not be right
+            action="demote", #This might not be right
             userid=theUID,
             postid=post.postid,
         )
@@ -89,7 +93,8 @@ def lower_score(request, pid):
         return JsonResponse({'message': 'Post deleted successfully'}, status=200)
     except Posts.DoesNotExist:
         return JsonResponse({'error': 'Post does not exist'}, status=404)
-    
+
+@allow_get_only  
 def get_user_actions(request, uid, boardid):
     #this gets all actions by a user on a board
     if request.method == 'GET':

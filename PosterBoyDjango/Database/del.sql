@@ -1,3 +1,4 @@
+DELETE FROM actionarchive * CASCADE;
 DELETE FROM userstatus * CASCADE;
 DELETE FROM useractions * CASCADE;
 DELETE FROM posts * CASCADE;
