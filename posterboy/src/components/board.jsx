@@ -1,12 +1,9 @@
+import React, {useEffect, useRef} from 'react';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import styled from "styled-components";
-import React from 'react';
 import Board_Pic from "../assets/board_new.jpg";
 import PostIt from "./post-it.jsx";
-
-import {
-  Button
-} from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 
 // const imageWidth = 2621;
 // const imageHeight = 1805;
@@ -48,7 +45,10 @@ class BoardCanvas extends React.Component {
     const mouseY = (event.clientY - boardRect.top) * scaleY;
   
     const postItPosition = { left: mouseX, top: mouseY };
-    const postInProgress = <PostInProgress position={postItPosition} />; // Use JSX syntax
+    const postInProgress = <PostInProgress 
+      position={postItPosition} 
+      boardRef={this} 
+    />; // Use JSX syntax
     this.setState({ postItInProgress: postInProgress }); // Update state key
   };
 
@@ -66,7 +66,6 @@ class BoardCanvas extends React.Component {
 
   render() {
     const { postItInProgress } = this.state; // Update state key
-    
 
     return (
       <BoardContainer 
@@ -95,14 +94,30 @@ class BoardCanvas extends React.Component {
   }
 }
 
-function PostInProgress({position}) {
+function PostInProgress({position, boardRef}) {
+
+  const textInputRef = useRef(null); // Create a ref for the text input element
+
+  useEffect(() => {
+    // This function will be executed when the component mounts on the screen.
+    textInputRef.current.focus(); // Focus on the text input when the component mounts
+    
+  }, []); // The empty array [] as the second argument makes the effect run only once, on mount.
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const userText = event.target.previousSibling.innerText;
+    const userText = textInputRef.current.innerText; // Access the user-entered text
     // Do something with the user-entered text
 
     // Additional logic or function calls can be added here
+
+    // Now delete the post:
+    boardRef.setState({
+      postItInProgress: null
+    });
   };
+
+
 
   return (
     <PostItContainer 
@@ -110,34 +125,38 @@ function PostInProgress({position}) {
       onMouseDown={(event) => event.stopPropagation()}
       onMouseUp={(event) => event.stopPropagation()} // This could be the cause of some future buggy weirdness with mouse inputs not working.
     >
-      <PostIt body={
-        <div>
-          <div 
-            id="textinput"
-            contentEditable="true"
-            style={{
-              padding: '10px',
-              textAlign: 'left'
-            }}
-          />
-      
-          <Button
-            onClick={handleSubmit}
-            style={{
-              display: 'block',
-              margin: '10px 0',
-              padding: '8px 16px',
-              background: '#4CAF50',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer'
-            }}
-          >
-            Submit
-          </Button>
-        </div>
-      }/>
+
+      <PostIt 
+        body={
+          <div>
+            <div 
+              id="textinput"
+              ref={textInputRef}
+              contentEditable="true"
+              style={{
+                padding: '10px',
+                textAlign: 'left'
+              }}
+            />
+        
+            <Button
+              onClick={handleSubmit}
+              style={{
+                display: 'block',
+                margin: '10px 0',
+                padding: '8px 16px',
+                background: '#4CAF50',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer'
+              }}
+            >
+              Submit
+            </Button>
+          </div>
+        }
+      />
     </PostItContainer>
   );
 }
