@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+// The following code has been implemented into Header.jsx, but is kept here for reference.
+// Use this code as a template for integrating the front-end and back-end.
+
+/* import React, { useState } from 'react';
 
 function BoardSearch() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -30,4 +33,4 @@ function BoardSearch() {
   );
 }
 
-export default BoardSearch;
+export default BoardSearch; */

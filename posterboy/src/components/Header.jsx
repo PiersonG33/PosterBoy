@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { 
   FaHome,
@@ -23,15 +23,12 @@ import { COLORS } from '../colors.js'
 
 import SignUp from './SignUp';
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// TESTING PURPOSES \/
-import BoardSearch from './BoardSearch';
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 // This component represents the header our website
 function Header() {
 
   const [showSignUp, setSignUp] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
   const handleSignUpState = (parentState) => {
     if(parentState == "close") {
@@ -40,8 +37,21 @@ function Header() {
     else {
       const newState = !showSignUp;
       setSignUp(newState);
+    }
   };
-}
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleSearchSubmit = async () => {
+    const url = 'http://localhost:8000/api/getboard/' + searchQuery + '/' + '1';
+    console.log(searchQuery);
+    
+    await fetch(url)
+      .then(response => response.json())
+      .then(data => console.log(data));
+  };
 
   function SignUpFunc() {
     return (
@@ -53,52 +63,64 @@ function Header() {
 
   return (
     <div>
-    {showSignUp && SignUpFunc()}
-    <HeaderContainer>
-      <HeaderInnerContainer>
-        <HeaderLeft>
-          <LogoContainer>
-            {/* This component displays the logo image and links to the home page */}
-            <Link to="/">
-              <Logo src={LogoPic}/>
-            </Link>
-          </LogoContainer>
-          {/* This component displays a search bar */}
-          <Box display="flex" alignItems="center">
-            <Input
-              placeholder="Search boards"
-              mr={2}
-              color={COLORS.marian_blue}
-            />
-            <IconButton
-              aria-label="Search"
-              icon={<FaSearch />}
-              bg={COLORS.marian_blue}
-              color="white"
-            />
-          </Box>
-        </HeaderLeft>
-        <HeaderRight>
-          {/* This component displays three icons that link to the home page, profile page, and help page */}
-          <ButtonGroup variant="ghost">
-            <Tooltip hasArrow label='Home Page'>
-              <IconButton as="a" href="/" color={COLORS.marian_blue} aria-label="Home" icon={<FaHome fontSize="1.75rem" alt />} />
-            </Tooltip>
+      {showSignUp && SignUpFunc()}
+      <HeaderContainer>
+        <HeaderInnerContainer>
+          <HeaderLeft>
+            <LogoContainer>
+              {/* This component displays the logo image and links to the home page */}
+              <Link to="/">
+                <Logo src={LogoPic}/>
+              </Link>
+            </LogoContainer>
+            {/* This component displays a search bar */}
+            <Box display="flex" alignItems="center">
+              <Input
+                placeholder="Search boards"
+                value={searchQuery}
+                onChange={handleSearchChange}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    handleSearchSubmit();
+                  }
+                }}
+                mr={2}
+                color={COLORS.marian_blue}
+              />
+              <IconButton
+                aria-label="Search"
+                icon={<FaSearch />}
+                bg={COLORS.marian_blue}
+                color="white"
+                onClick={handleSearchSubmit}
+              />
+            </Box>
+          </HeaderLeft>
+          <HeaderRight>
+            {/* This component displays three icons that link to the home page, profile page, and help page */}
+            <ButtonGroup variant="ghost">
+              <Tooltip hasArrow label='Home Page'>
+                <IconButton as="a" href="/" color={COLORS.marian_blue} aria-label="Home" icon={<FaHome fontSize="1.75rem" alt />} />
+              </Tooltip>
 
-            <LoginOrProfile onChange={handleSignUpState}/>
-            
-            <Tooltip hasArrow label='About'>
-              <IconButton as="a" href="/About" color={COLORS.marian_blue} aria-label="AboutUs" icon={<FaRegQuestionCircle fontSize="1.75rem" />} />
-            </Tooltip>
-            <Tooltip hasArrow label='Help Center'>
-              <IconButton as="a" href="/HelpCenter" color={COLORS.marian_blue} aria-label="HelpCenterPage" icon={<img src={HelpIcon} alt="HelpCenter" style={{ height: "1.75rem", width: "1.75rem" }} />} />
-            </Tooltip>
-            
-          </ButtonGroup>
-        </HeaderRight>
-      </HeaderInnerContainer>
-    </HeaderContainer>
-    <BoardSearch />
+              <LoginOrProfile onChange={handleSignUpState}/>
+              
+              <Tooltip hasArrow label='About'>
+                <IconButton as="a" href="/About" color={COLORS.marian_blue} aria-label="AboutUs" icon={<FaRegQuestionCircle fontSize="1.75rem" />} />
+              </Tooltip>
+              <Tooltip hasArrow label='Help Center'>
+                <IconButton as="a" href="/HelpCenter" color={COLORS.marian_blue} aria-label="HelpCenterPage" icon={<img src={HelpIcon} alt="HelpCenter" style={{ height: "1.75rem", width: "1.75rem" }} />} />
+              </Tooltip>
+              
+            </ButtonGroup>
+          </HeaderRight>
+        </HeaderInnerContainer>
+      </HeaderContainer>
+      <ul>
+        {searchResults.map(board => (
+          <li key={board.id}>{board.name}</li>
+        ))}
+      </ul>
     </div>
   );
 }
