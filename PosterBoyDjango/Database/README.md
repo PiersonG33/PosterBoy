@@ -1,7 +1,7 @@
 To get the database working:
 Install postgresql and launch the psql shell.
 Run the dump file 'pbdb.sql' using:
-\i <Filepath/PosterBoy/PosterBoyDjango/Database/pbdb.sql>, using forward slashes in the path
+\i Filepath/PosterBoy/PosterBoyDjango/Database/pbdb.sql, using forward slashes in the path
 That's it!
 
 To configure Django: copy the config file found in PosterBoyDjango/config.py into

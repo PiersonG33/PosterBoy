@@ -17,6 +17,7 @@ const LoginPopup = ({onChange}) => {
   const [isActive, setIsActive] = useState(false);
 
   const handleClick = () => {
+    console.log(isActive);
     const newState = !isActive;
     setIsActive(newState);
     onChange(newState);
@@ -72,9 +73,4 @@ const LoginContainer = styled.div`
   overflow: visible;
 `
 
-const SignUpContainer = styled.div`
- position: absolute;
- width: 100vw;
- height: 100vh;
-`
 export default LoginPopup;

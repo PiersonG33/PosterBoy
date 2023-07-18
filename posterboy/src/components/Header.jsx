@@ -10,7 +10,7 @@ import {
 import { 
   Popover, PopoverTrigger, PopoverContent,
   ButtonGroup,  IconButton, Input, Box,
-  Tooltip, CloseButton
+  Tooltip
 } from '@chakra-ui/react'
 
 import LoginPopup from "./loginPopup";
@@ -19,6 +19,7 @@ import BoardCounter from './boardCounter';
 import { Link } from "react-router-dom";
 import LogoPic from '../assets/logo.svg';
 import HelpIcon from '../assets/hands-holding-child-solid.svg';
+import { COLORS } from '../colors.js'
 
 import SignUp from './SignUp';
 
@@ -33,20 +34,19 @@ function Header() {
   const [showSignUp, setSignUp] = useState(false);
 
   const handleSignUpState = (parentState) => {
-    if(parentState != showSignUp) {
-      setSignUp(parentState);
+    if(parentState == "close") {
+      setSignUp(false);
     }
     else {
       const newState = !showSignUp;
       setSignUp(newState);
-    }
   };
+}
 
   function SignUpFunc() {
     return (
-      <SignUpContainer onClick={handleSignUpState}>
-        <SignUp/>
-        
+      <SignUpContainer>
+        <SignUp onChange={handleSignUpState}/>
       </SignUpContainer>
     )
   }
@@ -68,12 +68,12 @@ function Header() {
             <Input
               placeholder="Search boards"
               mr={2}
-              color="#003F91"
+              color={COLORS.marian_blue}
             />
             <IconButton
               aria-label="Search"
               icon={<FaSearch />}
-              bg="#003F91"
+              bg={COLORS.marian_blue}
               color="white"
             />
           </Box>
@@ -82,16 +82,16 @@ function Header() {
           {/* This component displays three icons that link to the home page, profile page, and help page */}
           <ButtonGroup variant="ghost">
             <Tooltip hasArrow label='Home Page'>
-              <IconButton as="a" href="/" color='#003F91' aria-label="Home" icon={<FaHome fontSize="1.75rem" alt />} />
+              <IconButton as="a" href="/" color={COLORS.marian_blue} aria-label="Home" icon={<FaHome fontSize="1.75rem" alt />} />
             </Tooltip>
 
             <LoginOrProfile onChange={handleSignUpState}/>
             
             <Tooltip hasArrow label='About'>
-              <IconButton as="a" href="/About" color='#003F91' aria-label="AboutUs" icon={<FaRegQuestionCircle fontSize="1.75rem" />} />
+              <IconButton as="a" href="/About" color={COLORS.marian_blue} aria-label="AboutUs" icon={<FaRegQuestionCircle fontSize="1.75rem" />} />
             </Tooltip>
             <Tooltip hasArrow label='Help Center'>
-              <IconButton as="a" href="/HelpCenter" color='#003F91' aria-label="HelpCenterPage" icon={<img src={HelpIcon} alt="HelpCenter" style={{ height: "1.75rem", width: "1.75rem" }} />} />
+              <IconButton as="a" href="/HelpCenter" color={COLORS.marian_blue} aria-label="HelpCenterPage" icon={<img src={HelpIcon} alt="HelpCenter" style={{ height: "1.75rem", width: "1.75rem" }} />} />
             </Tooltip>
             
           </ButtonGroup>
@@ -128,16 +128,13 @@ const LoginOrProfile = ({onChange}) => {
     <Popover>
       <PopoverTrigger>
           <IconButton as="a" href="#" 
-          color='#003F91'
-          aria-label="Profile" 
-          icon={<FaUserCircle fontSize="1.75rem" />} 
+            color={COLORS.marian_blue}
+            aria-label="Profile" 
+            icon={<FaUserCircle fontSize="1.75rem" />} 
           />
       </PopoverTrigger>
-      <PopoverContent>
-        
-        {content}
 
-      </PopoverContent>
+      <PopoverContent>{content}</PopoverContent>
     </Popover>
   );
 }

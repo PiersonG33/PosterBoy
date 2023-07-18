@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
 import {
   Box,
@@ -9,19 +8,23 @@ import {
   InputGroup,
   InputRightElement,
   Stack,
-  Link,
   Button,
   Heading,
-  Text,
   useColorModeValue,
+  CloseButton
 } from '@chakra-ui/react';
 
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 
 
-function SignUp() {
+const SignUp = ({onChange}) => {
 
   const [showPassword, setShowPassword] = useState(false);
+
+  const handleClick = () => {
+    const newState = "close";
+    onChange(newState);
+  };
 
   return(
       <SignUpContainer >
@@ -30,6 +33,7 @@ function SignUp() {
           bg={useColorModeValue('white', 'gray.700')}
           boxShadow={'lg'}
           p={8}>
+          <CloseButton onClick={handleClick}/>
           <Stack spacing={4}>
               <Heading fontSize={'4xl'} textAlign={'center'} color={'black'}>
                 Sign up
@@ -73,7 +77,7 @@ function SignUp() {
         </Box>
       </SignUpContainer>
   );
-}
+};
 
 // function Apple() {
 //   useEffect(() => {
