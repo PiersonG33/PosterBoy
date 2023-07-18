@@ -1,2 +1,3 @@
 Database/config.py
 *.pyc
+out.txt

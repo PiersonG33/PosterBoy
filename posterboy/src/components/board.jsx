@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import styled from "styled-components";
 import Board_Pic from "../assets/board_new.jpg";
-import PostIt from "./post-it.jsx";
+import { PostIt } from "./post-it.jsx";
 import { Button } from '@chakra-ui/react';
 
 // const imageWidth = 2621;
@@ -108,6 +108,8 @@ function PostInProgress({position, boardRef}) {
     event.preventDefault();
     const userText = textInputRef.current.innerText; // Access the user-entered text
     // Do something with the user-entered text
+
+    console.log(userText);
 
     // Additional logic or function calls can be added here
 

@@ -23,6 +23,11 @@ import { COLORS } from '../colors.js'
 
 import SignUp from './SignUp';
 
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// TESTING PURPOSES \/
+import BoardSearch from './BoardSearch';
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 // This component represents the header our website
 function Header() {
 
@@ -77,7 +82,7 @@ function Header() {
           {/* This component displays three icons that link to the home page, profile page, and help page */}
           <ButtonGroup variant="ghost">
             <Tooltip hasArrow label='Home Page'>
-              <IconButton as="a" href="/" color='#003F91' aria-label="Home" icon={<FaHome fontSize="1.75rem" alt />} />
+              <IconButton as="a" href="/" color={COLORS.marian_blue} aria-label="Home" icon={<FaHome fontSize="1.75rem" alt />} />
             </Tooltip>
 
             <LoginOrProfile onChange={handleSignUpState}/>
@@ -93,6 +98,7 @@ function Header() {
         </HeaderRight>
       </HeaderInnerContainer>
     </HeaderContainer>
+    <BoardSearch />
     </div>
   );
 }
@@ -122,16 +128,13 @@ const LoginOrProfile = ({onChange}) => {
     <Popover>
       <PopoverTrigger>
           <IconButton as="a" href="#" 
-          color='#003F91'
-          aria-label="Profile" 
-          icon={<FaUserCircle fontSize="1.75rem" />} 
+            color={COLORS.marian_blue}
+            aria-label="Profile" 
+            icon={<FaUserCircle fontSize="1.75rem" />} 
           />
       </PopoverTrigger>
-      <PopoverContent>
-        
-        {content}
 
-      </PopoverContent>
+      <PopoverContent>{content}</PopoverContent>
     </Popover>
   );
 }
