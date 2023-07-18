@@ -136,21 +136,4 @@ const PostItContainer = styled.div`
   margin-top: 5rem;
 `;
 
-// This component is used to style the video container
-const VideoContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: calc(500px);
-  overflow: hidden;
-
-  video {
-    width: 100%;
-    height: 100%;
-    min-width: 100%;
-    min-height: 100%;
-    object-fit: cover;
-  }
-`
-
 export default Home;

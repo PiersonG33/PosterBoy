@@ -8,8 +8,8 @@ import {
   Button
 } from '@chakra-ui/react';
 
-const imageWidth = 2621;
-const imageHeight = 1805;
+// const imageWidth = 2621;
+// const imageHeight = 1805;
 
 class BoardCanvas extends React.Component {
   state = {
@@ -19,12 +19,18 @@ class BoardCanvas extends React.Component {
   };
 
   handleMouseUp = (event) => {
-    this.state.mouseIsDown = false;
+
+    this.setState({
+      mouseIsDown: false
+    });
 
     if (this.state.wasMoved)
     {
-      this.state.wasMoved = false;
+      this.setState({
+        wasMoved: false
+      });
     }
+
     else
     {
       this.makePost(event);
@@ -47,8 +53,12 @@ class BoardCanvas extends React.Component {
   };
 
   handleDrag(event) {
+    // Might want to have it so you need to move a
+    // minimum distance before it counts as a drag
     if (this.state.mouseIsDown) {
-      this.state.wasMoved = true;
+      this.setState({
+        wasMoved: true
+      });
     }
   }
 
@@ -60,7 +70,7 @@ class BoardCanvas extends React.Component {
 
     return (
       <BoardContainer 
-        onMouseDown = {() => this.state.mouseIsDown=true}
+        onMouseDown = {() => this.setState({mouseIsDown: true })}
         onMouseMove = {(event) => this.handleDrag(event) }
         onMouseUp   = {(event) => this.handleMouseUp(event) }
       >

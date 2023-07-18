@@ -10,7 +10,7 @@ import {
 import { 
   Popover, PopoverTrigger, PopoverContent,
   ButtonGroup,  IconButton, Input, Box,
-  Tooltip, CloseButton
+  Tooltip
 } from '@chakra-ui/react'
 
 import LoginPopup from "./loginPopup";
