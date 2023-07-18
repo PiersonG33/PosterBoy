@@ -22,11 +22,6 @@ import HelpIcon from '../assets/hands-holding-child-solid.svg';
 
 import SignUp from './SignUp';
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// TESTING PURPOSES \/
-import BoardSearch from './BoardSearch';
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 // This component represents the header our website
 function Header() {
 
@@ -97,7 +92,6 @@ function Header() {
         </HeaderRight>
       </HeaderInnerContainer>
     </HeaderContainer>
-    <BoardSearch />
     </div>
   );
 }
