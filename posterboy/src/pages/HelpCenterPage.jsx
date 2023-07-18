@@ -75,7 +75,7 @@ function HelpCenterPage() {
             _hover={{ borderColor: "gray.400" }}
             _focus={{ borderColor: "gray.400", boxShadow: "none" }}
           />
-          <Box position="relative">
+          <Box>
             <FaSearch
               color="gray.400"
               position="absolute"
