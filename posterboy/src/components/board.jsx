@@ -109,6 +109,8 @@ function PostInProgress({position, boardRef}) {
     const userText = textInputRef.current.innerText; // Access the user-entered text
     // Do something with the user-entered text
 
+    console.log(userText);
+
     // Additional logic or function calls can be added here
 
     // Now delete the post:
