@@ -19,6 +19,7 @@ import BoardCounter from './boardCounter';
 import { Link } from "react-router-dom";
 import LogoPic from '../assets/logo.svg';
 import HelpIcon from '../assets/hands-holding-child-solid.svg';
+import { COLORS } from '../colors.js'
 
 import SignUp from './SignUp';
 
@@ -62,12 +63,12 @@ function Header() {
             <Input
               placeholder="Search boards"
               mr={2}
-              color="#003F91"
+              color={COLORS.marian_blue}
             />
             <IconButton
               aria-label="Search"
               icon={<FaSearch />}
-              bg="#003F91"
+              bg={COLORS.marian_blue}
               color="white"
             />
           </Box>
@@ -82,10 +83,10 @@ function Header() {
             <LoginOrProfile onChange={handleSignUpState}/>
             
             <Tooltip hasArrow label='About'>
-              <IconButton as="a" href="/About" color='#003F91' aria-label="AboutUs" icon={<FaRegQuestionCircle fontSize="1.75rem" />} />
+              <IconButton as="a" href="/About" color={COLORS.marian_blue} aria-label="AboutUs" icon={<FaRegQuestionCircle fontSize="1.75rem" />} />
             </Tooltip>
             <Tooltip hasArrow label='Help Center'>
-              <IconButton as="a" href="/HelpCenter" color='#003F91' aria-label="HelpCenterPage" icon={<img src={HelpIcon} alt="HelpCenter" style={{ height: "1.75rem", width: "1.75rem" }} />} />
+              <IconButton as="a" href="/HelpCenter" color={COLORS.marian_blue} aria-label="HelpCenterPage" icon={<img src={HelpIcon} alt="HelpCenter" style={{ height: "1.75rem", width: "1.75rem" }} />} />
             </Tooltip>
             
           </ButtonGroup>

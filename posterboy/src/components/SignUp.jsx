@@ -8,10 +8,8 @@ import {
   InputGroup,
   InputRightElement,
   Stack,
-  Link,
   Button,
   Heading,
-  Text,
   useColorModeValue,
   CloseButton
 } from '@chakra-ui/react';
