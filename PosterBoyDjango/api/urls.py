@@ -9,7 +9,7 @@ from . import views, switcher, boardviewer
 # TESTING PURPOSES \/
 urlpatterns = [
     # existing URL patterns
-    path('search_boards/<str:query>/', views.search_boards, name='search_boards'),
+    #path('search_boards/<str:query>/', views.search_boards, name='search_boards'),
 ]
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
