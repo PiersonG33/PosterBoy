@@ -10,5 +10,5 @@ urlpatterns = [
     # path('lower_score/<int:pid>', boardviewer.lower_score, name = 'lower_score'),
     # path('get_user_actions/<int:uid>/<int:boardid>', boardviewer.get_user_actions, name = 'get_user_actions'),
     path('useractions/<int:uid>/<int:boardid>', boardviewer.useractions, name = 'useractions'),
-    #^ uid = pid if user is posting
+    # ^ uid = pid if user is posting
 ]
