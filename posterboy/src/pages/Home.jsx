@@ -7,6 +7,7 @@ import pbMouseIconNormal from '../assets/pb_mouse_icon_normal.png';
 import pbMouseIconClicked from '../assets/pb_mouse_icon_clicked.png';
 import { Box } from "@chakra-ui/react"
 import rcosImage from "../assets/red_full_rcos_logo.png";
+import { COLORS } from "../colors.js"
 
 // This function is used to implement the custom cursor. It is currently not in use. See GitHub issue #1.
 
@@ -89,7 +90,7 @@ function Home() {
         <div>
             <Box boxShadow='dark-lg' p='6' rounded='md' bgGradient='linear(to-l, #FFFFFF, #FFCF00)' margin-top='-50px'>
               <Text
-                bgGradient='linear-gradient(180deg, #003F91, #003138)'
+                bgGradient={`linear-gradient(180deg, ${COLORS.marian_blue}, #003138)`}
                 bgClip='text'
                 fontSize='6xl'
                 fontWeight='extrabold'
@@ -111,7 +112,7 @@ const HomeContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: linear-gradient(#FFFFFF, #003F91);
+  background-image: linear-gradient(#FFFFFF, ${COLORS.marian_blue});
 `;
 
 // This component is used to style the post-it container

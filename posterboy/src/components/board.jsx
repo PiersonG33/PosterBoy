@@ -105,7 +105,8 @@ function PostInProgress({position}) {
   };
 
   return (
-    <PostItContainer left={position.left} top={position.top}
+    <PostItContainer 
+      left={position.left} top={position.top}
       onMouseDown={(event) => event.stopPropagation()}
       onMouseUp={(event) => event.stopPropagation()} // This could be the cause of some future buggy weirdness with mouse inputs not working.
     >
