@@ -37,18 +37,19 @@ function PostIt({ body }) {
   */
   function DogEar() {return <div>
       <Box
-      position="absolute"
-      bottom={0} right={0}
-      borderBottomWidth={50}
-      borderLeftWidth={50}
-      borderLeftColor={darkColor}/>
+        position="absolute"
+        bottom={0} right={0}
+        borderBottomWidth={50}
+        borderLeftWidth={50}
+        borderLeftColor={darkColor}
+      />
       <Box
-      position="absolute"
-      bottom={0} right={0}
-      borderTopWidth={50}
-      borderTopColor="transparent"
-      borderRightWidth={50}
-      borderRightColor={backgroundColor}
+        position="absolute"
+        bottom={0} right={0}
+        borderTopWidth={50}
+        borderTopColor="transparent"
+        borderRightWidth={50}
+        borderRightColor={backgroundColor}
       />
     </div>
   };
