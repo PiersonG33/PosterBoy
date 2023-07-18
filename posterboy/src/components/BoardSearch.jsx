@@ -9,8 +9,8 @@ function BoardSearch() {
   };
 
   async function handleSearchSubmit() {
-    const url = 'http://localhost:8000/api/getboard/One/1';
-    console.log("ive been pressed");
+    const url = 'http://localhost:8000/api/getboard/' + searchQuery + '/' + '1';
+    console.log(searchQuery);
     
     await fetch(url)
       .then(response => response.json())
