@@ -10,7 +10,7 @@ import {
 import { 
   Popover, PopoverTrigger, PopoverContent,
   ButtonGroup,  IconButton, Input, Box,
-  Tooltip, CloseButton
+  Tooltip
 } from '@chakra-ui/react'
 
 import LoginPopup from "./loginPopup";
@@ -28,20 +28,19 @@ function Header() {
   const [showSignUp, setSignUp] = useState(false);
 
   const handleSignUpState = (parentState) => {
-    if(parentState != showSignUp) {
-      setSignUp(parentState);
+    if(parentState == "close") {
+      setSignUp(false);
     }
     else {
       const newState = !showSignUp;
       setSignUp(newState);
-    }
   };
+}
 
   function SignUpFunc() {
     return (
-      <SignUpContainer onClick={handleSignUpState}>
-        <SignUp/>
-        
+      <SignUpContainer>
+        <SignUp onChange={handleSignUpState}/>
       </SignUpContainer>
     )
   }

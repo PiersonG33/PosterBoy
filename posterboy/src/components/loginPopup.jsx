@@ -17,6 +17,7 @@ const LoginPopup = ({onChange}) => {
   const [isActive, setIsActive] = useState(false);
 
   const handleClick = () => {
+    console.log(isActive);
     const newState = !isActive;
     setIsActive(newState);
     onChange(newState);
