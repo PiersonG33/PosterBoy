@@ -5,7 +5,7 @@ Django's default database schema is used to store sitewide user
 accounts.\
 PosterBoy also stores information about each board, post, user roles on
 boards, and user actions on boards.\
-[image]{.image .placeholder original-image-src="Screenshot (56).png"}
+[image]{.image .placeholder original-image-src="ERD.png"}
 
 
 ACTIVE DATA TABLES:\

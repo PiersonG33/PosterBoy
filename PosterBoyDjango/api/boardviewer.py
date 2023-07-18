@@ -13,40 +13,41 @@ def allow_post_only(view_func):
     decorated_view = api_view(["POST"])(view_func)
     return decorated_view
 
-@csrf_exempt
-@allow_get_only
-def get_posts(request, bid):
-    #How does this get from database tho lol
-    if request.method == 'GET':
-        #bid = request.GET.get('boardid')
-        posts = Posts.objects.filter(boardid=bid)
 
-        data = [
-            {
-                'message': post.message,
-                'message_type': post.message_type,
-                'userid': post.userid,
-                'id': post.id,
-                #'boardid': post.boardid,
-                'color': post.color,
-                'date': post.date,
-                'score': post.score,
-                'x': post.x,
-                'y': post.y
+# @csrf_exempt
+# @allow_get_only
+# def get_posts(request, bid):
+#     #How does this get from database tho lol
+#     if request.method == 'GET':
+#         #bid = request.GET.get('boardid')
+#         posts = Posts.objects.filter(boardid=bid)
 
-            }
-            for post in posts
-        ]
-        return JsonResponse(data, safe=False)
+#         data = [
+#             {
+#                 'message': post.message,
+#                 'message_type': post.message_type,
+#                 'userid': post.userid,
+#                 'id': post.id,
+#                 #'boardid': post.boardid,
+#                 'color': post.color,
+#                 'date': post.date,
+#                 'score': post.score,
+#                 'x': post.x,
+#                 'y': post.y
 
-    else:
-        data = {
-            'error': 'Invalid request method'
-        }
-        return JsonResponse(data, status=405)
+#             }
+#             for post in posts
+#         ]
+#         return JsonResponse(data, safe=False)
 
-@allow_post_only
-def add_post(request):
+#     else:
+#         data = {
+#             'error': 'Invalid request method'
+#         }
+#         return JsonResponse(data, status=405)
+
+# @allow_post_only
+# def add_post(request):
     if request.method == 'POST':
         post_data = request.json()
         post = Posts.objects.create(
@@ -73,31 +74,104 @@ def add_post(request):
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
     
-@allow_post_only
-def lower_score(request, pid):
-    #this removes posts by pid
-    #this comment is useless
-    try:
-        post = Posts.objects.get(pid=pid)
-        # The request should specify the user deleting the post and the date
-        user_data = request.json()
-        theUID = user_data['userid']
+def posts(request, bid):
+    if request.method == 'GET':
+        #bid = request.GET.get('boardid')
+        posts = Posts.objects.filter(boardid=bid)
 
+        data = [
+            {
+                'message': post.message,
+                'message_type': post.message_type,
+                'userid': post.userid,
+                'id': post.id,
+                #'boardid': post.boardid,
+                'color': post.color,
+                'date': post.date,
+                'score': post.score,
+                'x': post.x,
+                'y': post.y
+
+            }
+            for post in posts
+        ]
+        return JsonResponse(data, safe=False)
+    
+    elif request.method == 'POST':
+        post_data = request.json()
+        post = Posts.objects.create(
+            message=post_data['message'],
+            message_type=post_data['message_type'],
+            userid=post_data['userid'],
+            # id=post_data['id'], #The ID is automatically generated
+            boardid=post_data['boardid'],
+            color=post_data['color'],
+            date=post_data['date'],
+            score=post_data['score'],
+            x=post_data['x'],
+            y=post_data['y']
+        )
+        post.save()
         action = UserActions.objects.create(
-            action="demote", #This might not be right
-            userid=theUID,
-            postid=post.postid,
+            action="add",
+            userid=post_data['userid'],
+            postid=post.id, #The ID is the automatically generated from the post
+            # date=post_data['date'] //Default date is current
         )
         action.save()
-        #post.delete()
-        return JsonResponse({'message': 'Post deleted successfully'}, status=200)
-    except Posts.DoesNotExist:
-        return JsonResponse({'error': 'Post does not exist'}, status=404)
+        return JsonResponse(post_data, status=201)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)
 
-@allow_get_only  
-def get_user_actions(request, uid, boardid):
+
+# @allow_post_only
+# def lower_score(request, pid):
+#     #this removes posts by pid
+#     #this comment is useless
+#     try:
+#         post = Posts.objects.get(pid=pid)
+#         # The request should specify the user deleting the post and the date
+#         user_data = request.json()
+#         theUID = user_data['userid']
+
+#         action = UserActions.objects.create(
+#             action="demote", #This might not be right
+#             userid=theUID,
+#             postid=post.postid,
+#         )
+#         action.save()
+#         #post.delete()
+#         return JsonResponse({'message': 'Post deleted successfully'}, status=200)
+#     except Posts.DoesNotExist:
+#         return JsonResponse({'error': 'Post does not exist'}, status=404)
+
+# @allow_get_only  
+# def get_user_actions(request, uid, boardid):
+#     #this gets all actions by a user on a board
+#     if request.method == 'GET':
+#         actions = UserActions.objects.filter(uid=uid, boardid=boardid)
+#         data = [
+#             {
+#                 'id': action.id,
+#                 'uid': action.userid,
+#                 'pid': action.postid,
+#                 'action': action.action,
+#                 'date': action.date
+#             }
+#             for action in actions
+#         ]
+#         return JsonResponse(data, safe=False)
+#     else:
+#         data = {
+#             'error': 'Invalid request method'
+#         }
+#         return JsonResponse(data, status=405)
+    
+def useractions(request, uid, boardid = None):
     #this gets all actions by a user on a board
     if request.method == 'GET':
+        if boardid == None:
+            return JsonResponse({'error': 'Wrong Request Type??'}, status=404)
         actions = UserActions.objects.filter(uid=uid, boardid=boardid)
         data = [
             {
@@ -110,6 +184,24 @@ def get_user_actions(request, uid, boardid):
             for action in actions
         ]
         return JsonResponse(data, safe=False)
+    
+    elif request.method == 'POST':
+        try:
+            post = Posts.objects.get(pid=uid) 
+                #pid = uid because I combined two functions with different parameters. Just go along with it.
+            # The request should specify the user deleting the post and the date
+            user_data = request.json()
+            theUID = user_data['userid']
+
+            action = UserActions.objects.create(
+                action="demote", #This might not be right
+                userid=theUID,
+                postid=post.postid,
+            )
+            action.save()
+            return JsonResponse({'message': 'Post deleted successfully'}, status=200)
+        except Posts.DoesNotExist:
+            return JsonResponse({'error': 'Post does not exist'}, status=404)
     else:
         data = {
             'error': 'Invalid request method'

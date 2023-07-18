@@ -8,23 +8,25 @@ function BoardSearch() {
     setSearchQuery(event.target.value);
   };
 
-  const handleSearchSubmit = (event) => {
-    event.preventDefault();
-    fetch(`/search_boards/${searchQuery}/`)
+  async function handleSearchSubmit() {
+    const url = 'http://localhost:8000/api/getboard/One/1';
+    console.log("ive been pressed");
+    
+    await fetch(url)
       .then(response => response.json())
-      .then(data => setSearchResults(data.results));
+      .then(data => console.log(data));
   };
 
   return (
-    <form onSubmit={handleSearchSubmit}>
+    <div>
       <input type="text" value={searchQuery} onChange={handleSearchChange} />
-      <button type="submit">Search</button>
+      <button onClick={handleSearchSubmit}>Search</button>
       <ul>
         {searchResults.map(board => (
           <li key={board.id}>{board.name}</li>
         ))}
       </ul>
-    </form>
+    </div>
   );
 }
 
