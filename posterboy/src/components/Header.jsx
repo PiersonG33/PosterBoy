@@ -28,7 +28,7 @@ function Header() {
   const [showSignUp, setSignUp] = useState(false);
 
   const handleSignUpState = (parentState) => {
-    if(parentState != showSignUp) {
+    if(parentState !== showSignUp) {
       setSignUp(parentState);
     }
     else {

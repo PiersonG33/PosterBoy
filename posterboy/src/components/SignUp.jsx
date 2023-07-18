@@ -9,10 +9,8 @@ import {
   InputGroup,
   InputRightElement,
   Stack,
-  Link,
   Button,
   Heading,
-  Text,
   useColorModeValue,
 } from '@chakra-ui/react';
 
