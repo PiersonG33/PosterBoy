@@ -1,29 +1,59 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
-import { FaHome, FaUserCircle, FaRegQuestionCircle, FaAngleDown} from "react-icons/fa";
 import { 
-  Button, ButtonGroup,  IconButton, 
-  Menu, MenuButton, MenuList, MenuItem, Input, Box,
-  Tooltip
+  FaHome,
+  FaUserCircle, 
+  FaRegQuestionCircle, 
+  FaSearch 
+} from "react-icons/fa";
+
+import { 
+  Popover, PopoverTrigger, PopoverContent,
+  ButtonGroup,  IconButton, Input, Box,
+  Tooltip, CloseButton
 } from '@chakra-ui/react'
 
 import LoginPopup from "./loginPopup";
 import BoardCounter from './boardCounter';
 
-import { 
-  Popover, 
-  PopoverTrigger, 
-  PopoverContent
-} from '@chakra-ui/react'
-
 import { Link } from "react-router-dom";
 import LogoPic from '../assets/logo.svg';
-import { FaSearch } from 'react-icons/fa';
+import HelpIcon from '../assets/hands-holding-child-solid.svg';
 
+import SignUp from './SignUp';
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// TESTING PURPOSES \/
+import BoardSearch from './BoardSearch';
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 // This component represents the header our website
 function Header() {
+
+  const [showSignUp, setSignUp] = useState(false);
+
+  const handleSignUpState = (parentState) => {
+    if(parentState != showSignUp) {
+      setSignUp(parentState);
+    }
+    else {
+      const newState = !showSignUp;
+      setSignUp(newState);
+    }
+  };
+
+  function SignUpFunc() {
+    return (
+      <SignUpContainer onClick={handleSignUpState}>
+        <SignUp/>
+        
+      </SignUpContainer>
+    )
+  }
+
   return (
+    <div>
+    {showSignUp && SignUpFunc()}
     <HeaderContainer>
       <HeaderInnerContainer>
         <HeaderLeft>
@@ -55,20 +85,32 @@ function Header() {
               <IconButton as="a" href="/" color='#003F91' aria-label="Home" icon={<FaHome fontSize="1.75rem" alt />} />
             </Tooltip>
 
-            <LoginOrProfile/>
+            <LoginOrProfile onChange={handleSignUpState}/>
             
             <Tooltip hasArrow label='About'>
-              <IconButton as="a" href="/About" color='#003F91' aria-label="Help" icon={<FaRegQuestionCircle fontSize="1.75rem" />} />
+              <IconButton as="a" href="/About" color='#003F91' aria-label="AboutUs" icon={<FaRegQuestionCircle fontSize="1.75rem" />} />
+            </Tooltip>
+            <Tooltip hasArrow label='Help Center'>
+              <IconButton as="a" href="/HelpCenter" color='#003F91' aria-label="HelpCenterPage" icon={<img src={HelpIcon} alt="HelpCenter" style={{ height: "1.75rem", width: "1.75rem" }} />} />
             </Tooltip>
             
           </ButtonGroup>
         </HeaderRight>
       </HeaderInnerContainer>
     </HeaderContainer>
+    <BoardSearch />
+    </div>
   );
 }
 
-function LoginOrProfile() {
+const LoginOrProfile = ({onChange}) => {
+
+  const [parentState, setParentState] = useState(false);
+
+  const handleChildStateChange = (isActive) => {
+    setParentState(isActive);
+    onChange(parentState);
+  }
 
   let content;
 
@@ -79,7 +121,7 @@ function LoginOrProfile() {
     content = <BoardCounter/>
   }
   else {
-    content = <LoginPopup/>
+    content = <LoginPopup onChange={handleChildStateChange}/>
   }
 
   return (
@@ -143,4 +185,11 @@ const Logo = styled.img`
   height: 100px;
 `;
 
+const SignUpContainer = styled.div`
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  z-index: 10;
+  background-color: #00000080;
+`
 export default Header;

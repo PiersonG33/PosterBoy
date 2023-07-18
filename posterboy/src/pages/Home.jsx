@@ -6,7 +6,6 @@ import LogoAnimation from '../assets/logo_animation.mp4';
 import pbMouseIconNormal from '../assets/pb_mouse_icon_normal.png';
 import pbMouseIconClicked from '../assets/pb_mouse_icon_clicked.png';
 import { Box } from "@chakra-ui/react"
-import { SimpleGrid } from "@chakra-ui/react";
 import rcosImage from "../assets/red_full_rcos_logo.png";
 
 // This function is used to implement the custom cursor. It is currently not in use. See GitHub issue #1.
@@ -136,13 +135,5 @@ const VideoContainer = styled.div`
     object-fit: cover;
   }
 `
-
-// This component is used to style the bold text element
-const BoldText = styled(Text)`
-  font-size: 3rem;
-  font-weight: bold;
-  margin-top: 2rem;
-  text-align: center;
-`;
 
 export default Home;
