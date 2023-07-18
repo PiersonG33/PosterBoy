@@ -107,7 +107,6 @@ function Home() {
 
 // This component is used to style the home page
 const HomeContainer = styled.div`
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
