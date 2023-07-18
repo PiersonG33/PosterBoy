@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import styled from "styled-components";
 import Board_Pic from "../assets/board_new.jpg";
-import PostIt from "./post-it.jsx";
+import { PostIt } from "./post-it.jsx";
 import { Button } from '@chakra-ui/react';
 
 // const imageWidth = 2621;
