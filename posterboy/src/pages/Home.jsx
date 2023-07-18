@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import PostItDone from './../components/post-it-done';
+import { PostItDone } from './../components/post-it';
 import { Text } from '@chakra-ui/react'
 import LogoAnimation from '../assets/logo_animation.mp4';
 import pbMouseIconNormal from '../assets/pb_mouse_icon_normal.png';
