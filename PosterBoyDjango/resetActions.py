@@ -32,11 +32,3 @@ file = open("/mnt/c/Users/gordoz2/Documents/PosterBoy/PosterBoyDjango/out.txt", 
 d = time.strftime("%a, %d %b %Y %H:%M:%S", time.gmtime(time.time()))
 file.write("\nI finished at " + d)
 file.close()
-
-
-"""
-crontab:
-0 * * * * /usr/bin/python3 /mnt/c/Users/gordoz2/Documents/PosterBoy/PosterBoyDjango/resetActions.py
-
-need postgres and django and psycopg2 installed
-"""
