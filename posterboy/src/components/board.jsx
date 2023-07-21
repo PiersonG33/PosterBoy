@@ -129,7 +129,8 @@ function PostInProgress({position, boardRef}) {
       })
     };
 
-    const url = 'http://localhost:8000/api/boardviewer/posts/' + BID + "/";
+    const url = `http://localhost:8000/api/getboard/${BID}/`;
+
 
     await fetch(url, options)
       .then(response => response.json())
