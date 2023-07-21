@@ -39,7 +39,7 @@ class Posts(models.Model):
     
 class UserActions(models.Model):
     id = models.IntegerField(primary_key=True)
-    userid = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='userid', blank=True, null=True)
+    userid = models.ForeignKey(User, models.DO_NOTHING, db_column='userid', blank=True, null=True)
     postid = models.ForeignKey(Posts, models.DO_NOTHING, db_column='postid', blank=True, null=True)
     boardid = models.ForeignKey(Boards, models.DO_NOTHING, db_column='boardid', blank=True, null=True)
     action = models.CharField(max_length=10, blank=True, null=True)
@@ -53,7 +53,7 @@ class UserActions(models.Model):
         db_table = 'useractions'
     
 class UserStatus(models.Model):
-    userid = models.OneToOneField(AuthUser, models.DO_NOTHING, db_column='userid', primary_key=True)  
+    userid = models.OneToOneField(User, models.DO_NOTHING, db_column='userid', primary_key=True)  
     # ^^^The composite primary key (userid, boardid) found, that is not supported. The first column is selected.
     boardid = models.ForeignKey(Boards, models.DO_NOTHING, db_column='boardid')
     role = models.CharField(max_length=10, blank=True, null=True)

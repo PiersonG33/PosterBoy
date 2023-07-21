@@ -78,7 +78,6 @@ def posts(request, bid):
     if request.method == 'GET':
         #bid = request.GET.get('boardid')
         posts = Posts.objects.filter(boardid=bid)
-
         data = [
             {
                 'message': post.message,
