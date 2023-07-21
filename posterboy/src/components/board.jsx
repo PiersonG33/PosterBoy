@@ -104,13 +104,36 @@ function PostInProgress({position, boardRef}) {
     
   }, []); // The empty array [] as the second argument makes the effect run only once, on mount.
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const userText = textInputRef.current.innerText; // Access the user-entered text
     // Do something with the user-entered text
 
     console.log(userText);
     // Additional logic or function calls can be added here
+
+    const BID = "1"
+
+    const options = { 
+      method: "POST",
+      json: JSON.stringify({
+        message: userText,
+        message_type: "post",
+        userid: "<uid>",
+        boardid: BID,
+        color:'yellow',
+        date: "DEFAULT",
+        score: 1,
+        x: position.left,
+        y: position.top
+      })
+    };
+
+    const url = 'http://localhost:8000/api/boardviewer/posts/' + BID + "/";
+
+    await fetch(url, options)
+      .then(response => response.json())
+      .then(data => console.log(data));
 
     // Now delete the post:
     boardRef.setState({
