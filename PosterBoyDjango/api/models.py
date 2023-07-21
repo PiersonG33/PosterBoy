@@ -21,7 +21,6 @@ class Posts(models.Model):
     userid = models.ForeignKey(User, models.DO_NOTHING, db_column='userid', blank=True, null=True)
     boardid = models.ForeignKey(Boards, models.DO_NOTHING, db_column='boardid', blank=True, null=True)
     id = models.IntegerField(primary_key=True)
-    color = models.IntegerField()
     date = models.DateTimeField(blank=True, null=True, default=timezone.now) # set default creation date to whenever model is created
     message = models.CharField(max_length=200, blank=True, null=True)
     message_type = models.IntegerField(blank=True, null=True)
