@@ -35,7 +35,7 @@ function Header() {
 
   useEffect(() => {
     // Fetch the list of boards from the database and store it in state
-    const url = 'http://localhost:8000/api/getboards';
+    const url = 'http://localhost:8000/api/getboard/' + searchQuery + '/' + '1';
     fetch(url)
       .then(response => response.json())
       .then(data => setBoardList(data));
