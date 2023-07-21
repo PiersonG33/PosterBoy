@@ -31,7 +31,7 @@ function Header() {
   const [searchResults, setSearchResults] = useState([]);
 
   const handleSignUpState = (parentState) => {
-    if(parentState == "close") {
+    if(parentState === "close") {
       setSignUp(false);
     }
     else {
