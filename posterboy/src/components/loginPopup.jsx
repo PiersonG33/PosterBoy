@@ -35,9 +35,9 @@ const LoginPopup = ({onChange}) => {
         <PopoverBody>
           <FormControl isRequired>
             <FormLabel>Email</FormLabel>
-            <Input type='email' />
+            <Input type='email'/>
             <FormLabel>Password</FormLabel>
-            <Input type='password' />
+            <Input type='password'/>
 
             <Stack spacing={2} direction='row' align='center'>
               <Button
@@ -73,9 +73,4 @@ const LoginContainer = styled.div`
   overflow: visible;
 `
 
-const SignUpContainer = styled.div`
- position: absolute;
- width: 100vw;
- height: 100vh;
-`
 export default LoginPopup;

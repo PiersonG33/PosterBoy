@@ -11,18 +11,6 @@ import { ChakraProvider } from '@chakra-ui/react';
 
 import React from "react";
 
-// class App extends Component {
-//   render() {
-//     return (
-//       <Router>
-//         <Routes>
-//           <Route path="/" exact element={<DjangoTest/>} />
-//         </Routes>
-//       </Router>
-//     );
-//   }
-// }
-
 function App() {
   return (
     <ChakraProvider>

@@ -8,10 +8,8 @@ import {
   InputGroup,
   InputRightElement,
   Stack,
-  Link,
   Button,
   Heading,
-  Text,
   useColorModeValue,
   CloseButton
 } from '@chakra-ui/react';
@@ -80,25 +78,6 @@ const SignUp = ({onChange}) => {
       </SignUpContainer>
   );
 };
-
-// function Apple() {
-//   useEffect(() => {
-//     const script = document.createElement("script");
-//     script.src = "https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js";
-//     script.async = true;
-//     script.onload = () => {
-//       window.AppleID.auth.init({
-//         clientId: "[CLIENT_ID]",
-//         scope: "[SCOPES]",
-//         redirectURI: "[REDIRECT_URI]",
-//         state: "[STATE]",
-//         nonce: "[NONCE]",
-//         usePopup: true
-//       });
-//     };
-//     document.body.appendChild(script);
-//   }, []);
-// }
 
 
 const SignUpContainer = styled.section`

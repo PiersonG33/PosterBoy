@@ -61,7 +61,7 @@ function Home() {
                 fontWeight='extrabold'
                 /*</Box>textShadow='0px 0px 0px #000000'*/
               >
-                <b>About Us</b>
+                <h1>About Us</h1>
               </Text>
             </Box>
         </div>
@@ -80,7 +80,7 @@ function Home() {
                 fontWeight='extrabold'
                 /*</Box>textShadow='0px 0px 0px #000000'*/
               >
-                <b>Our Vision</b>
+                <h1>Our Vision</h1>
               </Text>
             </Box>
         </div>
@@ -99,7 +99,7 @@ function Home() {
                 fontWeight='extrabold'
                 /*</Box>textShadow='0px 0px 0px #000000'*/
               >
-                <b>Feedback</b>
+                <h1>Feedback</h1>
               </Text>
             </Box>
         </div>
@@ -136,22 +136,5 @@ const SecondHomeContainer = styled.div`
 const PostItContainer = styled.div`
   margin-top: 5rem;
 `;
-
-// This component is used to style the video container
-const VideoContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: calc(500px);
-  overflow: hidden;
-
-  video {
-    width: 100%;
-    height: 100%;
-    min-width: 100%;
-    min-height: 100%;
-    object-fit: cover;
-  }
-`
 
 export default Home;
