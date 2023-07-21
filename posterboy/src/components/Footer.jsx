@@ -9,7 +9,7 @@ import { COLORS } from '../colors.js'
 const comments = [
   "I like vertebrae", 
   "Reddit faces no chance.", 
-  "The up and coming social media application.", 
+  "The up-and-coming social media application.", 
   "Don't worry, we recycle the post-its.",
   "Go outside and touch grass.", 
   "Made by CS majors from RPI.", 
