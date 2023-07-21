@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Posts, Boards, UserActions, UserStatus, PostArchive
 from rest_framework.decorators import api_view
+import json
 
 #Decorator shenanagins
 def allow_get_only(view_func):
@@ -73,18 +74,17 @@ def allow_post_only(view_func):
         return JsonResponse(post_data, status=201)
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
-    
+@csrf_exempt
 def posts(request, bid):
     if request.method == 'GET':
         #bid = request.GET.get('boardid')
         posts = Posts.objects.filter(boardid=bid)
-
         data = [
             {
                 'message': post.message,
                 'message_type': post.message_type,
                 'userid': post.userid,
-                'id': post.id,
+                #'id': post.id,
                 #'boardid': post.boardid,
                 'color': post.color,
                 'date': post.date,
@@ -98,7 +98,8 @@ def posts(request, bid):
         return JsonResponse(data, safe=False)
     
     elif request.method == 'POST':
-        post_data = request.json()
+        post_data = json.loads(request.body)
+        #equest.json()
         post = Posts.objects.create(
             message=post_data['message'],
             message_type=post_data['message_type'],
@@ -166,13 +167,13 @@ def posts(request, bid):
 #             'error': 'Invalid request method'
 #         }
 #         return JsonResponse(data, status=405)
-    
+@csrf_exempt
 def useractions(request, uid, boardid = None):
     #this gets all actions by a user on a board
     if request.method == 'GET':
         if boardid == None:
             return JsonResponse({'error': 'Wrong Request Type??'}, status=404)
-        actions = UserActions.objects.filter(uid=uid, boardid=boardid)
+        actions = UserActions.objects.filter(userid=uid, boardid=boardid)
         data = [
             {
                 'id': action.id,
@@ -187,16 +188,16 @@ def useractions(request, uid, boardid = None):
     
     elif request.method == 'POST':
         try:
-            post = Posts.objects.get(pid=uid) 
+            post = Posts.objects.get(id=uid) 
                 #pid = uid because I combined two functions with different parameters. Just go along with it.
             # The request should specify the user deleting the post and the date
-            user_data = request.json()
+            user_data = json.loads(request.body)
             theUID = user_data['userid']
 
             action = UserActions.objects.create(
                 action="demote", #This might not be right
                 userid=theUID,
-                postid=post.postid,
+                postid=post.id,
             )
             action.save()
             return JsonResponse({'message': 'Post deleted successfully'}, status=200)
