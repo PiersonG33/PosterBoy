@@ -110,7 +110,6 @@ function PostInProgress({position, boardRef}) {
     // Do something with the user-entered text
 
     console.log(userText);
-
     // Additional logic or function calls can be added here
 
     // Now delete the post:
