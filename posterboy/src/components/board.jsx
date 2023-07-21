@@ -1,15 +1,12 @@
+import React, {useEffect, useRef} from 'react';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import styled from "styled-components";
-import React from 'react';
 import Board_Pic from "../assets/board_new.jpg";
-import PostIt from "./post-it.jsx";
+import { PostIt } from "./post-it.jsx";
+import { Button } from '@chakra-ui/react';
 
-import {
-  Button
-} from '@chakra-ui/react';
-
-const imageWidth = 2621;
-const imageHeight = 1805;
+// const imageWidth = 2621;
+// const imageHeight = 1805;
 
 class BoardCanvas extends React.Component {
   state = {
@@ -19,12 +16,18 @@ class BoardCanvas extends React.Component {
   };
 
   handleMouseUp = (event) => {
-    this.state.mouseIsDown = false;
+
+    this.setState({
+      mouseIsDown: false
+    });
 
     if (this.state.wasMoved)
     {
-      this.state.wasMoved = false;
+      this.setState({
+        wasMoved: false
+      });
     }
+
     else
     {
       this.makePost(event);
@@ -42,13 +45,20 @@ class BoardCanvas extends React.Component {
     const mouseY = (event.clientY - boardRect.top) * scaleY;
   
     const postItPosition = { left: mouseX, top: mouseY };
-    const postInProgress = <PostInProgress position={postItPosition} />; // Use JSX syntax
+    const postInProgress = <PostInProgress 
+      position={postItPosition} 
+      boardRef={this} 
+    />; // Use JSX syntax
     this.setState({ postItInProgress: postInProgress }); // Update state key
   };
 
   handleDrag(event) {
+    // Might want to have it so you need to move a
+    // minimum distance before it counts as a drag
     if (this.state.mouseIsDown) {
-      this.state.wasMoved = true;
+      this.setState({
+        wasMoved: true
+      });
     }
   }
 
@@ -56,11 +66,10 @@ class BoardCanvas extends React.Component {
 
   render() {
     const { postItInProgress } = this.state; // Update state key
-    
 
     return (
       <BoardContainer 
-        onMouseDown = {() => this.state.mouseIsDown=true}
+        onMouseDown = {() => this.setState({mouseIsDown: true })}
         onMouseMove = {(event) => this.handleDrag(event) }
         onMouseUp   = {(event) => this.handleMouseUp(event) }
       >
@@ -85,48 +94,93 @@ class BoardCanvas extends React.Component {
   }
 }
 
-function PostInProgress({position}) {
-  const handleSubmit = (event) => {
+function PostInProgress({position, boardRef}) {
+
+  const textInputRef = useRef(null); // Create a ref for the text input element
+
+  useEffect(() => {
+    // This function will be executed when the component mounts on the screen.
+    textInputRef.current.focus(); // Focus on the text input when the component mounts
+    
+  }, []); // The empty array [] as the second argument makes the effect run only once, on mount.
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const userText = event.target.previousSibling.innerText;
+    const userText = textInputRef.current.innerText; // Access the user-entered text
     // Do something with the user-entered text
 
+    console.log(userText);
     // Additional logic or function calls can be added here
+
+    const BID = "1"
+
+    const options = { 
+      method: "POST",
+      json: JSON.stringify({
+        message: userText,
+        message_type: "post",
+        userid: "<uid>",
+        boardid: BID,
+        color:'yellow',
+        date: "DEFAULT",
+        score: 1,
+        x: position.left,
+        y: position.top
+      })
+    };
+
+    const url = 'http://localhost:8000/api/boardviewer/posts/' + BID + "/";
+
+    await fetch(url, options)
+      .then(response => response.json())
+      .then(data => console.log(data));
+
+    // Now delete the post:
+    boardRef.setState({
+      postItInProgress: null
+    });
   };
 
+
+
   return (
-    <PostItContainer left={position.left} top={position.top}
+    <PostItContainer 
+      left={position.left} top={position.top}
       onMouseDown={(event) => event.stopPropagation()}
       onMouseUp={(event) => event.stopPropagation()} // This could be the cause of some future buggy weirdness with mouse inputs not working.
     >
-      <PostIt body={
-        <div>
-          <div 
-            id="textinput"
-            contentEditable="true"
-            style={{
-              padding: '10px',
-              textAlign: 'left'
-            }}
-          />
-      
-          <Button
-            onClick={handleSubmit}
-            style={{
-              display: 'block',
-              margin: '10px 0',
-              padding: '8px 16px',
-              background: '#4CAF50',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer'
-            }}
-          >
-            Submit
-          </Button>
-        </div>
-      }/>
+
+      <PostIt 
+        body={
+          <div>
+            <div 
+              id="textinput"
+              ref={textInputRef}
+              contentEditable="true"
+              style={{
+                padding: '10px',
+                textAlign: 'left'
+              }}
+            />
+        
+            <Button
+              onClick={handleSubmit}
+              style={{
+                display: 'block',
+                margin: '10px 0',
+                padding: '8px 16px',
+                background: '#4CAF50',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer'
+              }}
+            >
+              Submit
+            </Button>
+          </div>
+        }
+      />
     </PostItContainer>
   );
 }

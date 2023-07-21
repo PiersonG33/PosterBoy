@@ -17,7 +17,7 @@ const darkColor = postItHue.concat(".200");
 let width = "500px";
 let height = "300px";
 
-function PostIt({ body }) {
+export function PostIt({ body }) {
   return (
     <Card bg={lightColor} color="black" w={width} h={height}>
       <CardBody>{body}</CardBody>
@@ -28,29 +28,33 @@ function PostIt({ body }) {
   );
 }
 
-  /* 
-    This is the little dog-ear in the lower-right corner.
-    It's kinda buggy, in that there is a shadow where there 
-    shouldn't be in the corner, so if that can't be fixed,
-    you can comment/remove the invocation of the code
-    in PostIt and that'll get rid of the dog-ear.
-  */
-  function DogEar() {return <div>
-      <Box
+/* 
+  This is the little dog-ear in the lower-right corner.
+  It's kinda buggy, in that there is a shadow where there 
+  shouldn't be in the corner, so if that can't be fixed,
+  you can comment/remove the invocation of the code
+  in PostIt and that'll get rid of the dog-ear.
+*/
+function DogEar() {return <div>
+    <Box
       position="absolute"
       bottom={0} right={0}
       borderBottomWidth={50}
       borderLeftWidth={50}
-      borderLeftColor={darkColor}/>
-      <Box
+      borderLeftColor={darkColor}
+    />
+    <Box
       position="absolute"
       bottom={0} right={0}
       borderTopWidth={50}
       borderTopColor="transparent"
       borderRightWidth={50}
       borderRightColor={backgroundColor}
-      />
-    </div>
-  };
+    />
+  </div>
+};
 
-  export default PostIt
+// "content" is the text inside the post-it
+export function PostItDone({author, content}) {
+  return <PostIt body={<div><b>{author}</b> {content}</div>} />;
+}
