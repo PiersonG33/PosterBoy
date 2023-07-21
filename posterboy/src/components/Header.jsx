@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { 
   FaHome,
@@ -29,6 +29,17 @@ function Header() {
   const [showSignUp, setSignUp] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [boardList, setBoardList] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [dropdownResults, setDropdownResults] = useState([]);
+
+  useEffect(() => {
+    // Fetch the list of boards from the database and store it in state
+    const url = 'http://localhost:8000/api/getboards';
+    fetch(url)
+      .then(response => response.json())
+      .then(data => setBoardList(data));
+  }, []);
 
   const handleSignUpState = (parentState) => {
     if(parentState === "close") {
@@ -41,7 +52,35 @@ function Header() {
   };
 
   const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
+    const query = event.target.value;
+    setSearchQuery(query);
+
+    // If the search query is empty, hide the dropdown menu
+    if (query === '') {
+      setShowDropdown(false);
+      setDropdownResults([]);
+      return;
+    }
+
+    // Search the list of boards for boards that match the search query
+    const results = boardList.filter(board => board.name.toLowerCase().includes(query.toLowerCase()));
+
+    // Sort the results by how closely they match the search query
+    results.sort((a, b) => {
+      const aIndex = a.name.toLowerCase().indexOf(query.toLowerCase());
+      const bIndex = b.name.toLowerCase().indexOf(query.toLowerCase());
+      if (aIndex === bIndex) {
+        return a.name.localeCompare(b.name);
+      }
+      return aIndex - bIndex;
+    });
+
+    // Limit the results to the top 5
+    const limitedResults = results.slice(0, 5);
+
+    // Update the dropdown menu with the search results
+    setDropdownResults(limitedResults);
+    setShowDropdown(true);
   };
 
   const handleSearchSubmit = async () => {
@@ -74,18 +113,14 @@ function Header() {
               </Link>
             </LogoContainer>
             {/* This component displays a search bar */}
-            <Box display="flex" alignItems="center">
+            <Box display="flex" alignItems="center" position="relative">
               <Input
                 placeholder="Search boards"
                 value={searchQuery}
                 onChange={handleSearchChange}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter') {
-                    handleSearchSubmit();
-                  }
-                }}
                 mr={2}
                 color={COLORS.marian_blue}
+                onFocus={() => setShowDropdown(true)}
               />
               <IconButton
                 aria-label="Search"
@@ -94,6 +129,13 @@ function Header() {
                 color="white"
                 onClick={handleSearchSubmit}
               />
+              {showDropdown && (
+                <DropdownContainer>
+                  {dropdownResults.map(board => (
+                    <DropdownItem key={board.id}>{board.name}</DropdownItem>
+                  ))}
+                </DropdownContainer>
+              )}
             </Box>
           </HeaderLeft>
           <HeaderRight>
@@ -211,4 +253,24 @@ const SignUpContainer = styled.div`
   z-index: 10;
   background-color: #00000080;
 `
+
+const DropdownContainer = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-top: none;
+  z-index: 1;
+`;
+
+const DropdownItem = styled.div`
+  padding: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #f2f2f2;
+  }
+`;
+
 export default Header;
