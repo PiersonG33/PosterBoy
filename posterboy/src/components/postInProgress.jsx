@@ -22,10 +22,25 @@ export function PostInProgress({position, boardRef, BID}) {
   
       // Submit the stuff to the server.
   
+      const options = { 
+        method: "POST",
+        json: JSON.stringify({
+          message: userText,
+          message_type: "post",
+          userid: "<uid>",
+          boardid: BID,
+          color:'yellow',
+          date: "DEFAULT",
+          score: 1,
+          x: position.left,
+          y: position.top
+        })
+      };
+  
       const url = `http://localhost:8000/api/posts/${BID}/`;
   
   
-      await fetch(url, BID)
+      await fetch(url, options)
         .then(response => response.json())
         .then(data => console.log(data));
   
