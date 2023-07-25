@@ -2,11 +2,11 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 15.3
--- Dumped by pg_dump version 15.3
+-- Dumped from database version 15.2
+-- Dumped by pg_dump version 15.2
 
 \c postgres
-DROP DATABASE IF EXISTS posterboytesting;
+DROP DATABASE posterboytesting;
 CREATE DATABASE posterboytesting;
 \c posterboytesting
 
@@ -20,35 +20,6 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
-
---
--- Name: actionreset(integer); Type: FUNCTION; Schema: public; Owner: postgres
---
-
-CREATE FUNCTION public.actionreset(bid integer) RETURNS void
-    LANGUAGE plpgsql
-    AS $$
-DECLARE
-    resettime timestamp;
-    sincereset interval;
-    resetthreshold interval;
-BEGIN
-    SELECT lastreset INTO resettime from boards where id = bid;
-    SELECT now() - resettime INTO sincereset;
-    IF (sincereset > resetthreshold OR resettime IS NULL) THEN
-        INSERT INTO ActionArchive
-        SELECT id, U.postid, U.userid, U.boardid, U.action, now()
-        FROM UserActions U
-        WHERE U.boardid = bid;
-        DELETE FROM UserActions *;
-        UPDATE boards SET lastreset = now() WHERE id = bid;
-    END IF;
-    RETURN;
-END
-$$;
-
-
-ALTER FUNCTION public.actionreset(bid integer) OWNER TO postgres;
 
 --
 -- Name: archiver_trgf(); Type: FUNCTION; Schema: public; Owner: postgres
@@ -388,8 +359,7 @@ CREATE TABLE public.boards (
     id integer NOT NULL,
     topic_name character varying(50),
     actions integer,
-    reset interval,
-    lastreset timestamp without time zone
+    reset interval
 );
 
 
@@ -699,7 +669,7 @@ COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
 -- Data for Name: boards; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.boards (id, topic_name, actions, reset, lastreset) FROM stdin;
+COPY public.boards (id, topic_name, actions, reset) FROM stdin;
 \.
 
 
