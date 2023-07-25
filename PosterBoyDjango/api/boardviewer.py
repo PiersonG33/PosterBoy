@@ -104,12 +104,10 @@ def posts(request, bid):
         post_data = json.loads(request.body)
         user = User.objects.get(pk=post_data['userid'])
         board = Boards.objects.get(pk=post_data['boardid'])
-        #equest.json()
         post = Posts.objects.create(
             message=post_data['message'],
             message_type=post_data['message_type'],
             userid=user,
-            # id=post_data['id'], #The ID is automatically generated
             boardid= board,
             color=post_data['color'],
             date=post_data['date'],
