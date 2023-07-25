@@ -1,17 +1,13 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import JsonResponse, HttpResponse
 from django.db.models import Q
-from .models import Posts, Boards, UserActions, UserStatus, PostArchive
-from views import *
-from rest_framework.decorators import api_view
+from switchboard.models import Boards, Userstatus
 
+# Create your views here.
 
-#Decorator shenanagins
-def allow_get_only(view_func):
-    decorated_view = api_view(["GET"])(view_func)
-    return decorated_view
+def index(request):
+    return HttpResponse('<h1>Django Include URLS</h1>')
 
-@allow_get_only    
 def getboard(request, board_name):
     try:
         #boards = Boards.objects.filter(Q(name__icontains=board_name))
@@ -20,11 +16,11 @@ def getboard(request, board_name):
         board_list = []
         for board in boards:
             try:
-                status = get_object_or_404(UserStatus, boardid=1, userid=request.user.id)
+                status = get_object_or_404(Userstatus, boardid=1, userid=request.user.id)
                 status_data = {
                     'role': status.role,
                 }
-            except UserStatus.DoesNotExist:
+            except Userstatus.DoesNotExist:
                 status_data = {}
 
             board_data = {
