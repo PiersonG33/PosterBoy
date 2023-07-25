@@ -15,15 +15,24 @@ const BID = "1";
 class BoardCanvas extends React.Component {
   state = {
     postItInProgress: null,
-    mouseIsDown: false,
+    mouseClickStartPosition: null,
     wasMoved: false,
     existingPosts: []
   };
 
+  handleMouseDown = (event) => {
+    this.setState(
+      {mouseClickStartPosition: {
+        x: event.clientX,
+        y: event.clientY
+      }
+    });
+  }
+
   handleMouseUp = (event) => {
 
     this.setState({
-      mouseIsDown: false
+      mouseClickStartPosition: null
     });
 
     if (this.state.wasMoved)
@@ -32,7 +41,6 @@ class BoardCanvas extends React.Component {
         wasMoved: false
       });
     }
-
     else
     {
       this.makePost(event);
@@ -59,12 +67,33 @@ class BoardCanvas extends React.Component {
   };
 
   handleDrag(event) {
+    const minDistance = 10;
     // Might want to have it so you need to move a
     // minimum distance before it counts as a drag
-    if (this.state.mouseIsDown) {
-      this.setState({
-        wasMoved: true
-      });
+    if (this.state.mouseClickStartPosition) {
+      // calculate distance
+      let newPosition = { x: event.clientX, y: event.clientY };
+      let oldPosition = this.state.mouseClickStartPosition;
+
+      let xD = newPosition.x - oldPosition.x;
+      let xD2 = xD * xD;
+
+      let yD = newPosition.y - oldPosition.y;
+      let yD2 = yD * yD;
+
+      let semifinal = yD2 + xD2;
+
+      let distance = Math.sqrt(semifinal);
+
+
+      if (minDistance < distance)
+      {
+        this.setState({
+          wasMoved: true
+        });
+      }
+
+      
     }
   }
 
@@ -88,7 +117,7 @@ class BoardCanvas extends React.Component {
 
     return (
       <BoardContainer 
-        onMouseDown = {() => this.setState({mouseIsDown: true })}
+        onMouseDown = {(event) => this.handleMouseDown(event)}
         onMouseMove = {(event) => this.handleDrag(event) }
         onMouseUp   = {(event) => this.handleMouseUp(event) }
         onLoad   = {() => this.loadPosts() }
