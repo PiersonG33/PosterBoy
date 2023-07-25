@@ -53,6 +53,7 @@ class BoardCanvas extends React.Component {
     const postInProgress = <PostInProgress 
       position={postItPosition} 
       boardRef={this} 
+      BID={BID}
     />; // Use JSX syntax
     this.setState({ postItInProgress: postInProgress }); // Update state key
   };
