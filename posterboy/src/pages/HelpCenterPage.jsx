@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from 'styled-components';
 import { Box, Heading, Input, Stack, Text } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 
@@ -56,50 +57,55 @@ function HelpCenterPage() {
   );
 
   return (
-    <Box p={4}>
-      <Heading as="h1" size="xl" mb={4}>
-        Help Center
-      </Heading>
-      <Stack direction="row" spacing={4} mb={4}>
-        <Input
-          placeholder="Search for help"
-          value={searchQuery}
-          onChange={handleSearchChange}
-          size="lg"
-          pr="4.5rem"
-          variant="filled"
-          bg="white"
-          borderColor="gray.300"
-          _hover={{ borderColor: "gray.400" }}
-          _focus={{ borderColor: "gray.400", boxShadow: "none" }}
-        />
-        <Box position="relative">
-          <FaSearch
-            color="gray.400"
-            position="absolute"
-            top="50%"
-            right="1rem"
-            transform="translateY(-50%)"
+    <HelpContainer>
+      <Box p={4}>
+        <Heading as="h1" size="xl" mb={4}>
+          Help Center
+        </Heading>
+        <Stack direction="row" spacing={4} mb={4}>
+          <Input
+            placeholder="Search for help"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            size="lg"
+            pr="4.5rem"
+            variant="filled"
+            bg="white"
+            borderColor="gray.300"
+            _hover={{ borderColor: "gray.400" }}
+            _focus={{ borderColor: "gray.400", boxShadow: "none" }}
           />
-        </Box>
-      </Stack>
-      <Stack spacing={4}>
-        {categories.map((category) => (
-          <Text key={category.id} fontWeight="bold">
-            {category.name}
-          </Text>
-        ))}
-        {filteredFaqs.map((faq) => (
-          <Box key={faq.id} borderWidth="1px" p={4} rounded="md">
-            <Heading as="h2" size="md" mb={2}>
-              {faq.question}
-            </Heading>
-            <Text>{faq.answer}</Text>
+          <Box>
+            <FaSearch
+              color="gray.400"
+              position="absolute"
+              top="50%"
+              right="1rem"
+              transform="translateY(-50%)"
+            />
           </Box>
-        ))}
-      </Stack>
-    </Box>
+        </Stack>
+        <Stack spacing={4}>
+          {categories.map((category) => (
+            <Text key={category.id} fontWeight="bold">
+              {category.name}
+            </Text>
+          ))}
+          {filteredFaqs.map((faq) => (
+            <Box key={faq.id} borderWidth="1px" p={4} rounded="md">
+              <Heading as="h2" size="md" mb={2}>
+                {faq.question}
+              </Heading>
+              <Text>{faq.answer}</Text>
+            </Box>
+          ))}
+        </Stack>
+      </Box>
+    </HelpContainer>
   );
 }
 
+const HelpContainer = styled.div`
+  margin: 50px;
+`
 export default HelpCenterPage;
