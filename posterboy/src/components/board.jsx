@@ -2,16 +2,22 @@ import React from 'react';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import styled from "styled-components";
 import Board_Pic from "../assets/board_new.jpg";
+import { PostItDone } from "./post-it.jsx";
 import PostInProgress from "./postInProgress.jsx";
 
 // const imageWidth = 2621;
 // const imageHeight = 1805;
+
+// dummy value:
+const BID = "1";
+
 
 class BoardCanvas extends React.Component {
   state = {
     postItInProgress: null,
     mouseIsDown: false,
     wasMoved: false,
+    existingPosts: []
   };
 
   handleMouseUp = (event) => {
@@ -47,6 +53,7 @@ class BoardCanvas extends React.Component {
     const postInProgress = <PostInProgress 
       position={postItPosition} 
       boardRef={this} 
+      BID={BID}
     />; // Use JSX syntax
     this.setState({ postItInProgress: postInProgress }); // Update state key
   };
@@ -61,6 +68,19 @@ class BoardCanvas extends React.Component {
     }
   }
 
+  async loadPosts() {
+    const url = `http://localhost:8000/api/posts/${BID}/`;
+    const options = { method: "GET" };
+
+    await fetch(url, options)
+      .then(response => console.log(response))
+      .then(data => this.setState({
+        existingPosts: data
+      }));
+
+    console.log("now posts:");
+    console.log(this.state.existingPosts);
+  }
   
 
   render() {
@@ -71,6 +91,7 @@ class BoardCanvas extends React.Component {
         onMouseDown = {() => this.setState({mouseIsDown: true })}
         onMouseMove = {(event) => this.handleDrag(event) }
         onMouseUp   = {(event) => this.handleMouseUp(event) }
+        onLoad   = {() => this.loadPosts() }
       >
         <TransformWrapper 
           centerOnInit={true}
@@ -84,8 +105,18 @@ class BoardCanvas extends React.Component {
               alt="The Amazing Cork Board"
               ref={(ref) => (this.boardRef = ref)}
             />
-            
-            {/* Other post-its should render too */}
+
+            {/* Render existing posts */}
+
+            {this.state.existingPosts && this.state.existingPosts.length > 0 && this.state.existingPosts.map((post, index) => (
+              <div key={index} style={{ position: 'absolute', left: post.left, top: post.top }}>
+                {/* Render each post here, you might need to replace 'div' with the correct component */}
+                <div>{post.title}</div>
+                <div>{post.content}</div>
+              </div>
+            ))}
+
+  
           </TransformComponent>
         </TransformWrapper>
       </BoardContainer>

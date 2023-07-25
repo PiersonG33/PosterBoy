@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name = 'home'),
-    path('getboard/<str:board_name>/<int:user_id>/', switcher.getboard, name = 'getboard'),
+    path('board/<str:board_name>/<int:user_id>/', switcher.getboard, name = 'getboard'),
     # path('get_posts/<int:bid>', boardviewer.get_posts, name = 'get_posts'),
     # path('add_post', boardviewer.add_post, name = 'add_post'),
     path('posts/<int:bid>/', boardviewer.posts, name = 'posts'),

@@ -2,14 +2,16 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Posts, Boards, UserActions, UserStatus, PostArchive
+from rest_framework.decorators import api_view
 
+#Decorator shenanagins
+def allow_get_only(view_func):
+    decorated_view = api_view(["GET"])(view_func)
+    return decorated_view
 
-# Create your views here.
-from django.http import HttpResponse
-
-
-def index(request):
-    return HttpResponse("Hello, world. You're at the BoardView index.")
+def allow_post_only(view_func):
+    decorated_view = api_view(["POST"])(view_func)
+    return decorated_view
 
 
 # @csrf_exempt
