@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Button } from '@chakra-ui/react';
 import { PostIt } from './post-it.jsx';
 
-export function PostInProgress({position, boardRef}) {
+export function PostInProgress({position, boardRef, BID}) {
 
     const textInputRef = useRef(null); // Create a ref for the text input element
   
@@ -22,27 +22,10 @@ export function PostInProgress({position, boardRef}) {
   
       // Submit the stuff to the server.
   
-      const BID = "1" // board id. set to dummy value of 1 here
-  
-      const options = { 
-        method: "POST",
-        json: JSON.stringify({
-          message: userText,
-          message_type: "post",
-          userid: "<uid>",
-          boardid: BID,
-          color:'yellow',
-          date: "DEFAULT",
-          score: 1,
-          x: position.left,
-          y: position.top
-        })
-      };
-  
-      const url = `http://localhost:8000/api/getboard/${BID}/`;
+      const url = `http://localhost:8000/api/posts/${BID}/`;
   
   
-      await fetch(url, options)
+      await fetch(url, BID)
         .then(response => response.json())
         .then(data => console.log(data));
   
@@ -50,6 +33,8 @@ export function PostInProgress({position, boardRef}) {
       boardRef.setState({
         postItInProgress: null
       });
+
+      boardRef.loadPosts();
     };
   
   

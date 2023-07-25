@@ -7,6 +7,8 @@ import PostInProgress from "./postInProgress.jsx";
 // const imageWidth = 2621;
 // const imageHeight = 1805;
 
+const BID = "1";
+
 class BoardCanvas extends React.Component {
   state = {
     postItInProgress: null,
@@ -61,6 +63,18 @@ class BoardCanvas extends React.Component {
     }
   }
 
+  async loadPosts() {
+    const options = { 
+      method: "GET"
+    };
+
+    const url = `http://localhost:8000/api/posts/${BID}/`;
+
+
+    await  fetch(url, options)
+      .then(response => response.json())
+      .then(data => console.log(data));
+  }
   
 
   render() {
@@ -71,6 +85,7 @@ class BoardCanvas extends React.Component {
         onMouseDown = {() => this.setState({mouseIsDown: true })}
         onMouseMove = {(event) => this.handleDrag(event) }
         onMouseUp   = {(event) => this.handleMouseUp(event) }
+        onComponentDidMount   = {() => this.loadPosts() }
       >
         <TransformWrapper 
           centerOnInit={true}
