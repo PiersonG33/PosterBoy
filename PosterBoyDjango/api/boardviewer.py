@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Posts, Boards, UserActions, UserStatus, PostArchive
+from .serializers import PostSerializer
+from django.contrib.auth.models import User
 from rest_framework.decorators import api_view
 import json
 
@@ -79,33 +81,36 @@ def posts(request, bid):
     if request.method == 'GET':
         #bid = request.GET.get('boardid')
         posts = Posts.objects.filter(boardid=bid)
-        data = [
-            {
-                'message': post.message,
-                'message_type': post.message_type,
-                'userid': post.userid,
-                #'id': post.id,
-                #'boardid': post.boardid,
-                'color': post.color,
-                'date': post.date,
-                'score': post.score,
-                'x': post.x,
-                'y': post.y
+        serializer = PostSerializer(posts, many=True)
+        # data = [
+        #     {
+        #         'message': post.message,
+        #         'message_type': post.message_type,
+        #         'userid': post.userid,
+        #         #'id': post.id,
+        #         #'boardid': post.boardid,
+        #         'color': post.color,
+        #         'date': post.date,
+        #         'score': post.score,
+        #         'x': post.x,
+        #         'y': post.y
 
-            }
-            for post in posts
-        ]
-        return JsonResponse(data, safe=False)
+        #     }
+        #     for post in posts
+        # ]
+        return JsonResponse(serializer.data, safe=False)
     
     elif request.method == 'POST':
         post_data = json.loads(request.body)
+        user = User.objects.get(pk=post_data['userid'])
+        board = Boards.objects.get(pk=post_data['boardid'])
         #equest.json()
         post = Posts.objects.create(
             message=post_data['message'],
             message_type=post_data['message_type'],
-            userid=post_data['userid'],
+            userid=user,
             # id=post_data['id'], #The ID is automatically generated
-            boardid=post_data['boardid'],
+            boardid= board,
             color=post_data['color'],
             date=post_data['date'],
             score=post_data['score'],
@@ -113,13 +118,6 @@ def posts(request, bid):
             y=post_data['y']
         )
         post.save()
-        action = UserActions.objects.create(
-            action="add",
-            userid=post_data['userid'],
-            postid=post.id, #The ID is the automatically generated from the post
-            # date=post_data['date'] //Default date is current
-        )
-        action.save()
         return JsonResponse(post_data, status=201)
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
