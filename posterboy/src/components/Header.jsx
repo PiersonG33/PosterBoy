@@ -128,16 +128,13 @@ function Header() {
 const LoginOrProfile = ({onChange}) => {
 
   const [parentState, setParentState] = useState(false);
-
   const handleChildStateChange = (isActive) => {
     setParentState(isActive);
     onChange(parentState);
   }
 
   let content;
-
   let logged_in = false; // Dummy variable, should actually check if logged in.
-
   if (logged_in)
   {
     content = <BoardCounter/>

@@ -14,18 +14,18 @@ import React from "react";
 function App() {
   return (
     <ChakraProvider>
-    <Router>
-      <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Board" element={<BoardPage />} />
-          <Route path="/About" element={<AboutPage />} />
-          <Route path="/DjangoTest" element={<DjangoTest />} />
-          <Route path="/HelpCenter" element={<HelpCenterPage />} />
-        </Routes>
-      <Footer />
-    </Router>
-  </ChakraProvider>
+      <Router>
+        <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/Board" element={<BoardPage />} />
+            <Route path="/About" element={<AboutPage />} />
+            <Route path="/DjangoTest" element={<DjangoTest />} />
+            <Route path="/HelpCenter" element={<HelpCenterPage />} />
+          </Routes>
+        <Footer />
+      </Router>
+    </ChakraProvider>
   );
 }
 
