@@ -117,8 +117,8 @@ def posts(request, bid):
         post.save()
         action = UserActions.objects.create(
             action="add",
-            userid=post_data['userid'],
-            postid=post.id, #The ID is the automatically generated from the post
+            userid=user,
+            postid=post, #The ID is the automatically generated from the post
             # date=post_data['date'] //Default date is current
         )
         action.save()
@@ -176,30 +176,31 @@ def useractions(request, uid, boardid = None):
         if boardid == None:
             return JsonResponse({'error': 'Wrong Request Type??'}, status=404)
         actions = UserActions.objects.filter(userid=uid, boardid=boardid)
-        data = [
-            {
-                'id': action.id,
-                'uid': action.userid,
-                'pid': action.postid,
-                'action': action.action,
-                'date': action.date
-            }
-            for action in actions
-        ]
-        return JsonResponse(data, safe=False)
+        serializer = PostSerializer(actions, many=True)
+        # data = [
+        #     {
+        #         'id': action.id,
+        #         'uid': action.userid,
+        #         'pid': action.postid,
+        #         'action': action.action,
+        #         'date': action.date
+        #     }
+        #     for action in actions
+        # ]
+        return JsonResponse(serializer.data, safe=False)
     
     elif request.method == 'POST':
         try:
-            post = Posts.objects.get(id=uid) 
+            post = Posts.objects.get(pk=uid) 
                 #pid = uid because I combined two functions with different parameters. Just go along with it.
             # The request should specify the user deleting the post and the date
             user_data = json.loads(request.body)
-            theUID = user_data['userid']
+            theUID = User.objects.get(pk=user_data['userid'])
 
             action = UserActions.objects.create(
                 action="demote", #This might not be right
                 userid=theUID,
-                postid=post.id,
+                postid=post,
             )
             action.save()
             return JsonResponse({'message': 'Post deleted successfully'}, status=200)
