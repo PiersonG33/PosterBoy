@@ -1,0 +1,2 @@
+* * * * * date > /mnt/c/Users/gordoz2/Documents/PosterBoy/PosterBoyDjango/cronTesting/outD.txt
+* * * * * /usr/bin/python3 /mnt/c/Users/gordoz2/Documents/PosterBoy/PosterBoyDjango/cronTesting/hi.py > /mnt/c/Users/gordoz2/Documents/PosterBoy/PosterBoyDjango/cronTesting/out.txt

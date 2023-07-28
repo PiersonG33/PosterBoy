@@ -21,6 +21,6 @@ from api.views import note
 
 urlpatterns = [
     path("board/", note, name="note"),
-    path("switch/", include('switchboard.urls')),
+    path("api/", include('api.urls')),
     path('admin/', admin.site.urls),
 ]
