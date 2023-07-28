@@ -45,7 +45,7 @@ function Header() {
   };
 
   const handleSearchSubmit = async () => {
-    const url = 'http://localhost:8000/api/getboard/' + searchQuery + '/' + '1';
+    const url = `http://localhost:8000/api/getboard/${searchQuery}/1`;
     console.log(searchQuery);
     
     await fetch(url)

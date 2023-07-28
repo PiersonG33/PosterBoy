@@ -2,19 +2,17 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Posts, Boards, UserActions, UserStatus, PostArchive
-from .serializers import PostSerializer
-from django.contrib.auth.models import User
 from rest_framework.decorators import api_view
+from django.contrib.auth.models import User
 import json
 
-#Decorator shenanagins
-def allow_get_only(view_func):
-    decorated_view = api_view(["GET"])(view_func)
-    return decorated_view
 
-def allow_post_only(view_func):
-    decorated_view = api_view(["POST"])(view_func)
-    return decorated_view
+# Create your views here.
+from django.http import HttpResponse
+
+
+def index(request):
+    return HttpResponse("Hello, world. You're at the BoardView index.")
 
 
 # @csrf_exempt
@@ -81,24 +79,23 @@ def posts(request, bid):
     if request.method == 'GET':
         #bid = request.GET.get('boardid')
         posts = Posts.objects.filter(boardid=bid)
-        serializer = PostSerializer(posts, many=True)
-        # data = [
-        #     {
-        #         'message': post.message,
-        #         'message_type': post.message_type,
-        #         'userid': post.userid,
-        #         #'id': post.id,
-        #         #'boardid': post.boardid,
-        #         'color': post.color,
-        #         'date': post.date,
-        #         'score': post.score,
-        #         'x': post.x,
-        #         'y': post.y
+        data = [
+            {
+                'message': post.message,
+                'message_type': post.message_type,
+                'userid': post.userid,
+                #'id': post.id,
+                #'boardid': post.boardid,
+                'color': post.color,
+                'date': post.date,
+                'score': post.score,
+                'x': post.x,
+                'y': post.y
 
-        #     }
-        #     for post in posts
-        # ]
-        return JsonResponse(serializer.data, safe=False)
+            }
+            for post in posts
+        ]
+        return JsonResponse(data, safe=False)
     
     elif request.method == 'POST':
         post_data = json.loads(request.body)
@@ -116,6 +113,13 @@ def posts(request, bid):
             y=post_data['y']
         )
         post.save()
+        action = UserActions.objects.create(
+            action="add",
+            userid=post_data['userid'],
+            postid=post.id, #The ID is the automatically generated from the post
+            # date=post_data['date'] //Default date is current
+        )
+        action.save()
         return JsonResponse(post_data, status=201)
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
