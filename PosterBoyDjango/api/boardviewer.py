@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Posts, Boards, UserActions, UserStatus, PostArchive
 from rest_framework.decorators import api_view
+from .serializers import PostSerializer
 from django.contrib.auth.models import User
 import json
 
@@ -79,23 +80,24 @@ def posts(request, bid):
     if request.method == 'GET':
         #bid = request.GET.get('boardid')
         posts = Posts.objects.filter(boardid=bid)
-        data = [
-            {
-                'message': post.message,
-                'message_type': post.message_type,
-                'userid': post.userid,
-                #'id': post.id,
-                #'boardid': post.boardid,
-                'color': post.color,
-                'date': post.date,
-                'score': post.score,
-                'x': post.x,
-                'y': post.y
+        serializer = PostSerializer(posts, many=True)
+        # data = [
+        #     {
+        #         'message': post.message,
+        #         'message_type': post.message_type,
+        #         'userid': post.userid,
+        #         #'id': post.id,
+        #         #'boardid': post.boardid,
+        #         'color': post.color,
+        #         'date': post.date,
+        #         'score': post.score,
+        #         'x': post.x,
+        #         'y': post.y
 
-            }
-            for post in posts
-        ]
-        return JsonResponse(data, safe=False)
+        #     }
+        #     for post in posts
+        # ]
+        return JsonResponse(serializer.data, safe=False)
     
     elif request.method == 'POST':
         post_data = json.loads(request.body)
