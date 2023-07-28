@@ -13,7 +13,10 @@ const comments = [
   "Don't worry, we recycle the post-its.",
   "Go outside and touch grass.", 
   "Made by CS majors from RPI.", 
-  "This definitely won't be a problem down the road."
+  "This definitely won't be a problem down the road.",
+  "Lower your expectations.",
+  "My Mom told me to do this.",
+  "We do web stuff because web stuff is fun."
 ]
 
 // This component represents the footer of the Official PosterBoy Website!
