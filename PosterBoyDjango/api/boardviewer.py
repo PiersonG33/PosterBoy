@@ -2,11 +2,9 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Posts, Boards, UserActions, UserStatus, PostArchive
-<<<<<<< HEAD:PosterBoyDjango/api/boardviewer.py
 from rest_framework.decorators import api_view
+from django.contrib.auth.models import User
 import json
-=======
->>>>>>> parent of 93911c0 (Merge pull request #160 from PiersonG33/copelc_clean):PosterBoyDjango/boardview/views.py
 
 
 # Create your views here.
@@ -101,13 +99,13 @@ def posts(request, bid):
     
     elif request.method == 'POST':
         post_data = json.loads(request.body)
-        #equest.json()
+        user = User.objects.get(pk=post_data['userid'])
+        board = Boards.objects.get(pk=post_data['boardid'])
         post = Posts.objects.create(
             message=post_data['message'],
             message_type=post_data['message_type'],
-            userid=post_data['userid'],
-            # id=post_data['id'], #The ID is automatically generated
-            boardid=post_data['boardid'],
+            userid=user,
+            boardid= board,
             color=post_data['color'],
             date=post_data['date'],
             score=post_data['score'],
