@@ -66,7 +66,7 @@ function Home() {
                 fontWeight='extrabold'
                 /*</Box>textShadow='0px 0px 0px #000000'*/
               >
-                <b>About Us</b>
+                <h1>About Us</h1>
               </Text>
             </Box>
         </div>
@@ -85,7 +85,7 @@ function Home() {
                 fontWeight='extrabold'
                 /*</Box>textShadow='0px 0px 0px #000000'*/
               >
-                <b>Our Vision</b>
+                <h1>Our Vision</h1>
               </Text>
             </Box>
         </div>
@@ -104,7 +104,7 @@ function Home() {
                 fontWeight='extrabold'
                 /*</Box>textShadow='0px 0px 0px #000000'*/
               >
-                <b>Feedback</b>
+                <h1>Feedback</h1>
               </Text>
             </Box>
         </div>
@@ -125,6 +125,7 @@ const HomeContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-image: linear-gradient(#FFFFFF, ${COLORS.marian_blue});
+  margin-top: 3em;
 `;
 
 const SecondHomeContainer = styled.div`

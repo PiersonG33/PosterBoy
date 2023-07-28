@@ -1,17 +1,5 @@
 from django.urls import path
-from . import views, switcher, boardviewer
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# TESTING PURPOSES \/
-from django.urls import path
-from . import views, switcher, boardviewer
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# TESTING PURPOSES \/
-urlpatterns = [
-    # existing URL patterns
-    #path('search_boards/<str:query>/', views.search_boards, name='search_boards'),
-]
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+from . import views
 
 urlpatterns = [
     path('', views.index, name = 'home'),
