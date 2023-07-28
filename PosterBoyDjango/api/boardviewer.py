@@ -102,15 +102,13 @@ def posts(request, bid):
     elif request.method == 'POST':
         post_data = json.loads(request.body)
         user = User.objects.get(pk=post_data['userid'])
-        board = Boards.objects.get(pk=post_data['boardid'])
+        board = Boards.objects.get(pk=bid)
         post = Posts.objects.create(
             message=post_data['message'],
             message_type=post_data['message_type'],
             userid=user,
-            boardid= board,
+            boardid=board,
             color=post_data['color'],
-            date=post_data['date'],
-            score=post_data['score'],
             x=post_data['x'],
             y=post_data['y']
         )
