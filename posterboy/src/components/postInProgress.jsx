@@ -1,22 +1,25 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from "styled-components";
-import { Button } from '@chakra-ui/react';
+import { Button, Tooltip } from '@chakra-ui/react';
 import { PostIt } from './post-it.jsx';
 
 export function PostInProgress({position, boardRef, BID}) {
 
+    const maxLines = 5; // Set the maximum number of lines here
     const textInputRef = useRef(null); // Create a ref for the text input element
-  
+    const lineHeight = 1.2; // Set the line height in em units, same as in maxHeight
+
+
     useEffect(() => {
       // This function will be executed when the component mounts on the screen.
       textInputRef.current.focus(); 
       // Focus on the text input when the component mounts
       
     }, []); // The empty array [] as the second argument makes the effect run only once, on mount.
-  
+
     const handleSubmit = async (event) => {
       event.preventDefault();
-      const userText = textInputRef.current.innerText; // Access the user-entered text
+      const userText = textInputRef.current.innerText.trim(); // Access the user-entered text
   
       //console.log(userText);
   
@@ -52,48 +55,73 @@ export function PostInProgress({position, boardRef, BID}) {
       boardRef.loadPosts();
     };
   
+    
   
-  
-    return (
-      <PostItContainer 
-        left={position.left} top={position.top}
-        onMouseDown={(event) => event.stopPropagation()}
-        onMouseUp={(event) => event.stopPropagation()} // This could be the cause of some future buggy weirdness with mouse inputs not working.
-      >
-  
-        <PostIt 
-          body={
-            <div>
-              <div 
-                id="textinput"
-                ref={textInputRef}
-                contentEditable="true"
-                style={{
-                  padding: '10px',
-                  textAlign: 'left'
-                }}
-              />
-          
-              <Button
-                onClick={handleSubmit}
-                style={{
-                  display: 'block',
-                  margin: '10px 0',
-                  padding: '8px 16px',
-                  background: '#4CAF50',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '4px',
-                  cursor: 'pointer'
-                }}
+  const [buttonDisable, setButtonDisable] = useState(true);
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  return (
+    <PostItContainer
+      left={position.left} top={position.top}
+      onMouseDown={(event) => event.stopPropagation()}
+      onMouseUp={(event) => event.stopPropagation()}
+    >
+
+      <PostIt
+        body={
+          <div>
+            <div
+              id="textinput"
+              ref={textInputRef}
+              contentEditable="true"
+              onInput={() => {
+                const userText = textInputRef.current.innerText.trim();
+                setButtonDisable(userText.length === 0);
+              }}
+              style={{
+                padding: '10px',
+                textAlign: 'left',
+                maxHeight: `${maxLines * lineHeight}em`,
+              }}
+            />
+
+            <Button
+              onClick={handleSubmit}
+              onMouseOver={() => setShowTooltip(true)}
+              onMouseOut={() => setShowTooltip(false)}
+              isDisabled={buttonDisable}
+              style={{
+                display: 'block',
+                margin: '10px 0',
+                padding: '8px 16px',
+                background: '#4CAF50',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer'
+              }}
+            >
+              <Tooltip
+              label="You need to enter text to make a post!"
+              isOpen={showTooltip && buttonDisable} // Show tooltip only on hover or click when the button is disabled
+              placement="top"
+              closeDelay={0}
+              bg="red.500"
+              color="white"
+              hasArrow
               >
-                Submit
-              </Button>
-            </div>
-          }
-        />
-      </PostItContainer>
-    );
+                <span>
+                  Submit
+                </span>
+              </Tooltip>
+                
+            </Button>
+            
+          </div>
+        }
+      />
+    </PostItContainer>
+  );
   }
 
 // Update the left and top CSS properties in PostItContainer
