@@ -50,31 +50,31 @@ def index(request):
 
 # @allow_post_only
 # def add_post(request):
-    if request.method == 'POST':
-        post_data = request.json()
-        post = Posts.objects.create(
-            message=post_data['message'],
-            message_type=post_data['message_type'],
-            userid=post_data['userid'],
-            # id=post_data['id'], #The ID is automatically generated
-            boardid=post_data['boardid'],
-            color=post_data['color'],
-            date=post_data['date'],
-            score=post_data['score'],
-            x=post_data['x'],
-            y=post_data['y']
-        )
-        post.save()
-        action = UserActions.objects.create(
-            action="add",
-            userid=post_data['userid'],
-            postid=post.id, #The ID is the automatically generated from the post
-            # date=post_data['date'] //Default date is current
-        )
-        action.save()
-        return JsonResponse(post_data, status=201)
-    else:
-        return JsonResponse({'error': 'Invalid request method'}, status=405)
+    # if request.method == 'POST':
+    #     post_data = request.json()
+    #     post = Posts.objects.create(
+    #         message=post_data['message'],
+    #         message_type=post_data['message_type'],
+    #         userid=post_data['userid'],
+    #         # id=post_data['id'], #The ID is automatically generated
+    #         boardid=post_data['boardid'],
+    #         color=post_data['color'],
+    #         date=post_data['date'],
+    #         score=post_data['score'],
+    #         x=post_data['x'],
+    #         y=post_data['y']
+    #     )
+    #     post.save()
+    #     action = UserActions.objects.create(
+    #         action="add",
+    #         userid=post_data['userid'],
+    #         postid=post.id, #The ID is the automatically generated from the post
+    #         # date=post_data['date'] //Default date is current
+    #     )
+    #     action.save()
+    #     return JsonResponse(post_data, status=201)
+    # else:
+    #     return JsonResponse({'error': 'Invalid request method'}, status=405)
 @csrf_exempt
 def posts(request, bid):
     if request.method == 'GET':
