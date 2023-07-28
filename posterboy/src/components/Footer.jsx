@@ -7,7 +7,7 @@ import { COLORS } from '../colors.js'
 
 
 const comments = [
-  "I like vertebrae", 
+  "I like vertebrae.", 
   "Reddit faces no chance.", 
   "The up and coming social media application.", 
   "Don't worry, we recycle the post-its.",
@@ -16,7 +16,8 @@ const comments = [
   "This definitely won't be a problem down the road.",
   "Lower your expectations.",
   "My Mom told me to do this.",
-  "We do web stuff because web stuff is fun."
+  "We do web stuff because web stuff is fun.",
+  "Why the flibberdygoogle did you click this?"
 ]
 
 // This component represents the footer of the Official PosterBoy Website!

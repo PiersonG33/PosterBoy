@@ -16,6 +16,7 @@ import {
 import LoginPopup from "./loginPopup";
 import BoardCounter from './boardCounter';
 
+import { FaSun, FaMoon } from 'react-icons/fa';
 import { Link } from "react-router-dom";
 import LogoPic from '../assets/logo.svg';
 import HelpIcon from '../assets/hands-holding-child-solid.svg';
@@ -32,10 +33,11 @@ function Header() {
   const [boardList, setBoardList] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [dropdownResults, setDropdownResults] = useState([]);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
     // Fetch the list of boards from the database and store it in state
-    const url = 'http://localhost:8000/api/getboard/' + searchQuery + '/' + '1';
+    const url = 'http://localhost:8000/api/getboard';
     fetch(url)
       .then(response => response.json())
       .then(data => setBoardList(data));
@@ -100,10 +102,14 @@ function Header() {
     )
   }
 
+  const handleDarkModeToggle = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   return (
     <div>
       {showSignUp && SignUpFunc()}
-      <HeaderContainer>
+      <HeaderContainer isDarkMode={isDarkMode}>
         <HeaderInnerContainer>
           <HeaderLeft>
             <LogoContainer>
@@ -154,6 +160,13 @@ function Header() {
                 <IconButton as="a" href="/HelpCenter" color={COLORS.marian_blue} aria-label="HelpCenterPage" icon={<img src={HelpIcon} alt="HelpCenter" style={{ height: "1.75rem", width: "1.75rem" }} />} />
               </Tooltip>
               
+              <Tooltip hasArrow label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}>
+                <IconButton
+                  aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+                  icon={isDarkMode ? <FaSun /> : <FaMoon />}
+                  onClick={handleDarkModeToggle}
+                />
+              </Tooltip>
             </ButtonGroup>
           </HeaderRight>
         </HeaderInnerContainer>
@@ -205,8 +218,8 @@ const LoginOrProfile = ({onChange}) => {
 
 // This component is used to style the header
 const HeaderContainer = styled.div`
-  background-color: #FFFFFF;
-  color: white;
+  background-color: ${props => props.isDarkMode ? '#1A202C' : '#FFFFFF'};
+  color: ${props => props.isDarkMode ? '#FFFFFF' : 'black'};
   height: 12vh;
   display: flex;
   justify-content: center;
