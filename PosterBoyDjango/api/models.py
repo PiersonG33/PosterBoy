@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-
+from django.contrib.auth.models import User;
 # Create your models here.
 
 class AuthUser(models.Model):
@@ -33,16 +33,9 @@ class Boards(models.Model):
         db_table = 'boards'
 
 class Posts(models.Model):
-<<<<<<< HEAD
     userid = models.ForeignKey(User, models.DO_NOTHING, db_column='userid', blank=True, null=True)
     boardid = models.ForeignKey(Boards, models.DO_NOTHING, db_column='boardid', blank=True, null=True)
     id = models.IntegerField(primary_key=True)
-=======
-    userid = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='userid', blank=True, null=True)
-    boardid = models.ForeignKey(Boards, models.DO_NOTHING, db_column='boardid', blank=True, null=True)
-    id = models.IntegerField(primary_key=True)
-    color = models.IntegerField()
->>>>>>> parent of 93911c0 (Merge pull request #160 from PiersonG33/copelc_clean)
     date = models.DateTimeField(blank=True, null=True, default=timezone.now) # set default creation date to whenever model is created
     message = models.CharField(max_length=200, blank=True, null=True)
     message_type = models.IntegerField(blank=True, null=True)
@@ -60,11 +53,7 @@ class Posts(models.Model):
     
 class UserActions(models.Model):
     id = models.IntegerField(primary_key=True)
-<<<<<<< HEAD
     userid = models.ForeignKey(User, models.DO_NOTHING, db_column='userid', blank=True, null=True)
-=======
-    userid = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='userid', blank=True, null=True)
->>>>>>> parent of 93911c0 (Merge pull request #160 from PiersonG33/copelc_clean)
     postid = models.ForeignKey(Posts, models.DO_NOTHING, db_column='postid', blank=True, null=True)
     boardid = models.ForeignKey(Boards, models.DO_NOTHING, db_column='boardid', blank=True, null=True)
     action = models.CharField(max_length=10, blank=True, null=True)
