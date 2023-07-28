@@ -1,9 +1,21 @@
 from django.urls import path
-from . import views
+from . import views, switcher, boardviewer
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# TESTING PURPOSES \/
+from django.urls import path
+from . import views, switcher, boardviewer
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# TESTING PURPOSES \/
+urlpatterns = [
+    # existing URL patterns
+    #path('search_boards/<str:query>/', views.search_boards, name='search_boards'),
+]
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 urlpatterns = [
     path('', views.index, name = 'home'),
-    path('board/<str:board_name>/<int:user_id>/', switcher.getboard, name = 'getboard'),
+    path('getboard/<str:board_name>/<int:user_id>/', switcher.getboard, name = 'getboard'),
     # path('get_posts/<int:bid>', boardviewer.get_posts, name = 'get_posts'),
     # path('add_post', boardviewer.add_post, name = 'add_post'),
     path('posts/<int:bid>/', boardviewer.posts, name = 'posts'),
