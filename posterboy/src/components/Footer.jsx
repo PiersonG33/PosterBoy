@@ -33,7 +33,7 @@ function Footer() {
           {/* This component displays social media icons */}
           <ButtonGroup variant="ghost" marginRight="1rem">
             <IconButton as="a" color={COLORS.jonquil} href="https://github.com/PiersonG33/PosterBoy/tree/main" aria-label="Github" icon={<FaGithubSquare fontSize="1.75rem" />} />
-            <IconButton as="a" color={COLORS.jonquil} href="https://new.rcos.io/" aria-label="Github" icon={<img src={RCOSLogo} alt="RCOS Logo" style={{ height: "1.54rem", width: "1.54rem" }} />} />
+            <IconButton as="a" color={COLORS.jonquil} href="https://new.rcos.io/" aria-label="RCOS" icon={<img src={RCOSLogo} alt="RCOS Logo" style={{ height: "1.54rem", width: "1.54rem" }} />} />
             {/* The RCOS icon must always be 0.88x the size of the other normal buttons, to keep the visual sizes the same. */}
           </ButtonGroup>
         </FooterRight>

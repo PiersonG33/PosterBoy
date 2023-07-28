@@ -1,14 +1,11 @@
 
 **PosterBoy Database Schema**
 
-Django's default database schema is used to store sitewide user
-accounts.\
-PosterBoy also stores information about each board, post, user roles on
-boards, and user actions on boards.\
-[image]{.image .placeholder original-image-src="ERD.png"}
+Django's default user schema is used to store sitewide user accounts.
+PosterBoy also stores information about each board, post, user roles on boards, and user actions on boards.
 
 
-ACTIVE DATA TABLES:\
+ACTIVE DATA TABLES:
 TABLE auth_user:
 1. id integer
 2. password, up to 128 characters
@@ -74,11 +71,8 @@ TABLE ActionArchive:
 5. action, up to 10 characters
 6. date, timestamp (archival date)
 
-TRIGGERS:\
-archive() - moves a post from the active posts table to the archive
-table when its score goes to 0\
+TRIGGERS:
+archive() - moves a post from the active posts table to the archive table when its score goes to 0
 legalAction() - checks whether a user's attempted action is allowed, and
-blocks it if not (i.e. do they have enough board actions for the
-period)\
-post_trg() - When posting or changing a post's score, insert a record of
-the action into userActions\
+blocks it if not (i.e. do they have enough board actions for the period)
+post_trg() - When posting or changing a post's score, insert a record of the action into userActions

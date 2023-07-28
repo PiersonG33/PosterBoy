@@ -1,0 +1,30 @@
+/* light-theme.css */
+:root {
+  /* Colors */
+  --primary-color: #003F91;
+  --secondary-color: #FFCF00;
+  --background-color: #5DA9E9;
+  --text-color: #000000;
+  --link-color: #007bff; /* You can choose a different link color if you prefer */
+  --error-color: #dc3545;
+  --success-color: #28a745;
+
+  /* Fonts */
+  --font-family: 'Arial', sans-serif;
+  --font-size: 16px;
+  --heading-font-family: 'Helvetica', sans-serif;
+  --heading-font-size: 24px;
+
+  /* Spacing */
+  --padding: 8px;
+  --margin: 8px;
+  --border-radius: 4px;
+
+  /* Box Shadows and Borders */
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --border: 1px solid #e0e0e0;
+
+  /* Icons */
+  --icon-color: #003F91;
+
+}

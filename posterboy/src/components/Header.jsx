@@ -86,7 +86,7 @@ function Header() {
   };
 
   const handleSearchSubmit = async () => {
-    const url = 'http://localhost:8000/api/getboard/' + searchQuery + '/' + '1';
+    const url = `http://localhost:8000/api/getboard/${searchQuery}/1`;
     console.log(searchQuery);
     
     await fetch(url)
@@ -183,16 +183,13 @@ function Header() {
 const LoginOrProfile = ({onChange}) => {
 
   const [parentState, setParentState] = useState(false);
-
   const handleChildStateChange = (isActive) => {
     setParentState(isActive);
     onChange(parentState);
   }
 
   let content;
-
   let logged_in = false; // Dummy variable, should actually check if logged in.
-
   if (logged_in)
   {
     content = <BoardCounter/>
