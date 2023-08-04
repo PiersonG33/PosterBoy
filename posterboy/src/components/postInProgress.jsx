@@ -8,12 +8,18 @@ export function PostInProgress({position, boardRef, BID}) {
     const textInputRef = useRef(null); // Create a ref for the text input element
     const lineHeight = 1.2; // Set the line height in em units, same as in maxHeight
 
+    const maxChars = 200;
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        // Should also display some sort of clarification that you can't do that.
+      }
+    };
 
     useEffect(() => {
-      // This function will be executed when the component mounts on the screen.
-      textInputRef.current.focus(); 
-      // Focus on the text input when the component mounts
-      
+      // Focus on the text input when the component mounts onto the screen.
+      textInputRef.current.focus();       
     }, []); // The empty array [] as the second argument makes the effect run only once, on mount.
 
     const handleSubmit = async (event) => {
@@ -41,15 +47,12 @@ export function PostInProgress({position, boardRef, BID}) {
   
       const url = `http://localhost:8000/api/posts/${BID}/`;
   
-  
       await fetch(url, options)
         .then(response => response.json())
         .then(data => console.log(data));
   
       // Now delete the post:
-      boardRef.setState({
-        postItInProgress: null
-      });
+      boardRef.setState({ postItInProgress: null });
 
       boardRef.loadPosts();
     };
@@ -74,9 +77,11 @@ export function PostInProgress({position, boardRef, BID}) {
               ref={textInputRef}
               contentEditable="true"
               onInput={() => {
-                const userText = textInputRef.current.innerText.trim();
-                setButtonDisable(userText.length === 0);
+                const fullText = textInputRef.current.innerText;
+                const userText = fullText.trim();
+                setButtonDisable(userText.length === 0 || fullText.length > maxChars );
               }}
+              onKeyDown={(event) => handleKeyDown(event)}
               style={{
                 padding: '10px',
                 textAlign: 'left',
