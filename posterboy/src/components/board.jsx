@@ -3,6 +3,7 @@ import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import styled from 'styled-components';
 import Board_Pic from '../assets/board_new.jpg';
 import PostInProgress from './postInProgress';
+import {PostItDone} from './post-it';
 
 const BID = '1';
 
@@ -44,6 +45,9 @@ function BoardCanvas() {
     setPostItInProgress(<PostInProgress position={postItPosition} boardRef={boardRef} BID={BID} />);
   };
 
+
+  const dummyPosition = { left: 100, top: 100 };
+
   // Handle dragging to determine if it's a drag or click event
   const handleDrag = (event) => {
     const minDistance = 10;
@@ -63,6 +67,7 @@ function BoardCanvas() {
   }, []);
 
   async function loadPosts() {
+
     const url = `http://localhost:8000/api/posts/${BID}/`;
     const options = { method: 'GET' };
 
@@ -95,6 +100,14 @@ function BoardCanvas() {
               <div>{post.content}</div>
             </div>
           ))}
+
+          <PostItDone
+            author='Joe Freedom'
+            content='dummy'
+            position={dummyPosition}
+            score="3"
+          />
+
         </TransformComponent>
       </TransformWrapper>
     </BoardContainer>
