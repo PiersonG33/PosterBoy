@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styled from "styled-components";
 import { Button, Tooltip } from '@chakra-ui/react';
-import { PostIt } from './post-it.jsx';
+import { PostIt, PostItContainer } from './post-it.jsx';
 
 export function PostInProgress({position, boardRef, BID}) {
 
@@ -124,12 +123,5 @@ export function PostInProgress({position, boardRef, BID}) {
   );
   }
 
-// Update the left and top CSS properties in PostItContainer
-const PostItContainer = styled.div`
-position: absolute;
-left: ${props => props.left}px;
-top: ${props => props.top}px;
-z-index: 9;
-`;
 
   export default PostInProgress;
