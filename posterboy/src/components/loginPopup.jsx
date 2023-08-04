@@ -42,7 +42,7 @@ const LoginPopup = ({onChange}) => {
             <Stack spacing={2} direction='row' align='center'>
               <Button
                 mt={4}
-                colorScheme='green'
+                colorScheme='blue'
                 type='submit'
                 isLoading={false}
               >
@@ -51,7 +51,7 @@ const LoginPopup = ({onChange}) => {
 
               <Button
                 mt={4}
-                colorScheme='teal'
+                colorScheme='blue'
                 type='submit'
                 variant='link'
                 as="a"
