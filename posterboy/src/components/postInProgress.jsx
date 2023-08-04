@@ -90,7 +90,16 @@ export function PostInProgress({position, boardRef, BID}) {
               onInput={() => {
                 const fullText = textInputRef.current.innerText;
                 const userText = fullText.trim();
-                setButtonDisable(userText.length === 0 || fullText.length > maxChars );
+                const passedCharacterLimit = (fullText.length > maxChars);
+
+                setButtonDisable(false);
+
+                if (passedCharacterLimit) {
+                  textInputRef.current.innerText = fullText.substring(0, maxChars);
+                }
+                else if (userText.length === 0) {
+                  setButtonDisable(true);
+                }
               }}
               onKeyDown={(event) => handleKeyDown(event)}
               style={{
