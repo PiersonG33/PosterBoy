@@ -1,19 +1,35 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Button, Tooltip } from '@chakra-ui/react';
 import { PostIt, PostItContainer } from './post-it.jsx';
+import styled from "styled-components";
+
+const lineHeight = 1.2; // Set the line height in em units, same as in maxHeight
+const maxLines = 5; // Set the maximum number of lines here
+const maxChars = 150;
 
 export function PostInProgress({position, boardRef, BID}) {
 
-    const maxLines = 5; // Set the maximum number of lines here
-    const textInputRef = useRef(null); // Create a ref for the text input element
-    const lineHeight = 1.2; // Set the line height in em units, same as in maxHeight
+  
+    const [buttonDisable, setButtonDisable] = useState(true);
+    const [showTooltip, setShowTooltip] = useState(false);
+    const [showEnterWarning, setShowEnterWarning] = useState(false);
+    const [showCharLimitWarning, setShowCharLimitWarning] = useState(false);
 
-    const maxChars = 200;
+    const textInputRef = useRef(null); // Create a ref for the text input element
+  
 
     const handleKeyDown = (event) => {
+      const fullText = textInputRef.current.innerText;
+      if (fullText.length >= maxChars && event.key !== 'Delete' && event.key !== 'Backspace')
+      {
+        event.preventDefault();
+        setShowCharLimitWarning(true); // Display some sort of clarification that you can't do that.
+        setTimeout(() => setShowCharLimitWarning(false), 2000); // Hide the warning after 2 seconds
+      }
       if (event.key === 'Enter') {
         event.preventDefault();
-        // Should also display some sort of clarification that you can't do that.
+        setShowEnterWarning(true); // Display some sort of clarification that you can't do that.
+        setTimeout(() => setShowEnterWarning(false), 2000); // Hide the warning after 2 seconds
       }
     };
 
@@ -56,11 +72,6 @@ export function PostInProgress({position, boardRef, BID}) {
 
       boardRef.loadPosts();
     };
-  
-    
-  
-  const [buttonDisable, setButtonDisable] = useState(true);
-  const [showTooltip, setShowTooltip] = useState(false);
 
   return (
     <PostItContainer
@@ -88,6 +99,7 @@ export function PostInProgress({position, boardRef, BID}) {
                 maxHeight: `${maxLines * lineHeight}em`,
               }}
             />
+            
 
             <Button
               onClick={handleSubmit}
@@ -106,20 +118,24 @@ export function PostInProgress({position, boardRef, BID}) {
               }}
             >
               <Tooltip
-              label="You need to enter text to make a post!"
-              isOpen={showTooltip && buttonDisable} // Show tooltip only on hover or click when the button is disabled
-              placement="top"
-              closeDelay={0}
-              bg="red.500"
-              color="white"
-              hasArrow
+                label="You need to enter text to make a post!"
+                isOpen={showTooltip && buttonDisable} // Show tooltip only on hover or click when the button is disabled
+                placement="top"
+                closeDelay={0}
+                bg="red.500"
+                color="white"
+                hasArrow
               >
-                <span>
-                  Submit
-                </span>
+                <span>Submit</span>
               </Tooltip>
                 
             </Button>
+            {showEnterWarning && (
+              <div style={{ color: 'red', marginTop: '5px' }}><i>Posts must be one paragraph only.</i></div>
+            )}
+            {showCharLimitWarning && (
+              <div style={{ color: 'red', marginTop: '5px' }}><i>You hit the character limit lol.</i></div>
+            )}
             
           </div>
         }
@@ -127,6 +143,5 @@ export function PostInProgress({position, boardRef, BID}) {
     </PostItContainer>
   );
   }
-
 
   export default PostInProgress;
