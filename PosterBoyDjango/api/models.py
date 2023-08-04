@@ -51,8 +51,8 @@ class UserActions(models.Model):
         db_table = 'useractions'
     
 class UserStatus(models.Model):
-    userid = models.OneToOneField(User, models.DO_NOTHING, db_column='userid', primary_key=True)  
-    # ^^^The composite primary key (userid, boardid) found, that is not supported. The first column is selected.
+    id = models.AutoField(primary_key=True)
+    userid = models.ForeignKey(User, models.DO_NOTHING, db_column='userid')  
     boardid = models.ForeignKey(Boards, models.DO_NOTHING, db_column='boardid')
     role = models.CharField(max_length=10, blank=True, null=True)
 
@@ -60,7 +60,7 @@ class UserStatus(models.Model):
     class Meta:
         managed = False
         db_table = 'userstatus'
-        unique_together = (('userid', 'boardid'),)
+        unique_together = (('userid', 'boardid'))
     
 class PostArchive(models.Model):
     id = models.AutoField(primary_key=True)
