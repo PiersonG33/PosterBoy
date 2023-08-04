@@ -1,136 +1,105 @@
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import styled from "styled-components";
-import React from 'react';
-import Board_Pic from "../assets/board_new.jpg";
-import PostIt from "./post-it.jsx";
+import React, { useState, useRef, useEffect } from 'react';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+import styled from 'styled-components';
+import Board_Pic from '../assets/board_new.jpg';
+import PostInProgress from './postInProgress';
 
-import {
-  Button
-} from '@chakra-ui/react';
+const BID = '1';
 
-const imageWidth = 2621;
-const imageHeight = 1805;
+function BoardCanvas() {
+  const [postItInProgress, setPostItInProgress] = useState(null);
+  const [mouseClickStartPosition, setMouseClickStartPosition] = useState(null);
+  const [wasMoved, setWasMoved] = useState(false);
+  const [existingPosts, setExistingPosts] = useState([]);
 
-class BoardCanvas extends React.Component {
-  state = {
-    postItInProgress: null,
-    mouseIsDown: false,
-    wasMoved: false,
+  const boardRef = useRef(null);
+
+  // Handle mouse down event
+  const handleMouseDown = (event) => {
+    setMouseClickStartPosition({
+      x: event.clientX,
+      y: event.clientY,
+    });
   };
 
-  handleMouseUp = (event) => {
-    this.state.mouseIsDown = false;
+  // Handle mouse up event
+  const handleMouseUp = (event) => {
+    setMouseClickStartPosition(null);
 
-    if (this.state.wasMoved)
-    {
-      this.state.wasMoved = false;
+    if (!wasMoved) {
+      makePost(event);
+    } else {
+      setWasMoved(false);
     }
-    else
-    {
-      this.makePost(event);
-    }
-  }
+  };
 
-
-  makePost = (event) => {
-    const boardRect = this.boardRef.getBoundingClientRect();
-  
-    const scaleX = this.boardRef.width / boardRect.width;
-    const scaleY = this.boardRef.height / boardRect.height;
-  
+  // Create a new post
+  const makePost = (event) => {
+    const boardRect = boardRef.current.getBoundingClientRect();
+    const scaleX = boardRef.current.width / boardRect.width;
+    const scaleY = boardRef.current.height / boardRect.height;
     const mouseX = (event.clientX - boardRect.left) * scaleX;
     const mouseY = (event.clientY - boardRect.top) * scaleY;
-  
     const postItPosition = { left: mouseX, top: mouseY };
-    const postInProgress = <PostInProgress position={postItPosition} />; // Use JSX syntax
-    this.setState({ postItInProgress: postInProgress }); // Update state key
+    setPostItInProgress(<PostInProgress position={postItPosition} boardRef={boardRef} BID={BID} />);
   };
 
-  handleDrag(event) {
-    if (this.state.mouseIsDown) {
-      this.state.wasMoved = true;
+  // Handle dragging to determine if it's a drag or click event
+  const handleDrag = (event) => {
+    const minDistance = 10;
+    if (mouseClickStartPosition) {
+      const { x: x1, y: y1 } = mouseClickStartPosition;
+      const { clientX: x2, clientY: y2 } = event;
+      const distance = Math.hypot(x2 - x1, y2 - y1);
+      if (distance > minDistance) {
+        setWasMoved(true);
+      }
+    }
+  };
+
+  // Load existing posts from API
+  useEffect(() => {
+    loadPosts();
+  }, []);
+
+  async function loadPosts() {
+    const url = `http://localhost:8000/api/posts/${BID}/`;
+    const options = { method: 'GET' };
+
+    try {
+      const response = await fetch(url, options);
+      const data = await response.json();
+      setExistingPosts(data);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
     }
   }
 
-  
-
-  render() {
-    const { postItInProgress } = this.state; // Update state key
-    
-
-    return (
-      <BoardContainer 
-        onMouseDown = {() => this.state.mouseIsDown=true}
-        onMouseMove = {(event) => this.handleDrag(event) }
-        onMouseUp   = {(event) => this.handleMouseUp(event) }
-      >
-        <TransformWrapper 
-          centerOnInit={true}
-          doubleClick={{disabled: true}}
-          limitToBounds={true}
-        >
-          <TransformComponent>
-            {postItInProgress} {/* Render the postItInProgress component */}
-            <BoardImage
-              src={Board_Pic}
-              alt="The Amazing Cork Board"
-              ref={(ref) => (this.boardRef = ref)}
-            />
-            
-            {/* Other post-its should render too */}
-          </TransformComponent>
-        </TransformWrapper>
-      </BoardContainer>
-    );
-  }
-}
-
-function PostInProgress({position}) {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const userText = event.target.previousSibling.innerText;
-    // Do something with the user-entered text
-
-    // Additional logic or function calls can be added here
-  };
-
   return (
-    <PostItContainer left={position.left} top={position.top}
-      onMouseDown={(event) => event.stopPropagation()}
-      onMouseUp={(event) => event.stopPropagation()} // This could be the cause of some future buggy weirdness with mouse inputs not working.
+    <BoardContainer
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleDrag}
+      onMouseUp={handleMouseUp}
+      onLoad={loadPosts}
     >
-      <PostIt body={
-        <div>
-          <div 
-            id="textinput"
-            contentEditable="true"
-            style={{
-              padding: '10px',
-              textAlign: 'left'
-            }}
-          />
-      
-          <Button
-            onClick={handleSubmit}
-            style={{
-              display: 'block',
-              margin: '10px 0',
-              padding: '8px 16px',
-              background: '#4CAF50',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer'
-            }}
-          >
-            Submit
-          </Button>
-        </div>
-      }/>
-    </PostItContainer>
+      <TransformWrapper centerOnInit={true} doubleClick={{ disabled: true }} limitToBounds={true}>
+        <TransformComponent>
+          {postItInProgress} {/* Render the postItInProgress component */}
+          <BoardImage src={Board_Pic} alt="The Amazing Cork Board" ref={boardRef} />
+
+          {/* Render existing posts */}
+          {existingPosts.map((post, index) => (
+            <div key={index} style={{ position: 'absolute', left: post.left, top: post.top }}>
+              {/* Render each post here, you might need to replace 'div' with the correct component */}
+              <div>{post.title}</div>
+              <div>{post.content}</div>
+            </div>
+          ))}
+        </TransformComponent>
+      </TransformWrapper>
+    </BoardContainer>
   );
 }
-
 
 function Board() {
   return (
@@ -149,14 +118,6 @@ const BoardContainer = styled.div`
 const BoardImage = styled.img`
   display: block;
   width: 100vw;
-`;
-
-// Update the left and top CSS properties in PostItContainer
-const PostItContainer = styled.div`
-  position: absolute;
-  left: ${props => props.left}px;
-  top: ${props => props.top}px;
-  z-index: 9;
 `;
 
 export default Board;

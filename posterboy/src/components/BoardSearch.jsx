@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+// The following code has been implemented into Header.jsx, but is kept here for reference.
+// Use this code as a template for integrating the front-end and back-end.
+
+/* import React, { useState } from 'react';
 
 function BoardSearch() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -8,24 +11,26 @@ function BoardSearch() {
     setSearchQuery(event.target.value);
   };
 
-  const handleSearchSubmit = (event) => {
-    event.preventDefault();
-    fetch(`/search_boards/${searchQuery}/`)
+  async function handleSearchSubmit() {
+    const url = `http://localhost:8000/api/getboard/${searchQuery}/1`;
+    console.log(searchQuery);
+    
+    await fetch(url)
       .then(response => response.json())
-      .then(data => setSearchResults(data.results));
+      .then(data => console.log(data));
   };
 
   return (
-    <form onSubmit={handleSearchSubmit}>
+    <div>
       <input type="text" value={searchQuery} onChange={handleSearchChange} />
-      <button type="submit">Search</button>
+      <button onClick={handleSearchSubmit}>Search</button>
       <ul>
         {searchResults.map(board => (
           <li key={board.id}>{board.name}</li>
         ))}
       </ul>
-    </form>
+    </div>
   );
 }
 
-export default BoardSearch;
+export default BoardSearch; */
