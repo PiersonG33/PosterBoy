@@ -111,7 +111,7 @@ const HomeContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: linear-gradient(#FFFFFF, ${COLORS.marian_blue});
+  background-image: linear-gradient(#FFFFFF, #5da9e9);
 `;
 
 // This component is used to style the post-it container
