@@ -208,7 +208,27 @@ def useractions(request, uid, boardid = None):
                 postid=post,
             )
             action.save()
-            return JsonResponse({'message': 'Post deleted successfully'}, status=200)
+            
+            if (data['action'] == 'demote'):
+                post.score -= 1
+                if (post.score <= 0):
+                    archive = PostArchive.objects.create(
+                        userid = post.userid,
+                        boardid = post.boardid,
+                        message = post.message,
+                        message_type = post.message_type,
+                        color = post.color,
+                        x = post.x,
+                        y = post.y
+                    )
+                    archive.save()
+                    post.delete()
+                    return JsonResponse({'message': 'Post deleted successfully!'},status=200)
+            else:
+                post.score += 1
+            
+            post.save()
+            return JsonResponse({'message': 'Post score updated!'}, status=200)
         except Posts.DoesNotExist:
             return JsonResponse({'error': 'Post does not exist'}, status=404)
     else:
