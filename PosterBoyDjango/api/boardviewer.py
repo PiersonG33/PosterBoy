@@ -100,9 +100,15 @@ def posts(request, bid):
         return JsonResponse(serializer.data, safe=False)
     
     elif request.method == 'POST':
+        #get user action count
         post_data = json.loads(request.body)
         user = User.objects.get(pk=post_data['userid'])
         board = Boards.objects.get(pk=bid)
+        
+        actions = UserActions.objects.filter(userid = user, boardid = board).count()
+        if (actions >= board.actions):
+            return JsonResponse({'error': 'Illegal Request'}, status = 403)
+        
         post = Posts.objects.create(
             message=post_data['message'],
             message_type=post_data['message_type'],
@@ -189,15 +195,16 @@ def useractions(request, uid, boardid = None):
     
     elif request.method == 'POST':
         try:
-            post = Posts.objects.get(pk=uid) 
-                #pid = uid because I combined two functions with different parameters. Just go along with it.
-            # The request should specify the user deleting the post and the date
-            user_data = json.loads(request.body)
-            theUID = User.objects.get(pk=user_data['userid'])
+            data = json.loads(request.body)
+            if (not data['action'] in ['demote','promote']):
+                return JsonResponse({'message':'action type ' + data['action'] + ' is invalid!'},status = '404')
+            
+            post = Posts.objects.get(pk=data['postid']) 
+            user = User.objects.get(pk=uid)
 
             action = UserActions.objects.create(
-                action="demote", #This might not be right
-                userid=theUID,
+                action=data['action'], #This might not be right
+                userid=user,
                 postid=post,
             )
             action.save()

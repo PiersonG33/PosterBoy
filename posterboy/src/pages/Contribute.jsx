@@ -56,6 +56,10 @@ function Home() {
 
   return(
     <>
+    
+    /* Below contains code for the 
+		overall useful content for this page */
+    
       <HomeContainer>
         <div>
             <Box boxShadow='dark-lg' p='6' rounded='md' bgGradient={backgroundGradient} margin-top='-50px'>
@@ -66,16 +70,65 @@ function Home() {
                 fontWeight='extrabold'
                 /*</Box>textShadow='0px 0px 0px #000000'*/
               >
-                <h1>About Us</h1>
+                <h1>Want to Contribute?</h1>
               </Text>
             </Box>
         </div>
         {/* This component displays a post-it note with a welcome message */}
         <PostItContainer style={{ marginBottom: "100px" }}>
-          <PostItDone author="@PosterBoy" content="We're PosterBoy. A team of 7 developers, a part of RCOS - Rensselaer Center for Open Source. This is our Arch Summer 23 semester project. We've set out to build a radically different social network. Our users have more control, both through using our site, but also on the development side. As a fully open-source project, we're completely transparent in our operations. Unsure? Check the code out your self on our GitHub repository in the footer below."/>
+          <PostItDone
+            author="@PosterBoy"
+            content={
+              <div>
+                We're always looking for ways to improve our site. <br />
+                If you have any suggestions or feedback, please let us know! Here are some ways you can contribute:
+              </div>
+            }
+          />
         </PostItContainer>
-      </HomeContainer>
-      <SecondHomeContainer>
+        <div>
+            <Box boxShadow='dark-lg' p='6' rounded='md' bgGradient={backgroundGradient} margin-top='-50px'>
+              <Text
+                bgGradient={`linear-gradient(180deg, ${COLORS.marian_blue}, #003138)`}
+                bgClip='text'
+                fontSize='3xl'
+                fontWeight='extrabold'
+                /*</Box>textShadow='0px 0px 0px #000000'*/
+              >
+                <h1>• Submit a bug report or feature request on our GitHub repository</h1>
+              </Text>
+            </Box>
+
+            <Box boxShadow='dark-lg' p='6' rounded='md' bgGradient={backgroundGradient} margin='25px'>
+              <Text
+                bgGradient={`linear-gradient(180deg, ${COLORS.marian_blue}, #003138)`}
+                bgClip='text'
+                fontSize='3xl'
+                fontWeight='extrabold'
+                /*</Box>textShadow='0px 0px 0px #000000'*/
+              >
+                <h1>• Contribute code to our open-source project on GitHub</h1>
+              </Text>
+            </Box>
+
+            <Box boxShadow='dark-lg' p='6' rounded='md' bgGradient={backgroundGradient} margin='25px'>
+              <Text
+                bgGradient={`linear-gradient(180deg, ${COLORS.marian_blue}, #003138)`}
+                bgClip='text'
+                fontSize='3xl'
+                fontWeight='extrabold'
+                /*</Box>textShadow='0px 0px 0px #000000'*/
+              >
+                <h1>• Spread the word about our site on social media</h1>
+              </Text>
+            </Box>
+        </div>
+        </HomeContainer>
+        
+        /* The following lines of code will have modified text once we establish more ways
+				for users to contribute to Project PosterBoy */
+        
+        <SecondHomeContainer>
         <div>
             <Box boxShadow='dark-lg' p='6' rounded='md' bgGradient={backgroundGradient} margin-top='-50px'>
               <Text
@@ -85,13 +138,13 @@ function Home() {
                 fontWeight='extrabold'
                 /*</Box>textShadow='0px 0px 0px #000000'*/
               >
-                <h1>Our Vision</h1>
+                <h1>TBD</h1>
               </Text>
             </Box>
         </div>
         {/* This component displays a post-it note with a welcome message */}
         <PostItContainer style={{ marginBottom: "100px" }}>
-          <PostItDone author="@PosterBoy" content="PosterBoy is comprised of our frontend and backend components. Our frontend using React.js, HTML, CSS, & JavaScript, while our backend is using Django (Python), PostgreSQL."/>
+          <PostItDone author="@PosterBoy" content="TBD"/>
         </PostItContainer>
       </SecondHomeContainer>
       <HomeContainer>
@@ -104,15 +157,19 @@ function Home() {
                 fontWeight='extrabold'
                 /*</Box>textShadow='0px 0px 0px #000000'*/
               >
-                <h1>Feedback</h1>
+                <h1>TBD</h1>
               </Text>
             </Box>
         </div>
         {/* This component displays a post-it note with a welcome message */}
         <PostItContainer style={{ marginBottom: "100px" }}>
-          <PostItDone author="@PosterBoy" content="We're open to feedback. PosterBoy revolves around providing users with a unique digital environment to share ideas where only the best survive. If you have any feedback on something we could do better, or an idea for our website, please reach out to our team."/>
+          <PostItDone author="@PosterBoy" content="TBD"/>
         </PostItContainer>
       </HomeContainer>
+      
+      /* Refer to the nearest comment above for more information
+      on the code above */
+      
     </>
   );
 }

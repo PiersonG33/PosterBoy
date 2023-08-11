@@ -43,7 +43,7 @@ function Footer() {
 
 // This component is used to style the footer
 const FooterContainer = styled.div`
-  background-color: #003F91;
+  background-color: #5da9e9;
   color: white;
   height: 12vh;
   display: flex;
