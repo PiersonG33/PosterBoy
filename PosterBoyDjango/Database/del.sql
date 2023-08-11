@@ -10,3 +10,6 @@ ALTER SEQUENCE auth_user_id_seq RESTART WITH 1;
 ALTER SEQUENCE posts_id_seq RESTART WITH 1;
 ALTER SEQUENCE boards_id_seq RESTART WITH 1;
 ALTER SEQUENCE useractions_id_seq RESTART WITH 1;
+ALTER SEQUENCE userstatus_id_seq RESTART WITH 1;
+ALTER SEQUENCE actionarchive_id_seq RESTART WITH 1;
+ALTER SEQUENCE postarchive_id_seq RESTART WITH 1;
