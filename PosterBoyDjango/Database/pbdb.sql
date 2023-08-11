@@ -5,11 +5,6 @@
 -- Dumped from database version 15.3
 -- Dumped by pg_dump version 15.3
 
-\c postgres
-DROP DATABASE IF EXISTS posterboytesting;
-CREATE DATABASE posterboytesting;
-\c posterboytesting
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -605,11 +600,34 @@ ALTER SEQUENCE public.useractions_id_seq OWNED BY public.useractions.id;
 CREATE TABLE public.userstatus (
     userid integer NOT NULL,
     boardid integer NOT NULL,
-    role character varying(10)
+    role character varying(10),
+    id integer NOT NULL
 );
 
 
 ALTER TABLE public.userstatus OWNER TO postgres;
+
+--
+-- Name: userstatus_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.userstatus_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.userstatus_id_seq OWNER TO postgres;
+
+--
+-- Name: userstatus_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.userstatus_id_seq OWNED BY public.userstatus.id;
+
 
 --
 -- Name: boards id; Type: DEFAULT; Schema: public; Owner: postgres
@@ -637,6 +655,13 @@ ALTER TABLE ONLY public.posts ALTER COLUMN id SET DEFAULT nextval('public.posts_
 --
 
 ALTER TABLE ONLY public.useractions ALTER COLUMN id SET DEFAULT nextval('public.useractions_id_seq'::regclass);
+
+
+--
+-- Name: userstatus id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.userstatus ALTER COLUMN id SET DEFAULT nextval('public.userstatus_id_seq'::regclass);
 
 
 --
@@ -668,6 +693,50 @@ COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
 --
 
 COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
+25	Can add log entry	7	add_logentry
+26	Can change log entry	7	change_logentry
+27	Can delete log entry	7	delete_logentry
+28	Can view log entry	7	view_logentry
+29	Can add permission	8	add_permission
+30	Can change permission	8	change_permission
+31	Can delete permission	8	delete_permission
+32	Can view permission	8	view_permission
+33	Can add group	9	add_group
+34	Can change group	9	change_group
+35	Can delete group	9	delete_group
+36	Can view group	9	view_group
+37	Can add user	10	add_user
+38	Can change user	10	change_user
+39	Can delete user	10	delete_user
+40	Can view user	10	view_user
+41	Can add content type	11	add_contenttype
+42	Can change content type	11	change_contenttype
+43	Can delete content type	11	delete_contenttype
+44	Can view content type	11	view_contenttype
+45	Can add session	12	add_session
+46	Can change session	12	change_session
+47	Can delete session	12	delete_session
+48	Can view session	12	view_session
+49	Can add boards	13	add_boards
+50	Can change boards	13	change_boards
+51	Can delete boards	13	delete_boards
+52	Can view boards	13	view_boards
+53	Can add post archive	14	add_postarchive
+54	Can change post archive	14	change_postarchive
+55	Can delete post archive	14	delete_postarchive
+56	Can view post archive	14	view_postarchive
+57	Can add posts	15	add_posts
+58	Can change posts	15	change_posts
+59	Can delete posts	15	delete_posts
+60	Can view posts	15	view_posts
+61	Can add user actions	16	add_useractions
+62	Can change user actions	16	change_useractions
+63	Can delete user actions	16	delete_useractions
+64	Can view user actions	16	view_useractions
+65	Can add user status	17	add_userstatus
+66	Can change user status	17	change_userstatus
+67	Can delete user status	17	delete_userstatus
+68	Can view user status	17	view_userstatus
 \.
 
 
@@ -716,6 +785,17 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 --
 
 COPY public.django_content_type (id, app_label, model) FROM stdin;
+7	admin	logentry
+8	auth	permission
+9	auth	group
+10	auth	user
+11	contenttypes	contenttype
+12	sessions	session
+13	api	boards
+14	api	postarchive
+15	api	posts
+16	api	useractions
+17	api	userstatus
 \.
 
 
@@ -724,6 +804,9 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 --
 
 COPY public.django_migrations (id, app, name, applied) FROM stdin;
+19	api	0001_initial	2023-07-28 11:37:20.426176-04
+20	api	0002_alter_userstatus_options	2023-08-04 10:20:40.967553-04
+21	api	0003_alter_userstatus_options	2023-08-04 10:20:40.974534-04
 \.
 
 
@@ -763,7 +846,7 @@ COPY public.useractions (id, postid, userid, boardid, action, date) FROM stdin;
 -- Data for Name: userstatus; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.userstatus (userid, boardid, role) FROM stdin;
+COPY public.userstatus (userid, boardid, role, id) FROM stdin;
 \.
 
 
@@ -792,7 +875,7 @@ SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
 -- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.auth_permission_id_seq', 24, true);
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 68, true);
 
 
 --
@@ -834,14 +917,14 @@ SELECT pg_catalog.setval('public.django_admin_log_id_seq', 1, true);
 -- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_content_type_id_seq', 6, true);
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 17, true);
 
 
 --
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 18, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 21, true);
 
 
 --
@@ -863,6 +946,13 @@ SELECT pg_catalog.setval('public.posts_id_seq', 1, false);
 --
 
 SELECT pg_catalog.setval('public.useractions_id_seq', 1, false);
+
+
+--
+-- Name: userstatus_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.userstatus_id_seq', 30, true);
 
 
 --
@@ -1046,7 +1136,7 @@ ALTER TABLE ONLY public.useractions
 --
 
 ALTER TABLE ONLY public.userstatus
-    ADD CONSTRAINT userstatus_pkey PRIMARY KEY (userid, boardid);
+    ADD CONSTRAINT userstatus_pkey PRIMARY KEY (id);
 
 
 --
