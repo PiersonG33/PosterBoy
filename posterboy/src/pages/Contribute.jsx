@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { PostItDone } from './../components/post-it';
+import { PostItDemo } from './../components/post-it';
 import { Text, Box } from '@chakra-ui/react'
 import pbMouseIconNormal from '../assets/pb_mouse_icon_normal.png';
 import pbMouseIconClicked from '../assets/pb_mouse_icon_clicked.png';
@@ -76,7 +76,7 @@ function Home() {
         </div>
         {/* This component displays a post-it note with a welcome message */}
         <PostItContainer style={{ marginBottom: "100px" }}>
-          <PostItDone
+          <PostItDemo
             author="@PosterBoy"
             content={
               <div>
@@ -144,7 +144,7 @@ function Home() {
         </div>
         {/* This component displays a post-it note with a welcome message */}
         <PostItContainer style={{ marginBottom: "100px" }}>
-          <PostItDone author="@PosterBoy" content="We're planning on exploring pathways to onboarding sponsors once we have a feature-complete version of our platform available to the public. Check back regularly for more updates."/>
+          <PostItDemo author="@PosterBoy" content="We're planning on exploring pathways to onboarding sponsors once we have a feature-complete version of our platform available to the public. Check back regularly for more updates."/>
         </PostItContainer>
       </SecondHomeContainer>
       <HomeContainer>
@@ -163,7 +163,7 @@ function Home() {
         </div>
         {/* This component displays a post-it note with a welcome message */}
         <PostItContainer style={{ marginBottom: "100px" }}>
-          <PostItDone author="@PosterBoy" content="We're currently nearing completion of our Alpha build! Once this is complete, we'll begin development on Beta. As part of this next phase, we'll need users to test this version in a real world setting. We'll post more details here on how you can join this program once we're further along in our development."/>
+          <PostItDemo author="@PosterBoy" content="We're currently nearing completion of our Alpha build! Once this is complete, we'll begin development on Beta. As part of this next phase, we'll need users to test this version in a real world setting. We'll post more details here on how you can join this program once we're further along in our development."/>
         </PostItContainer>
       </HomeContainer>
       
