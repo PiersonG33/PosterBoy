@@ -56,6 +56,10 @@ function Home() {
 
   return(
     <>
+    
+    /* Below contains code for the 
+		overall useful content for this page */
+    
       <HomeContainer>
         <div>
             <Box boxShadow='dark-lg' p='6' rounded='md' bgGradient={backgroundGradient} margin-top='-50px'>
@@ -120,6 +124,10 @@ function Home() {
             </Box>
         </div>
         </HomeContainer>
+        
+        /* The following lines of code will have modified text once we establish more ways
+				for users to contribute to Project PosterBoy */
+        
         <SecondHomeContainer>
         <div>
             <Box boxShadow='dark-lg' p='6' rounded='md' bgGradient={backgroundGradient} margin-top='-50px'>
@@ -158,6 +166,10 @@ function Home() {
           <PostItDone author="@PosterBoy" content="We're currently nearing completion of our Alpha build! Once this is complete, we'll begin development on Beta. As part of this next phase, we'll need users to test this version in a real world setting. We'll post more details here on how you can join this program once we're further along in our development."/>
         </PostItContainer>
       </HomeContainer>
+      
+      /* Refer to the nearest comment above for more information
+      on the code above */
+      
     </>
   );
 }

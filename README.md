@@ -48,15 +48,15 @@ ________________
 Team Roster
 
 Front-end
-Becky Chen | chenb9@rpi.edu 
-Caleb Copeland | copelc@rpi.edu
-Kaden Tennent | tennek@rpi.edu
+Becky Chen
+Caleb Copeland
+Kaden Tennent
 
 Back-end
-Pierson Garcia | garcip2@rpi.edu
-Zachary Gordon | gordoz2@rpi.edu
-Chris McCarthy | mccarc3@rpi.edu
-Jay Shrestha | shresj@rpi.edu
+Pierson Garcia
+Zachary Gordon
+Chris McCarthy
+Jay Shrestha
 ________________
 Brainstorming
 Ideas to transform into reality (or not)

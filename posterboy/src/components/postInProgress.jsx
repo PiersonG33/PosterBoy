@@ -1,20 +1,41 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styled from "styled-components";
 import { Button, Tooltip } from '@chakra-ui/react';
-import { PostIt } from './post-it.jsx';
+import { PostIt, PostItContainer } from './post-it.jsx';
+import styled from "styled-components";
+
+const lineHeight = 1.2; // Set the line height in em units, same as in maxHeight
+const maxLines = 5; // Set the maximum number of lines here
+const maxChars = 150;
 
 export function PostInProgress({position, boardRef, BID}) {
 
-    const maxLines = 5; // Set the maximum number of lines here
-    const textInputRef = useRef(null); // Create a ref for the text input element
-    const lineHeight = 1.2; // Set the line height in em units, same as in maxHeight
+  
+    const [buttonDisable, setButtonDisable] = useState(true);
+    const [showTooltip, setShowTooltip] = useState(false);
+    const [showEnterWarning, setShowEnterWarning] = useState(false);
+    const [showCharLimitWarning, setShowCharLimitWarning] = useState(false);
 
+    const textInputRef = useRef(null); // Create a ref for the text input element
+  
+
+    const handleKeyDown = (event) => {
+      const fullText = textInputRef.current.innerText;
+      if (fullText.length >= maxChars && event.key !== 'Delete' && event.key !== 'Backspace')
+      {
+        event.preventDefault();
+        setShowCharLimitWarning(true); // Display some sort of clarification that you can't do that.
+        setTimeout(() => setShowCharLimitWarning(false), 2000); // Hide the warning after 2 seconds
+      }
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        setShowEnterWarning(true); // Display some sort of clarification that you can't do that.
+        setTimeout(() => setShowEnterWarning(false), 2000); // Hide the warning after 2 seconds
+      }
+    };
 
     useEffect(() => {
-      // This function will be executed when the component mounts on the screen.
-      textInputRef.current.focus(); 
-      // Focus on the text input when the component mounts
-      
+      // Focus on the text input when the component mounts onto the screen.
+      textInputRef.current.focus();       
     }, []); // The empty array [] as the second argument makes the effect run only once, on mount.
 
     const handleSubmit = async (event) => {
@@ -42,23 +63,15 @@ export function PostInProgress({position, boardRef, BID}) {
   
       const url = `http://localhost:8000/api/posts/${BID}/`;
   
-  
       await fetch(url, options)
         .then(response => response.json())
         .then(data => console.log(data));
   
       // Now delete the post:
-      boardRef.setState({
-        postItInProgress: null
-      });
+      boardRef.setState({ postItInProgress: null });
 
       boardRef.loadPosts();
     };
-  
-    
-  
-  const [buttonDisable, setButtonDisable] = useState(true);
-  const [showTooltip, setShowTooltip] = useState(false);
 
   return (
     <PostItContainer
@@ -75,15 +88,27 @@ export function PostInProgress({position, boardRef, BID}) {
               ref={textInputRef}
               contentEditable="true"
               onInput={() => {
-                const userText = textInputRef.current.innerText.trim();
-                setButtonDisable(userText.length === 0);
+                const fullText = textInputRef.current.innerText;
+                const userText = fullText.trim();
+                const passedCharacterLimit = (fullText.length > maxChars);
+
+                setButtonDisable(false);
+
+                if (passedCharacterLimit) {
+                  textInputRef.current.innerText = fullText.substring(0, maxChars);
+                }
+                else if (userText.length === 0) {
+                  setButtonDisable(true);
+                }
               }}
+              onKeyDown={(event) => handleKeyDown(event)}
               style={{
                 padding: '10px',
                 textAlign: 'left',
                 maxHeight: `${maxLines * lineHeight}em`,
               }}
             />
+            
 
             <Button
               onClick={handleSubmit}
@@ -102,20 +127,24 @@ export function PostInProgress({position, boardRef, BID}) {
               }}
             >
               <Tooltip
-              label="You need to enter text to make a post!"
-              isOpen={showTooltip && buttonDisable} // Show tooltip only on hover or click when the button is disabled
-              placement="top"
-              closeDelay={0}
-              bg="red.500"
-              color="white"
-              hasArrow
+                label="You need to enter text to make a post!"
+                isOpen={showTooltip && buttonDisable} // Show tooltip only on hover or click when the button is disabled
+                placement="top"
+                closeDelay={0}
+                bg="red.500"
+                color="white"
+                hasArrow
               >
-                <span>
-                  Submit
-                </span>
+                <span>Submit</span>
               </Tooltip>
                 
             </Button>
+            {showEnterWarning && (
+              <div style={{ color: 'red', marginTop: '5px' }}><i>Posts must be one paragraph only.</i></div>
+            )}
+            {showCharLimitWarning && (
+              <div style={{ color: 'red', marginTop: '5px' }}><i>You hit the character limit lol.</i></div>
+            )}
             
           </div>
         }
@@ -123,13 +152,5 @@ export function PostInProgress({position, boardRef, BID}) {
     </PostItContainer>
   );
   }
-
-// Update the left and top CSS properties in PostItContainer
-const PostItContainer = styled.div`
-position: absolute;
-left: ${props => props.left}px;
-top: ${props => props.top}px;
-z-index: 9;
-`;
 
   export default PostInProgress;
