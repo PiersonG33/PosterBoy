@@ -41,7 +41,7 @@ function BoardCanvas() {
     const scaleY = boardRef.current.height / boardRect.height;
     const mouseX = (event.clientX - boardRect.left) * scaleX;
     const mouseY = (event.clientY - boardRect.top) * scaleY;
-    const postItPosition = { left: mouseX, top: mouseY };
+    const postItPosition = { left: Math.round(mouseX) , top: Math.round(mouseY) };
     setPostItInProgress(<PostInProgress position={postItPosition} boardRef={boardRef} BID={BID} />);
   };
 
