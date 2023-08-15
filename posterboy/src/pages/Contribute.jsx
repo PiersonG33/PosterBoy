@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { PostItDone } from './../components/post-it';
+import { PostItDemo } from './../components/post-it';
 import { Text, Box } from '@chakra-ui/react'
 import pbMouseIconNormal from '../assets/pb_mouse_icon_normal.png';
 import pbMouseIconClicked from '../assets/pb_mouse_icon_clicked.png';
@@ -52,7 +52,7 @@ function Home() {
     };
   }, [isClicked]);
 
-  const backgroundGradient = `linear(to-l, #FFFFFF, ${COLORS.jonquil})`;
+  const backgroundGradient = `linear(to-l, #777777, #000000)`;
 
   return(
     <>
@@ -64,7 +64,7 @@ function Home() {
         <div>
             <Box boxShadow='dark-lg' p='6' rounded='md' bgGradient={backgroundGradient} margin-top='-50px'>
               <Text
-                bgGradient={`linear-gradient(180deg, ${COLORS.marian_blue}, #003138)`}
+                bgGradient={`linear(to-l, #ffcb6b, #3d8bff)`}
                 bgClip='text'
                 fontSize='6xl'
                 fontWeight='extrabold'
@@ -76,7 +76,7 @@ function Home() {
         </div>
         {/* This component displays a post-it note with a welcome message */}
         <PostItContainer style={{ marginBottom: "100px" }}>
-          <PostItDone
+          <PostItDemo
             author="@PosterBoy"
             content={
               <div>
@@ -86,10 +86,10 @@ function Home() {
             }
           />
         </PostItContainer>
-        <div>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Box boxShadow='dark-lg' p='6' rounded='md' bgGradient={backgroundGradient} margin-top='-50px'>
               <Text
-                bgGradient={`linear-gradient(180deg, ${COLORS.marian_blue}, #003138)`}
+                bgGradient={`linear(to-r, #2278fb, #b9dfee, #b9dfee)`}
                 bgClip='text'
                 fontSize='3xl'
                 fontWeight='extrabold'
@@ -101,7 +101,7 @@ function Home() {
 
             <Box boxShadow='dark-lg' p='6' rounded='md' bgGradient={backgroundGradient} margin='25px'>
               <Text
-                bgGradient={`linear-gradient(180deg, ${COLORS.marian_blue}, #003138)`}
+                bgGradient={`linear(to-r, #4dc9e6, #7ef29d, #f2e901)`}
                 bgClip='text'
                 fontSize='3xl'
                 fontWeight='extrabold'
@@ -113,7 +113,7 @@ function Home() {
 
             <Box boxShadow='dark-lg' p='6' rounded='md' bgGradient={backgroundGradient} margin='25px'>
               <Text
-                bgGradient={`linear-gradient(180deg, ${COLORS.marian_blue}, #003138)`}
+                bgGradient={`linear(to-r, #e9d022, #eeb86d, #d3321d)`}
                 bgClip='text'
                 fontSize='3xl'
                 fontWeight='extrabold'
@@ -132,38 +132,38 @@ function Home() {
         <div>
             <Box boxShadow='dark-lg' p='6' rounded='md' bgGradient={backgroundGradient} margin-top='-50px'>
               <Text
-                bgGradient={`linear-gradient(180deg, #5F0A87, ${maroon_mid})`}
+                bgGradient={`linear(to-r, #8338ec, #9f86c0)`}
                 bgClip='text'
                 fontSize='6xl'
                 fontWeight='extrabold'
                 /*</Box>textShadow='0px 0px 0px #000000'*/
               >
-                <h1>TBD</h1>
+                <h1>Sponsorships</h1>
               </Text>
             </Box>
         </div>
         {/* This component displays a post-it note with a welcome message */}
         <PostItContainer style={{ marginBottom: "100px" }}>
-          <PostItDone author="@PosterBoy" content="TBD"/>
+          <PostItDemo author="@PosterBoy" content="We're planning on exploring pathways to onboarding sponsors once we have a feature-complete version of our platform available to the public. Check back regularly for more updates."/>
         </PostItContainer>
       </SecondHomeContainer>
       <HomeContainer>
         <div>
             <Box boxShadow='dark-lg' p='6' rounded='md' bgGradient={backgroundGradient} margin-top='-50px'>
               <Text
-                bgGradient={`linear-gradient(180deg, #FF0000, ${maroon_mid})`}
+                bgGradient={`linear-gradient(180deg, #70e000, #ffff3f)`}
                 bgClip='text'
                 fontSize='6xl'
                 fontWeight='extrabold'
                 /*</Box>textShadow='0px 0px 0px #000000'*/
               >
-                <h1>TBD</h1>
+                <h1>Early Access Program</h1>
               </Text>
             </Box>
         </div>
         {/* This component displays a post-it note with a welcome message */}
         <PostItContainer style={{ marginBottom: "100px" }}>
-          <PostItDone author="@PosterBoy" content="TBD"/>
+          <PostItDemo author="@PosterBoy" content="We're currently nearing completion of our Alpha build! Once this is complete, we'll begin development on Beta. As part of this next phase, we'll need users to test this version in a real world setting. We'll post more details here on how you can join this program once we're further along in our development."/>
         </PostItContainer>
       </HomeContainer>
       

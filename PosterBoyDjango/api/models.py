@@ -68,7 +68,7 @@ class PostArchive(models.Model):
     boardid = models.IntegerField(blank=True, null=True)
     message = models.CharField(max_length=200, blank=True, null=True)
     message_type = models.IntegerField(blank=True, null=True)
-    date = models.DateTimeField(blank=True, null=True)
+    date = models.DateTimeField(blank=True, null=True,default=timezone.now)
     color = models.IntegerField(blank=True, null=True)
     x = models.IntegerField(blank=True, null=True)
     y = models.IntegerField(blank=True, null=True)
