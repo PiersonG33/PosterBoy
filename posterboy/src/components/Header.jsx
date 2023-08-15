@@ -18,6 +18,7 @@ import { FaSun, FaMoon } from 'react-icons/fa';
 import { Link } from "react-router-dom";
 import LogoPic from '../assets/logo.svg';
 import HelpIcon from '../assets/hands-holding-child-solid.svg';
+import ContributeIcon from '../assets/contribute_icon.svg';
 import { COLORS } from '../colors.js'
 
 import SignUp from './SignUp';
@@ -156,6 +157,9 @@ function Header() {
               </Tooltip>
               <Tooltip hasArrow label='Help Center'>
                 <IconButton as="a" href="/HelpCenter" color={COLORS.marian_blue} aria-label="HelpCenterPage" icon={<img src={HelpIcon} alt="HelpCenter" style={{ height: "1.75rem", width: "1.75rem" }} />} />
+              </Tooltip>
+              <Tooltip hasArrow label='Contribute'>
+                <IconButton as="a" href="/Contribute" color={COLORS.marian_blue} aria-label="ContributePage" icon={<img src={ContributeIcon} alt="Contribute" style={{ height: "1.75rem", width: "1.75rem" }} />} />
               </Tooltip>
               
               <Tooltip hasArrow label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}>
