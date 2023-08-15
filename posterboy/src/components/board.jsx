@@ -42,10 +42,10 @@ function BoardCanvas() {
     const mouseX = (event.clientX - boardRect.left) * scaleX;
     const mouseY = (event.clientY - boardRect.top) * scaleY;
     const postItPosition = { left: Math.round(mouseX) , top: Math.round(mouseY) };
-    setPostItInProgress(<PostInProgress position={postItPosition} boardRef={boardRef} BID={BID} />);
+    setPostItInProgress(<PostInProgress position={postItPosition} onSubmit={submittedPost} BID={BID} />);
   };
 
-
+  
   const dummyPosition = { left: 100, top: 100 };
 
   // Handle dragging to determine if it's a drag or click event
@@ -61,10 +61,24 @@ function BoardCanvas() {
     }
   };
 
+  function submittedPost() {
+    setPostItInProgress(null);
+    loadPosts();
+  }
+
   // Load existing posts from API
   useEffect(() => {
     loadPosts();
   }, []);
+
+  function usernameProcess(rawName) {
+    // if rawName is null, blank, or something like that, return 'Anonymous'.
+    if (!rawName || rawName.trim() === '') {
+      return 'Anonymous';
+    } 
+    // else, return the rawName.
+    return rawName;
+  }
 
   async function loadPosts() {
 
@@ -94,19 +108,21 @@ function BoardCanvas() {
 
           {/* Render existing posts */}
           {existingPosts.map((post, index) => (
-            <div key={index} style={{ position: 'absolute', left: post.left, top: post.top }}>
-              {/* Render each post here, you might need to replace 'div' with the correct component */}
-              <div>{post.title}</div>
-              <div>{post.content}</div>
-            </div>
+            //the author param should be usernameProcess(post.author) but surrounded in italics
+            <PostItDone 
+              author={usernameProcess(post.author)}
+              content={post.message}
+              position={{left: post.x, top: post.y}}
+              score={post.score}
+            />
           ))}
 
-          <PostItDone
+          {/*<PostItDone
             author='Joe Freedom'
             content='dummy'
             position={dummyPosition}
             score="3"
-          />
+          />*/}
 
         </TransformComponent>
       </TransformWrapper>
