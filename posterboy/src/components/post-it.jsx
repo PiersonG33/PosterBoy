@@ -69,9 +69,14 @@ function DeleteWidget({score}) {
 }
 
 // "content" is the text inside the post-it
+export function PostItDemo({author, content}) {
+  return <PostIt 
+    body={<div><b>{author}</b> {content}</div>}
+  />;
+}
+
+// "content" is the text inside the post-it
 export function PostItDone({author, content, position, score}) {
-
-
   return <PostItContainer
     left={position.left} top={position.top}
     onMouseDown={(event) => event.stopPropagation()}

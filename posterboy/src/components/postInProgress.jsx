@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Button, Tooltip } from '@chakra-ui/react';
 import { PostIt, PostItContainer } from './post-it.jsx';
-import styled from "styled-components";
 
 const lineHeight = 1.2; // Set the line height in em units, same as in maxHeight
 const maxLines = 5; // Set the maximum number of lines here
@@ -48,18 +47,19 @@ export function PostInProgress({position, boardRef, BID}) {
   
       const options = { 
         method: "POST",
-        json: JSON.stringify({
+        body: JSON.stringify({
           message: userText,
-          message_type: "post",
-          userid: "<uid>",
+          message_type: 1,
+          userid: 1,
           boardid: BID,
-          color:'yellow',
-          date: "DEFAULT",
+          color: 100,
           score: 1,
           x: position.left,
           y: position.top
         })
       };
+
+      console.log(options.body);
   
       const url = `http://localhost:8000/api/posts/${BID}/`;
   
@@ -68,7 +68,8 @@ export function PostInProgress({position, boardRef, BID}) {
         .then(data => console.log(data));
   
       // Now delete the post:
-      boardRef.setState({ postItInProgress: null });
+      
+      boardRef.setPostItInProgressState(null);
 
       boardRef.loadPosts();
     };
