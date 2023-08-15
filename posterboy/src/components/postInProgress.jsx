@@ -6,7 +6,7 @@ const lineHeight = 1.2; // Set the line height in em units, same as in maxHeight
 const maxLines = 5; // Set the maximum number of lines here
 const maxChars = 150;
 
-export function PostInProgress({position, boardRef, BID}) {
+export function PostInProgress({position, onSubmit, BID}) {
 
   
     const [buttonDisable, setButtonDisable] = useState(true);
@@ -40,17 +40,14 @@ export function PostInProgress({position, boardRef, BID}) {
     const handleSubmit = async (event) => {
       event.preventDefault();
       const userText = textInputRef.current.innerText.trim(); // Access the user-entered text
-  
-      //console.log(userText);
-  
+      
       // Submit the stuff to the server.
-  
       const options = { 
         method: "POST",
         body: JSON.stringify({
           message: userText,
           message_type: 1,
-          userid: 1,
+          userid: 3,
           boardid: BID,
           color: 100,
           score: 1,
@@ -58,20 +55,14 @@ export function PostInProgress({position, boardRef, BID}) {
           y: position.top
         })
       };
-
-      console.log(options.body);
-  
       const url = `http://localhost:8000/api/posts/${BID}/`;
   
       await fetch(url, options)
         .then(response => response.json())
         .then(data => console.log(data));
   
-      // Now delete the post:
-      
-      boardRef.setPostItInProgressState(null);
-
-      boardRef.loadPosts();
+      //Now have the board handle things
+      onSubmit();
     };
 
   return (
