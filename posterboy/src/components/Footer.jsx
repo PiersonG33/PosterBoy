@@ -12,7 +12,7 @@ const comments = [
   "The up and coming social media application.", 
   "Don't worry, we recycle the post-its.",
   "Go outside and touch grass.", 
-  "Made by CS majors from RPI.", 
+  "Made by CS majors from Rensselaer Polytechnic Institute.", 
   "This definitely won't be a problem down the road.",
   "Lower your expectations.",
   "My Mom told me to do this.",

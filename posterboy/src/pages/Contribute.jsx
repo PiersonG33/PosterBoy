@@ -57,8 +57,8 @@ function Home() {
   return(
     <>
     
-    /* Below contains code for the 
-		overall useful content for this page */
+    {/* Below contains code for the 
+		overall useful content for this page */}
     
       <HomeContainer>
         <div>
@@ -125,8 +125,8 @@ function Home() {
         </div>
         </HomeContainer>
         
-        /* The following lines of code will have modified text once we establish more ways
-				for users to contribute to Project PosterBoy */
+        {/* The following lines of code will have modified text once we establish more ways
+				for users to contribute to Project PosterBoy */}
         
         <SecondHomeContainer>
         <div>
@@ -167,8 +167,8 @@ function Home() {
         </PostItContainer>
       </HomeContainer>
       
-      /* Refer to the nearest comment above for more information
-      on the code above */
+      {/* Refer to the nearest comment above for more information
+      on the code above */}
       
     </>
   );
