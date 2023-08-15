@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { PostItDone } from './../components/post-it';
+import { PostItDemo } from './../components/post-it';
 import { Text, Box } from '@chakra-ui/react'
 import pbMouseIconNormal from '../assets/pb_mouse_icon_normal.png';
 import pbMouseIconClicked from '../assets/pb_mouse_icon_clicked.png';
@@ -72,7 +72,7 @@ function Home() {
         </div>
         {/* This component displays a post-it note with a welcome message */}
         <PostItContainer style={{ marginBottom: "100px" }}>
-          <PostItDone author="@PosterBoy" content="We're PosterBoy. A team of 7 developers, a part of RCOS - Rensselaer Center for Open Source. This is our Arch Summer 23 semester project. We've set out to build a radically different social network. Our users have more control, both through using our site, but also on the development side. As a fully open-source project, we're completely transparent in our operations. Unsure? Check the code out your self on our GitHub repository in the footer below."/>
+          <PostItDemo author="@PosterBoy" content="We're PosterBoy. A team of 7 developers, a part of RCOS - Rensselaer Center for Open Source. This is our Arch Summer 23 semester project. We've set out to build a radically different social network. Our users have more control, both through using our site, but also on the development side. As a fully open-source project, we're completely transparent in our operations. Unsure? Check the code out your self on our GitHub repository in the footer below."/>
         </PostItContainer>
       </HomeContainer>
       <SecondHomeContainer>
@@ -91,7 +91,7 @@ function Home() {
         </div>
         {/* This component displays a post-it note with a welcome message */}
         <PostItContainer style={{ marginBottom: "100px" }}>
-          <PostItDone author="@PosterBoy" content="PosterBoy is comprised of our frontend and backend components. Our frontend using React.js, HTML, CSS, & JavaScript, while our backend is using Django (Python), PostgreSQL."/>
+          <PostItDemo author="@PosterBoy" content="PosterBoy is comprised of our frontend and backend components. Our frontend using React.js, HTML, CSS, & JavaScript, while our backend is using Django (Python), PostgreSQL."/>
         </PostItContainer>
       </SecondHomeContainer>
       <HomeContainer>
@@ -110,7 +110,7 @@ function Home() {
         </div>
         {/* This component displays a post-it note with a welcome message */}
         <PostItContainer style={{ marginBottom: "100px" }}>
-          <PostItDone author="@PosterBoy" content="We're open to feedback. PosterBoy revolves around providing users with a unique digital environment to share ideas where only the best survive. If you have any feedback on something we could do better, or an idea for our website, please reach out to our team."/>
+          <PostItDemo author="@PosterBoy" content="We're open to feedback. PosterBoy revolves around providing users with a unique digital environment to share ideas where only the best survive. If you have any feedback on something we could do better, or an idea for our website, please reach out to our team."/>
         </PostItContainer>
       </HomeContainer>
     </>
